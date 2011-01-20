@@ -1,0 +1,19 @@
+#ignore thumbnails created by windows
+Thumbs.db
+
+#Ignore files build by Eclipse
+.metadata/*
+.settings/*
+build/*
+build/classes/ArticleManagement/*
+build/classes/DBConnection/*
+build/classes/MemberManagement/*
+build/classes/OrderManagement/*
+build/classes/Servlets/*
+
+.classpath
+mysqlDB/data/ib_logfile0
+mysqlDB/data/Roy-Laptop.err
+mysqlDB/data/Roy-Laptop.err.orig
+mysqlDB/data/Roy-Laptop.pid
+mysqlDB/data/Roy-Laptop.pid.orig

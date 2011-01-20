@@ -1,0 +1,138 @@
+#basket-table {
+	margin:0;
+	padding: 1px;
+	width: 554px;
+	font: 11px Arial, Helvetica, sans-serif;
+	color:#747474;
+	background-color:#2F394D;
+	margin-left: 75px;
+}
+
+
+#basket-header {
+	margin:0;
+	width: 554px;
+	height: 69px;
+	color:#FFF;
+	font-size:13px;
+	background: #0c2c65 url(../images/basket/head-bg.jpg) no-repeat right top;	
+}
+
+#basket-header .inner {	
+	padding: 14px 0 0 24px;	
+}
+
+.basket-bold {
+	font: bold 22px Arial, Helvetica, sans-serif;
+	
+}
+
+#basket-top {
+	margin:0;
+	padding: 0;
+	width: 554px;
+	height: 46px;
+	border-top: 2px solid #FFF;
+	background: #eff4ff url(../images/basket/top-light-blue.png) repeat-x left top;	
+}
+
+.basket-top-cell {
+	float:left;
+	padding: 15px 0 0 0;
+	text-align:center;
+	width:110px;
+	height: 46px;
+	border-right: 1px solid #ced9ec;
+	color:#1f3d71;
+	font: 13px Arial, Helvetica, sans-serif;
+}
+
+#basket-middle {
+	margin:0;
+	padding: 0;
+	width: 554px;
+	background: #f6f6f6 url(../images/basket/center-bg.png) repeat-y right top;	
+}
+
+#basket-middle .mid_cell {
+	margin:0;
+	padding: 0;
+	width: 554px;
+	height: 25px;	
+}
+
+.basket-left {
+	float:left;
+	margin:0;
+	padding: 10px 0 0 24px;
+	width: 194px;
+	text-align: left;
+	height: 25px;
+	border-right: 1px solid #ced9ec;
+	border-bottom: 1px solid #b3c1db;
+	color:#1f3d71;
+	font: 13px Arial, Helvetica, sans-serif;
+	background: #e4ebf8 url(../images/basket/center-blue.png) repeat-y left top;
+}
+
+
+
+.basket-right {
+	float:left;
+	margin:0;
+	padding: 11px 0 0 0;
+	width: 110px;
+	text-align:center;
+	height: 24px;
+	border-right: 1px solid #ced9ec;
+	border-bottom: 1px solid #b3c1db;
+}
+
+#basket-bottom {
+	clear:both;
+	margin:0;
+	padding: 0;
+	width: 554px;
+	height: 48px;y
+	border-top: 2px solid #FFF;
+	background: #e4e3e3 url(../images/basket/bottom-line.png) repeat-x left top;	
+}
+
+.basket-bottom-cell {
+	float:left;
+	padding: 15px 0 0 0;
+	text-align:center;
+	width:110px;
+	height: 33px;
+	border-right: 1px solid #ced9ec;
+	color:#070707;
+	font: 13px Arial, Helvetica, sans-serif;
+}
+
+#basket-footer {
+	font-size: 10px;
+	color:#8a8a8a;
+	margin:0;
+	width: 554px;
+	background: #f6f6f6 url(../images/basket/center-bg.png) repeat-y right top;
+	
+}
+
+#basket-footer .inner{	
+	padding: 8px 0 8px 12px;
+	color:#8a8a8a;
+	
+}
+
+.button{
+	margin-top: 10px;
+	margin-left: 20px;
+	font-family:Verdana,Arial,sans-serif;
+	font-size:11px;
+	border: none;
+	width:103; 
+	height:42;
+	background: url("../images/basket/order.png") no-repeat center;
+	cursor: pointer;
+}
+

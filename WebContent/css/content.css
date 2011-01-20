@@ -1,0 +1,75 @@
+#content {
+	background: url(../images/main/main_footer1.jpg) left bottom no-repeat;
+	padding: 6px 15px 35px;
+}
+
+.yellow {
+	color: #999966;
+	font-weight: bold;
+}
+
+.f14 {
+	font-size: 14px;
+}
+
+.left {
+	float: left;
+	margin: 5px 10px 0 0;
+	
+}
+
+.right {
+	float: right;
+	width: 530px;
+}
+
+.itemDetails  {
+	height: 40px;
+	float: right;
+	margin-right: 15px;
+	display: block;
+}
+
+.itemDetails .price   {
+	float: left;
+}
+
+.itemDetails .discount   {	
+	float: left;
+}
+
+.itemDetails .price span  {
+	margin-top: 3px;
+	margin-left: 3px;
+	float: left;
+	font-size: 15px;
+	color: #FF0A0E;
+}
+
+.itemDetails .discount span  {
+	margin-top: 3px;
+	margin-right: 4px;
+	float: left;
+	font-size: 13px;
+	
+}
+
+.buy
+{
+	float: right;
+	margin-left: 20px;
+	width: 70px;
+	height: 24px;
+	
+}
+
+.buy a{
+	display: block;
+	width: 70px;
+	height: 24px;
+	background: url(../images/main/kaufen.jpg) left bottom no-repeat;
+}
+
+.buy a:hover {
+	background: url(../images/main/kaufen_hover.jpg) left bottom no-repeat;
+}

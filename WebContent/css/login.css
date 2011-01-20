@@ -1,0 +1,91 @@
+body {
+			
+			background: #ebebeb url("../images/Register/body-bg.png") repeat-y center;
+			color:#fff;
+			font-family:Verdana,Arial,sans-serif;
+			font-size:13px;
+			width: 800px;
+			margin: auto;
+			text-align: center;
+			padding-bottom: 20px;
+			cursor: default;
+		}
+
+#login-box {
+	width:333px;
+	height: 352px;
+	padding: 58px 76px 0 76px;
+	color: #ebebeb;
+	font: 12px Arial, Helvetica, sans-serif;
+	background: url(../images/login/login-box-backg_lightblue.png) no-repeat left top;
+}
+
+#login-box img {
+	border:none;
+}
+
+#login-box h2 {
+	padding:0;
+	margin:0;
+	color: #ebebeb;
+	font: bold 44px "Calibri", Arial;
+}
+
+
+#login-box-name {
+	float: left;
+	display:inline;
+	width:80px;
+	text-align: right;
+	padding: 14px 10px 0 0;
+	margin:0 0 7px 0;
+}
+
+#login-box-field {
+	float: left;
+	display:inline;
+	width:230px;
+	margin:0;
+	margin:0 0 7px 0;
+}
+
+
+.form-login  {
+	width: 205px;
+	padding: 10px 4px 6px 3px;
+	border: 1px solid #c3c3c3;
+	background-color:#A9ABBC;
+	font-size: 16px;
+	color: #0f0f0f;
+}
+
+
+.login-box-options  {
+	clear:both;
+	padding-left:87px;
+	font-size: 11px;
+}
+
+.login-box-options a {
+	color: #ebebeb;
+	font-size: 11px;
+	margin-left:15px;
+}
+
+.login-box-buttons {
+	padding-left: 80px;
+}
+
+.login-box-buttons a {
+	margin-left: 15px;
+}
+
+
+.login-newPassword-buttons {
+	padding-left: 0px;
+	padding-top: 60px;
+}
+
+.login-newPassword-buttons a {
+	margin-left: 15px;
+}
