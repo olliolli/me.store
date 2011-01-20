@@ -9,7 +9,7 @@
 
 	<body>
 		<div style="padding: 0px 0 0 157px;">
-			<form method="post" action="Login">
+			<form method="post" action="Login" name="frmLogin">
 				<div id="login-box">
 					<H2>Login</H2>
 					<br />
@@ -33,7 +33,7 @@
 					
 					<br />
 					<div class="login-box-buttons">
-						<a href="Login"><img src="images/login/login-btn_lightblue.png" width="103" height="42"/></a>
+						<a href="javascript: document.frmLogin.submit();"><img src="images/login/login-btn_lightblue.png" width="103" height="42"/></a>
 						<a href="Home"><img src="images/main/cancel.png" width="103" height="42" /></a>
 					</div>
 				</div>

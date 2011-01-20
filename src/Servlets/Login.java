@@ -39,11 +39,11 @@ public class Login extends HttpServlet {
 		String eMail = request.getParameter("username");
 		String pwdHash = request.getParameter("password");
 		if(MemberManagement.CheckLogin.returnValue(eMail, pwdHash)){
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
 			dispatcher.forward(request, response);
 		}
 		else{
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login");
 			dispatcher.forward(request, response);
 		}
 		System.out.println(eMail);
