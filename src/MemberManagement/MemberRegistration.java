@@ -1,5 +1,16 @@
 package MemberManagement;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+/*
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;*/
+
 import DBConnection.DBCommands;
 
 /*
@@ -49,9 +60,9 @@ public class MemberRegistration {
 			else if (MemberRegistration.IsAlwaysRegistrated(eMail)==true){
 				return 2;
 			}
-//			else if (MemberRegistration.ValidateMemberEMail(eMail)==false){
-//				return 3;
-//			}
+			else if (MemberRegistration.ValidateMemberEMail(eMail)==false){
+				return 3;
+			}
 			else if(MemberRegistration.ValidatePassword(password)==false){
 				return 4;
 			}
@@ -73,11 +84,6 @@ public class MemberRegistration {
 			}		
 	}
 	
-	public static String GeneratePasswordHash(String password){
-		String passwordHash="";
-		return passwordHash;
-	}
-	
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
@@ -86,7 +92,7 @@ public class MemberRegistration {
 	 */
 	private static boolean IsAlwaysRegistrated(String eMail){
 		String membersEMail = DBCommands.SelectMemberByEMail(eMail);
-		if(membersEMail!=""){
+		if(membersEMail.length()==0 && membersEMail==eMail){
 			return true;
 		}
 		else{
@@ -94,24 +100,24 @@ public class MemberRegistration {
 		}		
 	}
 	
-//	/**
-//	 * @author: Grunewald Stephanie
-//	 * @version: 1.1
-//	 * @param memberEMail :String = the eMail address of the member
-//	 * @return true --> if the eMail address has the correct format, false --> if the eMail address do not have the correct format
-//	 */
-//	public static boolean ValidateMemberEMail(String memberEMail){
-//		String validationSchema = "(^([a-zA-Z0-9])+([\\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\\.[a-zA-Z0-9_-]+)+";
-//		Pattern pattern = Pattern.compile(validationSchema);
-//		Matcher matcher = pattern.matcher(memberEMail);
-//		boolean matchFound = matcher.matches();
-//	      if (matchFound==true){
-//	        return true;
-//	      }
-//	      else{
-//	        return false;
-//	      }		
-//	}	
+	/**
+	 * @author: Grunewald Stephanie
+	 * @version: 1.1
+	 * @param memberEMail :String = the eMail address of the member
+	 * @return true --> if the eMail address has the correct format, false --> if the eMail address do not have the correct format
+	 */
+	public static boolean ValidateMemberEMail(String memberEMail){
+		String validationSchema = "(^([a-zA-Z0-9])+([\\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\\.[a-zA-Z0-9_-]+)+";
+		Pattern pattern = Pattern.compile(validationSchema);
+		Matcher matcher = pattern.matcher(memberEMail);
+		boolean matchFound = matcher.matches();
+	      if (matchFound==true){
+	        return true;
+	      }
+	      else{
+	        return false;
+	      }		
+	}	
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0

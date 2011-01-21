@@ -54,10 +54,6 @@
 								<td>Email</td>
 								<td><input class="textfield" name="email" type="text" maxlength="30"></td>
 							</tr>
-							<tr>
-								<td>Passwort</td>
-								<td><input class="textfield" name="email" type="text" maxlength="30"></td>
-							</tr>
 						</table>
 					</form>
 					<p> <a href="#2" class="cross-link" title="Lieferadresse">Nächste &#187;</a></p>
@@ -68,6 +64,14 @@
 					<h3>Lieferadresse</h3>
 					<form>
 						<table border="0">
+							<tr>
+								<td>Vorname</td>
+								<td><input class="textfield" name="l_first_name" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>Nachname</td>
+								<td><input class="textfield" name="l_last_name" type="text" maxlength="30"></td>
+							</tr>
 							<tr>
 								<td>Straße</td>
 								<td><input class="textfield" name="l_street" type="text" maxlength="30"></td>
@@ -92,10 +96,18 @@
 			--><div class="panel" title="Adresse">
 				<div class="wrapper">
 					<h3>Adresse</h3>
-					<form action="Register">
+					<form action="Login">
 						<table border="0">
-						    <tr>
-							    <td>Straße</td>
+							<tr>
+								<td>Vorname</td>
+								<td><input class="textfield" name="r_first_name" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>Nachname</td>
+								<td><input class="textfield" name="r_last_name" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>Straße</td>
 								<td><input class="textfield" name="r_street" type="text" maxlength="30"></td>
 							</tr>
 							<tr>
