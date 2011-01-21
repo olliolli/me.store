@@ -88,24 +88,13 @@ import javax.management.relation.Role;
 		}
 		return member;
 	}
-	/**
+	
+		/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
 	 * @param member
 	 * @return returns no value because the method inserts a new registrated User.
 	 */
-//	public static Member SelectUserData(int userId) {
-//		String sql = "Select * from member where " + userId + ";";
-//		ArrayList<String[]> result = DBControl.ExecuteQuery(sql);
-//		Role r;
-//		
-//		Member m = new Member(result.get(0)[9], result.get(0)[1],
-//				result.get(0)[2], result.get(0)[7], result.get(0)[3],
-//				result.get(0)[4], result.get(0)[5], result.get(0)[6],
-//				Integer.getInteger(result.get(0)[0]), result.get(0)[8]);
-//
-//		return m;
-//	}
 	public static void InsertMember(Member member) {
 		DBControl Ctrl = new DBControl();
 		int MemberID=1;
@@ -133,39 +122,39 @@ import javax.management.relation.Role;
 		}				
 	}
 
-/**
- * @author Henning, Roy
- * @version 0.1
- * @param Member Object
- * no return value
- */
-public static void UpdateMember(Member member) {
-	DBControl Ctrl = new DBControl();
-	String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
-			+ "`firstname`= '"
-			+ member.GetFirstName()
-			+ "'"
-			+ "`lastname`= '"
-			+ member.GetLastName()
-			+ "'"
-			+ "`street`= '"
-			+ member.GetStreet()
-			+ "'"
-			+ "`nr`= '"
-			+ member.GetStreetNumber()
-			+ "'"
-			+ "`postcode`= '"
-			+ member.GetPostCode()
-			+ "'"
-			+ "`city`= '"
-			+ member.GetCity()
-			+ "'"
-			+ "`email`= '"
-			+ member.GetEMail()
-			+ "'"
-			+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
-	Ctrl.ExecuteQuery(SqlStatement);
-}
+	/**
+	 * @author Henning, Roy
+	 * @version 0.1
+	 * @param Member Object
+	 * no return value
+	 */
+	public static void UpdateMember(Member member) {
+		DBControl Ctrl = new DBControl();
+		String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
+				+ "`firstname`= '"
+				+ member.GetFirstName()
+				+ "'"
+				+ "`lastname`= '"
+				+ member.GetLastName()
+				+ "'"
+				+ "`street`= '"
+				+ member.GetStreet()
+				+ "'"
+				+ "`nr`= '"
+				+ member.GetStreetNumber()
+				+ "'"
+				+ "`postcode`= '"
+				+ member.GetPostCode()
+				+ "'"
+				+ "`city`= '"
+				+ member.GetCity()
+				+ "'"
+				+ "`email`= '"
+				+ member.GetEMail()
+				+ "'"
+				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
+		Ctrl.ExecuteQuery(SqlStatement);
+	}
 	public static void NewOrder(Order order){
 		String SqlStatement = "Insert into order(memberid) values ('" + order.getMember().GetMemberID() + "');";
 		DBControl.ExecuteQuery(SqlStatement);	

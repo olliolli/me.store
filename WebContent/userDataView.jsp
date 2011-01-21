@@ -24,14 +24,14 @@
 
 <body>
 <%
-	String sUserid = "";
-	String sFirstname = "";
-	String sLastname = "";
-	String sStreet = "";
-	String sZip = "";
-	String sPlace = "";
-	String sEmail = "";
-	String sHnr ="";
+	String sUserid = request.getAttribute("userId").toString();
+	String sFirstname = request.getAttribute("fname").toString();
+	String sLastname = request.getAttribute("lname").toString();
+	String sStreet = request.getAttribute("street").toString();
+	String sZip = request.getAttribute("zip").toString();
+	String sPlace = request.getAttribute("place").toString();
+	String sEmail = request.getAttribute("email").toString();
+	String sHnr = request.getAttribute("hnr").toString();
 %>	
 
 <noscript>
@@ -53,7 +53,7 @@
 							<tr>
 								<td>Kundennummer</td>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-									<td><%= request.getParameter("userid") %></td>
+									<td><%= sUserid %></td>
 							</tr>
 							<tr>
 								<td>Vorname</td>
