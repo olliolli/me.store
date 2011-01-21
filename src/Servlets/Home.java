@@ -27,9 +27,29 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+		if(!session.isNew()){
+			if (session.getAttribute("memberID") != null) 
+			{
+				int userID = (Integer) session.getAttribute("memberID");
+				System.out.println(userID);
+				session.setMaxInactiveInterval(10);
+				if(userID >= 1){
+					System.out.println("Eingeloggt");
+				}
+				else{
+					System.out.println("Nicht eingeloggt");
+				}
+			}
+			else{
+				System.out.println("Nicht eingeloggt");
+			}
+		}	
+		else{
+			session.setMaxInactiveInterval(10);
+			System.out.println("Neu");
+		}
 		
 		
 		//SimulateDB simulateDB = new SimulateDB();

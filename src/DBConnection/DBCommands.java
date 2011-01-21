@@ -79,7 +79,7 @@ import javax.management.relation.Role;
 			member.SetCity(results.get(0)[6]);
 			member.SetEMail(results.get(0)[7]);
 			member.SetPassword(results.get(0)[8]);		
-			if(Integer.parseInt(results.get(0)[8])==1)
+			if(Integer.parseInt(results.get(0)[9])==1)
 				member.SetMemberRole(Role.Admin);
 			else
 				member.SetMemberRole(Role.Member);
