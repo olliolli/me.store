@@ -25,14 +25,14 @@
 
 <body>
 <%
-	String sUserid = request.getParameter("userid");
-	String sFirstname = request.getParameter("firstname");
-	String sLastname = request.getParameter("lastname");
-	String sStreet = request.getParameter("street");
-	String sZip = request.getParameter("zip");
-	String sPlace = request.getParameter("place");
-	String sEmail = request.getParameter("email");
-	String sHnr = request.getParameter("hnr");
+	String sUserid = request.getAttribute("userId").toString();
+	String sFirstname = request.getAttribute("fname").toString();
+	String sLastname = request.getAttribute("lname").toString();
+	String sStreet = request.getAttribute("street").toString();
+	String sZip = request.getAttribute("zip").toString();
+	String sPlace = request.getAttribute("place").toString();
+	String sEmail = request.getAttribute("email").toString();
+	String sHnr = request.getAttribute("hnr").toString();
 %>
 
 

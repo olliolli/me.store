@@ -53,7 +53,7 @@
 				</div>
 				<div id="basket_outer">
 					<div id="basket_inner">
-						<a href="Cart">
+						<a href="Cart" name="linkCart">
 							<span>Warenkorb</span>
 							<span> | </span>
 							<span>0 Artikel</span>
