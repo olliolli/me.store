@@ -13,11 +13,9 @@ Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "DBCommands"
  * */
 package DBConnection;
 import java.util.ArrayList;
+import MemberManagement.*;
+import OrderManagement.*;
 
-import MemberManagement.Member;
-import MemberManagement.Role;
-import OrderManagement.Order;
-import OrderManagement.OrderLine;
 
 public class DBCommands {
 	/**
@@ -51,15 +49,17 @@ import javax.management.relation.Role;
 	 * @return returns the eMail address of the member. If the member has no email address the method returns an empty String.
 	 */
 	public static String SelectMemberByEMail(String eMail) {
-		String MembersMail="";
-		String sql = "Select EMail from Member where EMail="+eMail;
-		try{
-			MembersMail = DBControl.ExecuteQuery(sql).get(0)[0];	
-
+		ArrayList<String[]> membersMail = new ArrayList<String[]>();
+		String returnedMail = "";
+		String sql = "Select EMail from Member where eMail like '"+eMail+"'";
+		try{			
+			membersMail = DBControl.ExecuteQuery(sql);	
+			returnedMail = membersMail.get(0)[0];
 		}
 		catch(Exception e){
+			System.out.println(e);
 		}
-		return MembersMail;				
+		return returnedMail;				
 	}
 
 	public static Member SelectMemberByID(int memberID){
@@ -107,29 +107,29 @@ import javax.management.relation.Role;
 //		return m;
 //	}
 	public static void InsertMember(Member member) {
-		DBControl Ctrl = new DBControl();
-		int MemberID=1;
+		
+		int roleID=1;
 	    
-		if(member.GetMemberRole().toString()=="admin"){
-	    	MemberID=2;
+		if(member.GetMemberRole().toString()=="Admin"){
+	    	roleID=2;
 	    }
 		
 		String SqlStatement = "Insert into member "+
-				              "(firstName,lastName, street, nr, postcode, city, email, passwordhash, roleid) values " 
-			                  +"('"+member.GetFirstName()+"','"
-				              +member.GetLastName()+"','"
-				              +member.GetStreet()+"','"
-				              +member.GetStreetNumber()+"','"
-				              +member.GetPostCode()+"','"
-				              +member.GetCity()+"','"
-				              +member.GetEMail()+"','"
-				              +member.GetPassword()+"',"
-				              +MemberID+")";
+        	"(FirstName,LastName,Street,Nr,PostCode,City,Email,PasswordHash,RoleID) values('"+member.GetFirstName()+"','"
+        	+member.GetLastName()+"','"
+        	+member.GetStreet()+"','"
+        	+member.GetStreetNumber()+"','"
+        	+member.GetPostCode()+"','"
+        	+member.GetCity()+"','"
+        	+member.GetEMail()+"','"
+        	+MemberRegistration.GeneratePasswordHash(member.GetPassword())+"',"
+        	+roleID+")";
 		try{
-			Ctrl.ExecuteQuery(SqlStatement);	
+			ArrayList<String[]> result = new ArrayList<String[]>();
+			result = DBControl.ExecuteQuery(SqlStatement);	
 		}
 		catch(Exception e){
-			
+			System.out.println(e);
 		}				
 	}
 
