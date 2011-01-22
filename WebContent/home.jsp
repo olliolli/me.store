@@ -38,9 +38,9 @@
 			<div class="dock" id="dock">
 			  <div class="dock-container">
 				  <a class="dock-item" href="Home"><img src="images/dockNavigation/home.png" alt="home" /><span>Home</span></a> 
-				  <a class="dock-item" href="List?opt=best"><img src="images/dockNavigation/bestseller.png" alt="bestseller" /><span>Bestseller</span></a> 			  
-				  <a class="dock-item" href="List?opt=new"><img src="images/dockNavigation/history.png" alt="neu" /><span>Neuerscheinungen</span></a> 
-				  <a class="dock-item" href="List?opt=discount"><img src="images/dockNavigation/reduziert.png" alt="reduziert" /><span>Reduzierte Ware</span></a> 
+				  <a class="dock-item" href="List?opt=Bestseller"><img src="images/dockNavigation/bestseller.png" alt="bestseller" /><span>Bestseller</span></a> 			  
+				  <a class="dock-item" href="List?opt=Neu"><img src="images/dockNavigation/history.png" alt="neu" /><span>Neuerscheinungen</span></a> 
+				  <a class="dock-item" href="List?opt=Reduziert"><img src="images/dockNavigation/reduziert.png" alt="reduziert" /><span>Reduzierte Ware</span></a> 
 				  <a class="dock-item" href="List?med=Musik"><img src="images/dockNavigation/music.png" alt="musik" /><span>Musik</span></a> 
 				  <a class="dock-item" href="List?med=Film"><img src="images/dockNavigation/video.png" alt="video" /><span>Filme</span></a> 
 				  <a class="dock-item" href="List?med=Buch"><img src="images/dockNavigation/buch.png" alt="buch" /><span>Bücher</span></a> 

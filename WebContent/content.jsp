@@ -20,6 +20,14 @@
 				out.println("</h3>");	
 			out.println("</div>"); 
 		}
+		
+		if (request.getAttribute("opt") != null){
+			out.println("<div class=\"clearfix\">");
+				out.println("<h3 class=\"yellow f14\">");
+					out.println(request.getAttribute("opt")); 
+				out.println("</h3>");	
+			out.println("</div>"); 
+		}
 	
 	  
 	  	//lies die Liste der Artikel aus dem Request
