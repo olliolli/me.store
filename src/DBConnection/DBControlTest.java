@@ -23,7 +23,7 @@ Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "DBControlTest"
 public class DBControlTest {
 	
 	public static void main(String[] args) {
-		ArrayList<String[]> result = DBControl.ExecuteQuery("Select * from mediumtype");
+		ArrayList<String[]> result = DBControl.ExecuteQuery("Select * from member");
 		
 		for (int i = 0; i < result.size();i++){
 			for (int j = 0; j < result.get(i).length;j++){

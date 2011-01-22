@@ -19,13 +19,15 @@ public class CheckLogin {
 	 * @version 1.0
 	 * @return value, if the Login is successful:boolean
 	 */
-	/*
-	public static boolean returnValue(String eMail, String pwdHash){		
-		if(DBCommands.SelectMemberByEMailAndPwdHash(eMail,pwdHash) != -1)
-			return true;
-		else
-			return false;		
-	}*/
+	
+	public static int returnValue(String eMail, String pwdHash){
+		int userID = DBCommands.SelectMemberByEMailAndPwdHash(eMail, pwdHash);
+//		if(DBCommands.SelectMemberByEMailAndPwdHash(eMail,pwdHash) != -1)
+//			return true;
+//		else
+//			return false;		
+		return userID;
+	}
 	
 	
 
