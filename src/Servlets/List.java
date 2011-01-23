@@ -38,9 +38,10 @@ public class List extends HttpServlet {
 		String rsMedium = request.getParameter("med");
 		String rsCategory = request.getParameter("cat");
 		String rsOption = request.getParameter("opt");
+		String rsSearchQuery = request.getParameter("searchQuery");
 		
 		ArrayList<String> params = new ArrayList<String>();
-		
+
 		String selectStatement = "select " +
 				"ArticleID" +
 				",mediumtype.Description" +
@@ -52,47 +53,62 @@ public class List extends HttpServlet {
 				",Picture" +
 				" from article art,mediumtype,genre";
 		
-		selectStatement += "" +
+		selectStatement += 
 				" where art.MediumTypeID = mediumtype.MediumTypeID" +
 				" and art.GenreID = genre.GenreID";
 		
-		
-		if (rsOption.equals("Neu")){
+		if (rsOption != null && rsOption.equals("Neu")){
 			selectStatement += " and exists ( select count(*) from" +
 			" article a where a.createdDate > art.createdDate" +
 			" having count(*) < 10 )";				
 		}
 		else
-			if (rsMedium != null || rsCategory != null || rsOption != null)
+			if (rsMedium != null || rsCategory != null || rsOption != null || rsSearchQuery != null)
 			{	
 				selectStatement += " and (";
-				if (rsMedium != null){
+				if (rsMedium != null && !rsMedium.equals("")){
 					
-					selectStatement += " mediumtype.Description like '?'";
-					params.add(rsMedium);
-					//selectStatement += rsMedium;
-					//selectStatement += "' and";
+					selectStatement += " mediumtype.Description like '";
+					//params.add(rsMedium);
+					selectStatement += rsMedium;
+					selectStatement += "' and";
 				}
-				if (rsCategory != null){
-					selectStatement += " genre.GenreName like '?'";
-					params.add(rsCategory);
-					//selectStatement += rsCategory;
-					//selectStatement += "' and";
+				if (rsCategory != null && !rsCategory.equals("")){
+					selectStatement += " genre.GenreName like '";
+					//params.add(rsCategory);
+					selectStatement += rsCategory;
+					selectStatement += "' and";
 				}
-				if (rsOption != null){
+				if (rsOption != null && !rsOption.equals("")){
 					
 						if(rsOption.equals("Reduziert")){
 						selectStatement += " Discount != 0.00";
 						selectStatement += " and";
 					}
 				}
+				if (rsSearchQuery != null && !rsSearchQuery.equals("")){	
+					Integer intSearchQuery = -1;
+					try{
+						intSearchQuery = Integer.parseInt(rsSearchQuery);
+						selectStatement += " art.ArticleID = ";
+						selectStatement += rsSearchQuery;
+						selectStatement += " and";
+					}
+					catch(NumberFormatException e){
+						rsSearchQuery.toUpperCase();
+						selectStatement += " UPPER(art.Title) like '%";
+						selectStatement += rsSearchQuery;
+						selectStatement += "%' and";
+					}					
+				}			
 				
-				selectStatement = selectStatement.substring(0, selectStatement.length() - 3);
+				selectStatement = selectStatement.substring(0, selectStatement.length() - 4);
 				selectStatement += " )";
 			}
 		
 		
 		System.out.println(selectStatement);
+		
 		
 		Collection<Article> collection =  new ArrayList<Article>();
 		

@@ -1,5 +1,6 @@
 body{
 background-color: #9897A4;
+height: 100%;
 }
 
 /*========================================= 
@@ -158,7 +159,7 @@ Layout
 
 #container-wrap {
 	background: #9897A4 url(../images/main/bg_rp.gif) left top repeat-x;
-	height: 500px;
+	height: auto;
 }
 
 #leftcol {
@@ -172,7 +173,7 @@ Layout
 #rightcol {
 	background: #9897A4 url(../images/main/rightcol_bg.gif) left top no-repeat;
 	width: 185px;
-	height: 500px;
+	height: auto;
 	float: right;
 }
 
@@ -184,7 +185,7 @@ Layout
 #maincol {
 	width: 749px;
 	float: left;
-	height: 800px;
+	height: auto;
 }
 
 #banner {
@@ -197,10 +198,14 @@ Layout
 }
 
 #banner-content {
-	margin: 90px 25px 0 0;
+	margin: 10px 345px 0 0;
 	width: 325px;
 	text-align: right;
 	float: right;
+}
+
+#banner-content p {
+	line-height: 2;
 }
 
 #banner {

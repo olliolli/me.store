@@ -1,11 +1,10 @@
-#content {
+#contentDetails {
 	background: url(../images/main/main_footer1.jpg) left bottom no-repeat;
-	padding: 6px 15px 35px;
+	padding: 0px 15px 35px;
 }
 
-.articleContainer {
+.detailsContainer {
 	padding-bottom: 5px;
-	border-bottom: 1px solid #666666;	
 }
 
 
@@ -18,37 +17,69 @@
 	font-size: 14px;
 }
 
-.left {
+.leftDetails {
 	float: left;
 	margin: 5px 10px 0 0;
 	
 }
 
-.right {
+.rightDetails {
 	float: right;
-	width: 530px;
+	width: 390px;
 }
 
-.itemDetails  {
-	height: 40px;
-	float: right;
-	margin-right: 15px;
+.descriptionContainer {
+	
+}
+
+#detailsTable {
+	border: 0;
+	margin-top: 20px;
+}
+
+#detailsTable tr {
+	height: 28px;
+}
+
+.detailsTableLeft {
+	width: 120px;
+}
+
+.detailsTableLeft span{
+	color: #999966;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.detailsTableRight {
+	width: 270px;
+	display: block;	
+	vertical-align: top;
+}
+
+
+.detailsTableRight .price   {
+	float: left;
+	margin-left: 4px;
+	display: block;
+	font-weight: bold;
+}
+
+
+.detailsTableRight .discount   {	
+	float: left;
+	
 	display: block;
 }
 
-.itemDetails .price   {
-	float: left;
-}
 
-.itemDetails .discount   {	
-	float: left;
-}
 
 .itemDetails .price span  {
 	margin-top: 3px;
 	margin-left: 3px;
 	float: left;
 	font-size: 15px;
+	font-weight: bold;
 }
 
 .itemDetails .discount span  {
@@ -61,7 +92,7 @@
 
 .buy
 {
-	float: right;
+	float: left;
 	margin-left: 20px;
 	width: 70px;
 	height: 24px;
@@ -78,24 +109,4 @@
 
 .buy a:hover {
 	background: url(../images/main/kaufen_hover.jpg) left bottom no-repeat;
-}
-
-.details
-{
-	float: right;
-	margin-left: 20px;
-	width: 70px;
-	height: 24px;
-	
-}
-
-.details a{
-	display: block;
-	width: 70px;
-	height: 24px;
-	background: url(../images/main/details.jpg) left bottom no-repeat;
-}
-
-.details a:hover {
-	background: url(../images/main/details_hover.jpg) left bottom no-repeat;
 }
