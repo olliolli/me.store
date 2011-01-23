@@ -51,15 +51,16 @@ import javax.management.relation.Role;
 	 * @return returns the eMail address of the member. If the member has no email address the method returns an empty String.
 	 */
 	public static String SelectMemberByEMail(String eMail) {
-		String MembersMail="";
-		String sql = "Select EMail from Member where EMail="+eMail;
+		String membersMail="";
+		String sql = "Select EMail from Member where EMail like '"+eMail+"';";
 		try{
-			MembersMail = DBControl.ExecuteQuery(sql).get(0)[0];	
+			membersMail = DBControl.ExecuteQuery(sql).get(0)[0].toString();	
 
 		}
 		catch(Exception e){
+			System.out.println(e);
 		}
-		return MembersMail;				
+		return membersMail;				
 	}
 
 	public static Member SelectMemberByID(int memberID){
@@ -78,7 +79,7 @@ import javax.management.relation.Role;
 			member.SetPostCode(results.get(0)[5]);
 			member.SetCity(results.get(0)[6]);
 			member.SetEMail(results.get(0)[7]);
-			member.SetPassword(results.get(0)[8]);		
+			member.SetPasswordHash(results.get(0)[8]);		
 			if(Integer.parseInt(results.get(0)[9])==1)
 				member.SetMemberRole(Role.Admin);
 			else
@@ -93,10 +94,9 @@ import javax.management.relation.Role;
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
 	 * @param member
-	 * @return returns no value because the method inserts a new registrated User.
+	 * @return returns no value because the method inserts a new registrated Member.
 	 */
 	public static void InsertMember(Member member) {
-		DBControl Ctrl = new DBControl();
 		int MemberID=1;
 	    
 		if(member.GetMemberRole().toString()=="admin"){
@@ -112,13 +112,14 @@ import javax.management.relation.Role;
 				              +member.GetPostCode()+"','"
 				              +member.GetCity()+"','"
 				              +member.GetEMail()+"','"
-				              +member.GetPassword()+"',"
+				              +member.GetPasswordHash()+"',"
 				              +MemberID+")";
 		try{
-			Ctrl.ExecuteQuery(SqlStatement);	
+			ArrayList<String[]> checkValue = new ArrayList<String[]>();
+			checkValue = DBControl.ExecuteQuery(SqlStatement);	
 		}
 		catch(Exception e){
-			
+			System.out.println(e);
 		}				
 	}
 
@@ -229,7 +230,7 @@ import javax.management.relation.Role;
 	public static void UpdateUserPassword(Member member) {
 		DBControl Ctrl = new DBControl();
 		String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
-				+ "`psswordhash`= '" + member.GetPassword() + "'"
+				+ "`psswordhash`= '" + member.GetPasswordHash() + "'"
 				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
 		Ctrl.ExecuteQuery(SqlStatement);
 	}

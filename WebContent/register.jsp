@@ -54,6 +54,14 @@
 								<td>Email</td>
 								<td><input class="textfield" name="email" type="text" maxlength="30"></td>
 							</tr>
+							<tr>
+								<td>Passwort</td>
+								<td><input class="textfield" name="password" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>Passwort Wiederholung</td>
+								<td><input class="textfield" name="w_password" type="text" maxlength="30"></td>
+							</tr>
 						</table>
 					</form>
 					<p> <a href="#2" class="cross-link" title="Lieferadresse">Nächste &#187;</a></p>
