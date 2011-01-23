@@ -131,7 +131,7 @@ import javax.management.relation.Role;
 	 */
 	public static void UpdateMember(Member member) {
 		DBControl Ctrl = new DBControl();
-		String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
+		String SqlStatement = "UPDATE member " + "SET "
 				+ "`firstname`= '"
 				+ member.GetFirstName()
 				+ "'"
