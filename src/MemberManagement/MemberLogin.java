@@ -13,20 +13,20 @@ Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "CheckLogin"
 * */ 
 package MemberManagement;
 import DBConnection.DBCommands;
-public class CheckLogin {
+public class MemberLogin {
 	/**
 	 * @author Falzer,Marcel
-	 * @version 1.0
+	 * @version 1.1
 	 * @return value, if the Login is successful:boolean
 	 */
 	
-	public static int returnValue(String eMail, String pwdHash){
-		int userID = DBCommands.SelectMemberByEMailAndPwdHash(eMail, pwdHash);
+	public static Member returnMember(String eMail, String pwdHash){
+		Member member = DBCommands.SelectMemberByEMailAndPwdHash(eMail, pwdHash);
 //		if(DBCommands.SelectMemberByEMailAndPwdHash(eMail,pwdHash) != -1)
 //			return true;
 //		else
 //			return false;		
-		return userID;
+		return member;
 	}
 	
 	

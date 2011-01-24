@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.naming.ServiceUnavailableException;
 
-import MemberManagement.CheckLogin;
+import MemberManagement.MemberLogin;
 import MemberManagement.MemberRegistration;
 import MemberManagement.PasswordService;
 import MemberManagement.Role;
