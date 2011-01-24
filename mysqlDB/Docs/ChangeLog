@@ -1,0 +1,112 @@
+ChangeSet
+  1.2107 06/05/24 14:22:36 serg@mysql.com +6 -0
+  Merge mysql.com:/data0/mysqldev/my/mysql-5.0.17c-release
+  into  mysql.com:/data0/mysqldev/my/mysql-5.0.22-release
+
+  extra/comp_err.c
+    1.23 06/05/24 14:22:24 serg@mysql.com +0 -4
+    merged
+
+  configure.in
+    1.386 06/05/24 14:20:22 serg@mysql.com +0 -2
+    merged
+
+  tests/mysql_client_test.c
+    1.182 06/05/24 14:18:08 serg@mysql.com +0 -0
+    Auto merged
+
+  sql/sql_parse.cc
+    1.543 06/05/24 14:18:07 serg@mysql.com +0 -18
+    Auto merged
+
+  sql/sql_lex.cc
+    1.181 06/05/24 14:18:07 serg@mysql.com +0 -0
+    Auto merged
+
+  scripts/mysqld_multi.sh
+    1.30 06/05/24 14:18:07 serg@mysql.com +0 -0
+    Auto merged
+
+ChangeSet
+  1.1960.87.23 06/05/24 12:19:39 serg@mysql.com +3 -0
+  Merge mysql.com:/data0/mysqldev/my/mysql-4.1.16a-release
+  into  mysql.com:/data0/mysqldev/my/mysql-5.0.17c-release
+
+  sql/sql_lex.cc
+    1.171.1.5 06/05/24 12:19:03 mysqldev@mysql.com +1 -3
+    merged
+
+  configure.in
+    1.368.2.5 06/05/24 12:18:58 mysqldev@mysql.com +1 -2
+    merged
+
+  tests/mysql_client_test.c
+    1.165.1.2 06/05/24 12:16:28 mysqldev@mysql.com +0 -0
+    Auto merged
+
+ChangeSet
+  1.2106 06/05/24 11:33:17 kent@mysql.com +1 -0
+  configure.in:
+    Changed version to 5.0.22
+
+  configure.in
+    1.385 06/05/24 11:32:34 kent@mysql.com +2 -2
+    Changed version to 5.0.22
+
+ChangeSet
+  1.1616.2544.2 06/05/24 01:05:20 kent@mysql.com +1 -0
+  configure.in:
+    Updated release number 4.1.16a
+
+  configure.in
+    1.201.65.1 06/05/24 01:04:58 kent@mysql.com +1 -1
+    Updated release number 4.1.16a
+
+ChangeSet
+  1.1616.2544.1 06/05/24 00:55:53 kent@mysql.com +4 -0
+  don't let bugfix for bug#8303 break the bugfix for bug#8378
+  revert the fix for bug#8303
+  correct the test for bug#8378
+
+  tests/mysql_client_test.c
+    1.51.29.1 06/05/24 00:54:56 kent@mysql.com +14 -7
+    correct the test for bug#8378
+
+  sql/sql_lex.cc
+    1.97.21.1 06/05/24 00:54:56 kent@mysql.com +5 -25
+    revert the fix for bug#8303
+
+  mysql-test/t/ctype_sjis.test
+    1.10 06/05/24 00:54:56 kent@mysql.com +1 -1
+    updated
+
+  mysql-test/r/ctype_sjis.result
+    1.9 06/05/24 00:54:56 kent@mysql.com +2 -2
+    updated
+
+ChangeSet
+  1.1960.87.22 06/05/23 20:43:48 kent@mysql.com +1 -0
+  configure.in:
+    Changed version to 5.0.17c
+
+  configure.in
+    1.368.2.4 06/05/23 20:14:34 kent@mysql.com +1 -1
+    Changed version to 5.0.17c
+
+ChangeSet
+  1.1960.87.21 06/05/02 23:49:21 kent@mysql.com +2 -0
+  sql_parse.cc:
+    buffer overflow and information exposure bugs fixed
+    (reported by Stefano Di Paola)
+  configure.in:
+    Changed version to 5.0.17b
+
+  sql/sql_parse.cc
+    1.506.17.3 06/05/02 23:45:56 kent@mysql.com +18 -1
+    buffer overflow and information exposure bugs fixed
+    (reported by Stefano Di Paola)
+
+  configure.in
+    1.368.2.3 06/05/02 23:32:49 kent@mysql.com +1 -1
+    Changed version to 5.0.17b
+

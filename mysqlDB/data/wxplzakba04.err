@@ -1,0 +1,11 @@
+110113 10:14:28  InnoDB: Database was not shut down normally!
+InnoDB: Starting crash recovery.
+InnoDB: Reading tablespace information from the .ibd files...
+InnoDB: Restoring possible half-written data pages from the doublewrite
+InnoDB: buffer...
+110113 10:14:28  InnoDB: Starting log scan based on checkpoint at
+InnoDB: log sequence number 0 322949.
+InnoDB: Doing recovery: scanned up to log sequence number 0 322949
+110113 10:14:28  InnoDB: Started; log sequence number 0 322949
+110113 10:14:30 [Note] C:\Users\grune07\Desktop\eclipse_for JAVA\eclipse_ws\GIT\MediaStore\mysqlDB\bin\mysqld.exe: ready for connections.
+Version: '5.0.22-community'  socket: ''  port: 3306  MySQL Community Edition (GPL)
