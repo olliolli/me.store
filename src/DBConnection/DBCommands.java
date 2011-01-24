@@ -28,20 +28,21 @@ import javax.management.relation.Role;
 /**
 >>>>>>> 7f3fce6c37a9a467500d46a27cff5666073131f9
 	 * @author Falzer, Marcel
-	 * @version 0.1
+	 * @version 1.2
 	 * @param eMail-adress of the user:string, hashvalue of password of user:string
 	 * @return memerId of user or -1 when user not registrated: int
 	 */
-	public  static int SelectMemberByEMailAndPwdHash(String eMail, String pwdHash){
-		int memberID=-1;
-	    String sql = "Select MemberId from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
+	public static Member SelectMemberByEMailAndPwdHash(String eMail, String pwdHash){
+		Member member = new Member();
+	    String sql = "Select MemberID from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
 		try{
+		int memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
+		member = DBCommands.SelectMemberByID(memberID);
 		
-		memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
 		}
 		catch(Exception e){
 		}
-		return memberID;
+		return member;
 	}
 
 	/**

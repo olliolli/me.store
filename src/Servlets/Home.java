@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import MemberManagement.Member;
+
 /**
  * Servlet implementation class Home
  */
@@ -30,12 +32,12 @@ public class Home extends HttpServlet {
 		
 		HttpSession session = request.getSession(true);
 		if(!session.isNew()){
-			if (session.getAttribute("memberID") != null) 
+			if (session.getAttribute("member") != null) 
 			{
-				int userID = (Integer) session.getAttribute("memberID");
-				System.out.println(userID);
-				session.setMaxInactiveInterval(10);
-				if(userID >= 1){
+				Member member = (Member) session.getAttribute("member");
+				System.out.println(member);
+				session.setMaxInactiveInterval(3600);
+				if(member.GetMemberID() >= 1){
 					System.out.println("Eingeloggt");
 				}
 				else{
