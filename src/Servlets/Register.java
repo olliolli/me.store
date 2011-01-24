@@ -41,6 +41,7 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// eingegebene Parameter in Registrierungsformular holen und Variablen belegen
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");

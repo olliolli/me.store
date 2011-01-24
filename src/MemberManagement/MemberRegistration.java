@@ -52,12 +52,12 @@ public class MemberRegistration {
 			if(firstName.length()<2 || lastName.length()<2){
 				return 1;
 			}
-			else if (MemberRegistration.IsAlwaysRegistrated(eMail)==true){
-				return 2;
-			}
-			else if (MemberRegistration.ValidateMemberEMail(eMail)==false){
-				return 3;
-			}
+//			else if (MemberRegistration.IsAlwaysRegistrated(eMail)==true){
+//				return 2;
+//			}
+//			else if (MemberRegistration.ValidateMemberEMail(eMail)==false){
+//				return 3;
+//			}
 			else{
 				Member member = new Member();
 				member.SetCity(city);
@@ -120,9 +120,9 @@ public class MemberRegistration {
 		if(password.length()>7)
 		{
 			for(int i=0; i<passwordList.length;i++){
-				if(passwordList[i]=='1'||passwordList[i]=='2'||passwordList[i]=='3'||passwordList[i]=='4'||passwordList[i]=='5'||passwordList[i]=='6'||passwordList[i]=='7'||passwordList[i]=='8'||passwordList[i]=='9'){
+				if(passwordList[i]=='0'|| passwordList[i]=='1'||passwordList[i]=='2'||passwordList[i]=='3'||passwordList[i]=='4'||passwordList[i]=='5'||passwordList[i]=='6'||passwordList[i]=='7'||passwordList[i]=='8'||passwordList[i]=='9'){
 				count++;
-					if(count ==2){
+					if(count >=2){
 						return true;
 					}
 				}				

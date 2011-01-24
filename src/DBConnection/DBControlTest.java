@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 import javax.naming.ServiceUnavailableException;
 
-import MemberManagement.CheckLogin;
-import MemberManagement.MemberRegistration;
-import MemberManagement.PasswordService;
-import MemberManagement.Role;
+import MemberManagement.*;
+import DBConnection.*;
 
 /*
 Anlagedatum: 13.01.2011
@@ -60,9 +58,10 @@ public class DBControlTest {
 		if(passwordCheck==true){
 			try {
 				//Das eingegebene Passwort wird in einen Hashwert überführt
-				passwordHash = PasswordService.getInstance().Encrypt(passwordHash);
+				PasswordService ps = PasswordService.getInstance();
+				String passwordHashNew = ps.Encrypt(passwordHash);
 				// Alle Parameter werden an RegistrateUser übergeben und der User wird gepseichert.
-				MemberRegistration.RegistrateUser(firstName, lastName, eMail, street, hnr, postCode, city, passwordHash, memberRole);
+				MemberRegistration.RegistrateUser(firstName, lastName, eMail, street, hnr, postCode, city, passwordHashNew, memberRole);
 			} catch (ServiceUnavailableException e) {
 				e.printStackTrace();
 			}
