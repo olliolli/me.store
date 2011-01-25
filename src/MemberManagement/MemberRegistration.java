@@ -1,15 +1,10 @@
 package MemberManagement;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/*
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;*/
 
 import DBConnection.DBCommands;
 
@@ -53,7 +48,7 @@ public class MemberRegistration {
 	 * 4 --> the password has not the size of 8 chars or contains less than 2 numbers 
 	 * 0 --> SaveMember was successfull
 	 */
-	public static int RegistrateUser(String firstName,String lastName, String eMail, String street, String streetNumber, String postCode, String city, String password, Role memberRole){
+	public static int RegistrateUser(String firstName,String lastName, String eMail, String street, String streetNumber, String postCode, String city, String passwordHash, Role memberRole){
 			if(firstName.length()<2 || lastName.length()<2){
 				return 1;
 			}
@@ -63,9 +58,6 @@ public class MemberRegistration {
 			else if (MemberRegistration.ValidateMemberEMail(eMail)==false){
 				return 3;
 			}
-			else if(MemberRegistration.ValidatePassword(password)==false){
-				return 4;
-			}
 			else{
 				Member member = new Member();
 				member.SetCity(city);
@@ -73,13 +65,11 @@ public class MemberRegistration {
 				member.SetFirstName(firstName);
 				member.SetLastName(lastName);
 				member.SetMemberRole(memberRole);
-				member.SetPassword(password);
+				member.SetPasswordHash(passwordHash);
 				member.SetPostCode(postCode);
 				member.SetStreet(street);
-				member.SetStreetNumber(streetNumber);
-				
-				DBCommands.InsertMember(member);
-				
+				member.SetStreetNumber(streetNumber);				
+				DBCommands.InsertMember(member);				
 				return 0;
 			}		
 	}
@@ -92,7 +82,7 @@ public class MemberRegistration {
 	 */
 	private static boolean IsAlwaysRegistrated(String eMail){
 		String membersEMail = DBCommands.SelectMemberByEMail(eMail);
-		if(membersEMail.length()==0 && membersEMail==eMail){
+		if(membersEMail!="null" || membersEMail!="" || membersEMail==eMail){
 			return true;
 		}
 		else{
@@ -135,25 +125,13 @@ public class MemberRegistration {
 					if(count ==2){
 						return true;
 					}
-				}
+				}				
+			}
+			if (count<2){
+				return false;
 			}
 		}
 		return false; 			  		
-	}
-	/*
-	public static void postMail( String recipient,String subject,String message, String from )throws MessagingException{     
-		
-		Properties props = new Properties();     
-		props.put( "mail.smtp.host", "mail.mailserver.com" );     
-		Session session = Session.getDefaultInstance( props );     
-		Message msg = new MimeMessage( session );     
-		InternetAddress addressFrom = new InternetAddress( from );     
-		msg.setFrom( addressFrom );     
-		InternetAddress addressTo = new InternetAddress( recipient );     
-		msg.setRecipient( Message.RecipientType.TO, addressTo );     
-		msg.setSubject( subject );     
-		msg.setContent( message, "text/plain" );     
-		Transport.send( msg );   
-	} */		
+	}		
 }
 

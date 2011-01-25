@@ -22,7 +22,7 @@ public class Member {
 	private String postCode;
 	private String city;
 	private int memberID;
-	private String password;
+	private String passwordHash;
 	
 	/**
 	 * @author Falzer, Marcel
@@ -51,7 +51,7 @@ public class Member {
 		this.SetPostCode(postCode);
 		this.SetCity(city);
 		this.memberID = memberID;
-		this.SetPassword(password);
+		this.SetPasswordHash(password);
 	}
 	/** 
 	/**
@@ -78,7 +78,7 @@ public class Member {
 		this.SetStreetNumber(streetNumber);
 		this.SetPostCode(postCode);
 		this.SetCity(city);		
-		this.SetPassword(password);
+		this.SetPasswordHash(password);
 	}
 	/**
 	 * @return no return because it is the standard construktor
@@ -230,16 +230,16 @@ public class Member {
 	 * @version 1.0
 	 * @return the password of the member:String
 	 */
-	public String GetPassword() {
-		return password;
+	public String GetPasswordHash() {
+		return passwordHash;
 	}
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
 	 * @param password:String, set the foreName of the Member
 	 */
-	public void SetPassword(String password) {
-		this.password = password;
+	public void SetPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}	
 
 }

@@ -25,7 +25,7 @@
 
 <body>
 <%
-	String sUserid = request.getAttribute("userId").toString();
+	String sMemberID = request.getAttribute("memberID").toString();
 	String sFirstname = request.getAttribute("fname").toString();
 	String sLastname = request.getAttribute("lname").toString();
 	String sStreet = request.getAttribute("street").toString();
@@ -52,79 +52,75 @@ be the result of two possible scenarios:</p>
 </noscript>
 
 <div class="slider-wrap">
-<div id="slider1" class="csw">
-<div class="panelContainer">
-<div class="panel" title="Benutzer">
-<div class="wrapper">
-<h3>Benutzer</h3>
-<form>
-<table border="0">
-	<tr>
-		<td>Kundennummer</td>
-		<td>
-		<%
-			request.getParameter("userid");
-		%>
-		</td>
-	</tr>
-	<tr>
-		<td>Vorname</td>
-		<td><input class="textfield" name="firstname" type="text"
-			maxlength="30" value=<%= sFirstname%>></td>
-	</tr>
-	<tr>
-		<td>Nachname</td>
-		<td><input class="textfield" name="lastname" type="text"
-			maxlength="30" value=<%= sLastname%>></td>
-	</tr>
-	<tr>
-		<td>Email</td>
-		<td><input class="textfield" name="email" type="text"
-			maxlength="30" value=<%= sEmail %>></td>
-	</tr>
-</table>
-</form>
-<p><a href="#2" class="cross-link" title="Adresse">Nächste
-&#187;</a></p>
-</div>
-</div>
-<div class="panel" title="Adresse">
-<div class="wrapper">
-<h3>Adresse</h3>
-<form action="index.jsp">
-<table border="0">
-	<tr>
-		<td>Straße</td>
-		<td><input class="textfield" name="street" type="text"
-			maxlength="30" value=<%= sStreet%>></td>
-	</tr>
-	<tr>
-		<td>Hausnummer</td>
-		<td><input class="textfield" name="hnr" type="text"
-			maxlength="30" value=<%= sHnr%>></td>
-	</tr>
-	<tr>
-		<td>PLZ</td>
-		<td><input class="textfield" name="zip" type="text"
-			maxlength="30" value=<%= sZip%>></td>
-	</tr>
-	<tr>
-		<td>Ort</td>
-		<td><input class="textfield" name="place" type="text"
-			maxlength="30" value=<%= sPlace%>></td>
-	</tr>
-</table>
-<div class="register-buttons"><input class="button" type="submit"
-	value=""> <a class="button" href="userDataView.jsp"><img
-	src="images/main/cancel.png" width="103" height="42" /></a></div>
-</form>
-<p><a href="#2" class="cross-link" title="Adresse">&#171;
-Vorherige</a></p>
-</div>
-</div>
-
-</div>
-</div>
+	<div id="slider1" class="csw">
+		<div class="panelContainer">
+			<div class="panel" title="Benutzer">
+				<div class="wrapper">
+					<h3>Benutzer</h3>
+					<form>
+					<table border="0">
+						<tr>
+							<td>Kundennummer</td>
+							<td><%= sMemberID %>
+							</td>
+						</tr>
+						<tr>
+							<td>Vorname</td>
+							<td><input class="textfield" name="firstname" type="text"
+								maxlength="30" value=<%=sFirstname%>></td>
+						</tr>
+						<tr>
+							<td>Nachname</td>
+							<td><input class="textfield" name="lastname" type="text"
+								maxlength="30" value=<%=sLastname%>></td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td><input class="textfield" name="email" type="text"
+								maxlength="30" value=<%=sEmail%>></td>
+						</tr>
+					</table>
+					</form>
+				<p><a href="#2" class="cross-link" title="Adresse">Nächste&#187;</a></p>
+			</div>
+		</div>
+	<div class="panel" title="Adresse">
+		<div class="wrapper">
+			<h3>Adresse</h3>
+				<form action="/User?toModus=commit">
+				<table border="0">
+					<tr>
+						<td>Straße</td>
+						<td><input class="textfield" name="street" type="text"
+							maxlength="30" value=<%=sStreet%>></td>
+					</tr>
+					<tr>
+						<td>Hausnummer</td>
+						<td><input class="textfield" name="hnr" type="text"
+							maxlength="30" value=<%=sHnr%>></td>
+					</tr>
+					<tr>
+						<td>PLZ</td>
+						<td><input class="textfield" name="zip" type="text"
+							maxlength="30" value=<%=sZip%>></td>
+					</tr>
+					<tr>
+						<td>Ort</td>
+						<td><input class="textfield" name="place" type="text"
+							maxlength="30" value=<%=sPlace%>></td>
+					</tr>
+				</table>
+					<div class="register-buttons">
+						<input class="button" type="submit" value=""> 
+						<a class="button" href="User?toModus=view">
+						<img src="images/main/cancel.png" width="103" height="42" /></a>
+					</div>
+				</form>
+					<p><a href="#2" class="cross-link" title="Adresse">&#171;Vorherige</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 

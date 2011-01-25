@@ -28,20 +28,21 @@ import javax.management.relation.Role;
 /**
 >>>>>>> 7f3fce6c37a9a467500d46a27cff5666073131f9
 	 * @author Falzer, Marcel
-	 * @version 0.1
+	 * @version 1.2
 	 * @param eMail-adress of the user:string, hashvalue of password of user:string
 	 * @return memerId of user or -1 when user not registrated: int
 	 */
-	public  static int SelectMemberByEMailAndPwdHash(String eMail, String pwdHash){
-		int memberID=-1;
-	    String sql = "Select MemberId from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
+	public static Member SelectMemberByEMailAndPwdHash(String eMail, String pwdHash){
+		Member member = new Member();
+	    String sql = "Select MemberID from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
 		try{
+		int memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
+		member = DBCommands.SelectMemberByID(memberID);
 		
-		memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
 		}
 		catch(Exception e){
 		}
-		return memberID;
+		return member;
 	}
 
 	/**
@@ -51,15 +52,16 @@ import javax.management.relation.Role;
 	 * @return returns the eMail address of the member. If the member has no email address the method returns an empty String.
 	 */
 	public static String SelectMemberByEMail(String eMail) {
-		String MembersMail="";
-		String sql = "Select EMail from Member where EMail="+eMail;
+		String membersMail="";
+		String sql = "Select EMail from Member where EMail like '"+eMail+"';";
 		try{
-			MembersMail = DBControl.ExecuteQuery(sql).get(0)[0];	
+			membersMail = DBControl.ExecuteQuery(sql).get(0)[0].toString();	
 
 		}
 		catch(Exception e){
+			System.out.println(e);
 		}
-		return MembersMail;				
+		return membersMail;				
 	}
 
 	public static Member SelectMemberByID(int memberID){
@@ -78,7 +80,7 @@ import javax.management.relation.Role;
 			member.SetPostCode(results.get(0)[5]);
 			member.SetCity(results.get(0)[6]);
 			member.SetEMail(results.get(0)[7]);
-			member.SetPassword(results.get(0)[8]);		
+			member.SetPasswordHash(results.get(0)[8]);		
 			if(Integer.parseInt(results.get(0)[9])==1)
 				member.SetMemberRole(Role.Admin);
 			else
@@ -93,10 +95,9 @@ import javax.management.relation.Role;
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
 	 * @param member
-	 * @return returns no value because the method inserts a new registrated User.
+	 * @return returns no value because the method inserts a new registrated Member.
 	 */
 	public static void InsertMember(Member member) {
-		DBControl Ctrl = new DBControl();
 		int MemberID=1;
 	    
 		if(member.GetMemberRole().toString()=="admin"){
@@ -112,13 +113,14 @@ import javax.management.relation.Role;
 				              +member.GetPostCode()+"','"
 				              +member.GetCity()+"','"
 				              +member.GetEMail()+"','"
-				              +member.GetPassword()+"',"
+				              +member.GetPasswordHash()+"',"
 				              +MemberID+")";
 		try{
-			Ctrl.ExecuteQuery(SqlStatement);	
+			ArrayList<String[]> checkValue = new ArrayList<String[]>();
+			checkValue = DBControl.ExecuteQuery(SqlStatement);	
 		}
 		catch(Exception e){
-			
+			System.out.println(e);
 		}				
 	}
 
@@ -130,7 +132,7 @@ import javax.management.relation.Role;
 	 */
 	public static void UpdateMember(Member member) {
 		DBControl Ctrl = new DBControl();
-		String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
+		String SqlStatement = "UPDATE member " + "SET "
 				+ "`firstname`= '"
 				+ member.GetFirstName()
 				+ "'"
@@ -229,7 +231,7 @@ import javax.management.relation.Role;
 	public static void UpdateUserPassword(Member member) {
 		DBControl Ctrl = new DBControl();
 		String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
-				+ "`psswordhash`= '" + member.GetPassword() + "'"
+				+ "`psswordhash`= '" + member.GetPasswordHash() + "'"
 				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
 		Ctrl.ExecuteQuery(SqlStatement);
 	}

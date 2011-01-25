@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import DBConnection.DBCommands;
 import MemberManagement.Member;
@@ -29,12 +30,16 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String rsUserid = request.getParameter("userId");
-		String requestDestination ="";
+//		HttpSession session = request.getSession(false);
+//		int rsUserid = (Integer) session.getAttribute("memberID");
 		
-		if (rsUserid != null){
-			Member m = DBCommands.SelectMemberByID(Integer.parseInt(rsUserid));
-			request.setAttribute("userId", m.GetMemberID());
+		String requestDestination ="";
+		int rsUserid = 4;
+		
+		if (rsUserid >= 1){
+			
+			Member m = DBCommands.SelectMemberByID(rsUserid);
+			request.setAttribute("memberID", m.GetMemberID());
 			request.setAttribute("fname", m.GetFirstName());
 			request.setAttribute("lname", m.GetLastName());
 			request.setAttribute("email", m.GetEMail());
@@ -42,19 +47,25 @@ public class User extends HttpServlet {
 			request.setAttribute("street", m.GetStreet());
 			request.setAttribute("hnr", m.GetStreetNumber());
 			request.setAttribute("place", m.GetCity());
-			requestDestination = "/userDataView.jsp";
-		}
-		else
-		{
-			requestDestination = "/Home";
+//			System.out.println(m.GetFirstName());
 		}
 		
-//		
-//		request.setAttribute("object", m);
-//		request.setAttribute("userId", m.GetMemberID());
-//		request.setAttribute("userId", rsUserid);
-//		request.setAttribute("fname", "Roy");
-//		request.setAttribute("lname", "");
+//(String)request.getParameter("toModus") == null ||
+		if (request.getParameter("toModus") == null || request.getParameter("toModus").equalsIgnoreCase("view")){
+			requestDestination = "/userDataView.jsp";
+			System.out.println(1);
+		} else if (request.getParameter("toModus").equalsIgnoreCase("edit")){
+			System.out.println(2);
+			requestDestination = "/userDataEdit.jsp";
+		} else if (request.getParameter("toModus").equalsIgnoreCase("commit")){
+//			Member member = new Member();
+//			member.SetMemberID();
+//			member.SetEMail();
+//			DBCommands.UpdateMember(member);
+			System.out.println(2);
+			requestDestination = "/userDataView.jsp";
+		}
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(requestDestination);
 		dispatcher.forward(request, response);
 	}
@@ -64,6 +75,7 @@ public class User extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

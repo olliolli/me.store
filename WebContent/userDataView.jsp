@@ -24,7 +24,7 @@
 
 <body>
 <%
-	String sUserid = request.getAttribute("userId").toString();
+	String sMemberID = request.getAttribute("memberID").toString();
 	String sFirstname = request.getAttribute("fname").toString();
 	String sLastname = request.getAttribute("lname").toString();
 	String sStreet = request.getAttribute("street").toString();
@@ -53,7 +53,7 @@
 							<tr>
 								<td>Kundennummer</td>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-									<td><%= sUserid %></td>
+									<td><%= sMemberID %></td>
 							</tr>
 							<tr>
 								<td>Vorname</td>
@@ -78,7 +78,7 @@
 			<div class="panel" title="Adresse">
 				<div class="wrapper">
 					<h3>Adresse</h3>
-					<form action="userDataEdit.jsp">
+					<form action="User?toModus=edit">
 						<table border="0">
 							<tr>
 								<td>Straße</td>
@@ -102,8 +102,8 @@
 							</tr>
 						</table>
 						<div class="register-buttons">
-							<input class="button" type="submit" value="">	
-							<a class="button" href="userDataEdit.jsp"><img src="images/main/edit.png" width="103" height="42" /></a>
+						<!-- 	<input class="button" type="submit" value="">  -->	
+							<a class="button" href="User?toModus=edit"><img src="images/main/edit.png" width="103" height="42" /></a>
 						</div>	
 					</form>
 					<p><a href="#1" class="cross-link" title="Adresse">&#171; Vorherige</a> </p>
