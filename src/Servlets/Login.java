@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 
+import javax.naming.ServiceUnavailableException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import MemberManagement.Member;
+import MemberManagement.MemberRegistration;
+import MemberManagement.PasswordService;
 
 /**
  * Servlet implementation class Login
@@ -40,7 +43,15 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String eMail = request.getParameter("username");
-		String pwdHash = request.getParameter("password");
+		String pwdHash = null;
+		try {
+			//Das eingegebene Passwort wird in einen Hashwert überführt
+			pwdHash = PasswordService.getInstance().Encrypt(request.getParameter("password"));
+			// Alle Parameter werden an RegistrateUser übergeben und der User wird gepseichert.
+		} catch (ServiceUnavailableException e) {
+			e.printStackTrace();
+		}
+		
 		Member member = MemberManagement.MemberLogin.returnMember(eMail, pwdHash);
 		if(member.GetMemberID() >= 1){
 			HttpSession session = request.getSession(true);
