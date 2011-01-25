@@ -117,7 +117,7 @@
 	    <div id="container" class="pagesize clearfix">
 	    	<div id="leftcol">
 	        	<div class="inner">            	
-					<jsp:include page="verticalNavigation.jsp" flush="true" />
+					
 	            </div>
 	        </div>
 	        <div id="maincol">
@@ -166,18 +166,18 @@
 	          
 	          		<ul id="portfolio"> 
 	          			<li> 
-	          				<a href="#"> 
-	          					<img src="images/promotion/test1.png" alt="Good Guy bad Guy" /> 
+	          				<a href="Details?id=22"> 
+	          					<img src="images/promotion/avatar.png" alt="Avatar" /> 
 	          				</a> 
 	          			</li>
 						<li> 
-							<a href="#"> 
-								<img src="images/promotion/test2.png" alt="Whizzkids" /> 
+							<a href="Details?id=20"> 
+								<img src="images/promotion/bankJob.png" alt="Bank Job" /> 
 							</a> 
 						</li> 
 						<li> 
-							<a href="#"> 
-								<img src="images/promotion/test3.png" alt="Königin Mutter" /> 
+							<a href="Details?id=6"> 
+								<img src="images/promotion/residentEvil.png" alt="Resident Evil 2" /> 
 							</a> 
 						</li> 						
 					</ul> 
@@ -209,9 +209,9 @@
 						speed: 'slow', 
 						timeout: 4000, 
 						type: 'sequence', 
-						containerheight: '638px' 
+						containerheight: '350px' 
 					}
-				); 
+				); 				
 			}
 		);
 		
