@@ -5,7 +5,9 @@ package MemberManagement;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import javax.naming.ServiceUnavailableException;
+
 import sun.misc.BASE64Encoder;
 
 public class PasswordService

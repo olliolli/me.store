@@ -40,38 +40,29 @@ public class MemberRegistration {
 	 * @param street :String = street of the member
 	 * @param streetNumber :String = streetnumber of the member
 	 * @param postCode :String = postcode of the city of the member
-	 * @param password :String = login password of the member
+	 * @param passwordHash :String = login password of the member as Hash Value
 	 * @param memberRole :enum = the role of the member (member or admin)
-	 * @return 1 --> missing/false firstName or lastName, 
-	 * 2 --> The member is already registrated,
-	 * 3 --> The eMail address has a false validation
-	 * 4 --> the password has not the size of 8 chars or contains less than 2 numbers 
-	 * 0 --> SaveMember was successfull
+	 * @return 0 --> RegistrateMember was susccessfull; 
+	 *
 	 */
 	public static int RegistrateUser(String firstName,String lastName, String eMail, String street, String streetNumber, String postCode, String city, String passwordHash, Role memberRole){
-			if(firstName.length()<2 || lastName.length()<2){
-				return 1;
-			}
-//			else if (MemberRegistration.IsAlwaysRegistrated(eMail)==true){
-//				return 2;
-//			}
-//			else if (MemberRegistration.ValidateMemberEMail(eMail)==false){
-//				return 3;
-//			}
-			else{
-				Member member = new Member();
-				member.SetCity(city);
-				member.SetEMail(eMail);
-				member.SetFirstName(firstName);
-				member.SetLastName(lastName);
-				member.SetMemberRole(memberRole);
-				member.SetPasswordHash(passwordHash);
-				member.SetPostCode(postCode);
-				member.SetStreet(street);
-				member.SetStreetNumber(streetNumber);				
-				DBCommands.InsertMember(member);				
-				return 0;
-			}		
+		        try{
+		        	Member member = new Member();
+		        	member.SetCity(city);
+					member.SetEMail(eMail);
+					member.SetFirstName(firstName);
+					member.SetLastName(lastName);
+					member.SetMemberRole(memberRole);
+					member.SetPasswordHash(passwordHash);
+					member.SetPostCode(postCode);
+					member.SetStreet(street);
+					member.SetStreetNumber(streetNumber);				
+					DBCommands.InsertMember(member);	
+					return 0;
+		        }
+		        catch(Exception e){
+		        	return 1;
+		        }				
 	}
 	
 	/**
