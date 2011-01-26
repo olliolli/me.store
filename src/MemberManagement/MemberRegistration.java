@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpSession;
+
 import DBConnection.DBCommands;
 
 /*
@@ -22,6 +24,8 @@ Angelegt von: Grunewald, Stephanie
 18.01-2011      SG              Die Methode ValidatePassword wurde erstellt 1.2
                                 Die Methode ValidateMemberEMail wurde auf
                                 public geändert
+26.01.2011      SG              Neuer regulärer Ausdruck eingefügt bei EMail Validierung
+                                Neue Methode zum überprüfen, ob sich beide eingegebenen Passwörter gleichen
                                 
 Allgemeine Funktionsbeschreibung:Die Methode erstellt ein Member Objekt 
 anhand der vom Controller übergebenen Parameter 
@@ -42,27 +46,32 @@ public class MemberRegistration {
 	 * @param postCode :String = postcode of the city of the member
 	 * @param passwordHash :String = login password of the member as Hash Value
 	 * @param memberRole :enum = the role of the member (member or admin)
-	 * @return 0 --> RegistrateMember was susccessfull; 
+	 * @return 0 --> RegistrateMember was susccessfull; 1--> DB Connect doesn't work, 2 --> userdata are incomplete
 	 *
 	 */
 	public static int RegistrateUser(String firstName,String lastName, String eMail, String street, String streetNumber, String postCode, String city, String passwordHash, Role memberRole){
-		        try{
-		        	Member member = new Member();
-		        	member.SetCity(city);
-					member.SetEMail(eMail);
-					member.SetFirstName(firstName);
-					member.SetLastName(lastName);
-					member.SetMemberRole(memberRole);
-					member.SetPasswordHash(passwordHash);
-					member.SetPostCode(postCode);
-					member.SetStreet(street);
-					member.SetStreetNumber(streetNumber);				
-					DBCommands.InsertMember(member);	
-					return 0;
-		        }
-		        catch(Exception e){
-		        	return 1;
-		        }				
+		//if(firstName.length()<2 || lastName.length()<2 || street.length()<3 || streetNumber.length()==0) {      
+			try{
+			        	Member member = new Member();
+			        	member.SetCity(city);
+						member.SetEMail(eMail);
+						member.SetFirstName(firstName);
+						member.SetLastName(lastName);
+						member.SetMemberRole(memberRole);
+						member.SetPasswordHash(passwordHash);
+						member.SetPostCode(postCode);
+						member.SetStreet(street);
+						member.SetStreetNumber(streetNumber);				
+						DBCommands.InsertMember(member);	
+						return 0;
+			        }
+			        catch(Exception e){
+			        	return 1;
+			        }
+//		}
+//		else{
+//			return 2;
+//		}
 	}
 	
 	/**
@@ -71,7 +80,7 @@ public class MemberRegistration {
 	 * @param eMail :String = the eMail address of the member
 	 * @return true --> if the member is already registrated, false --> if the member is even not registrated 
 	 */
-	private static boolean IsAlwaysRegistrated(String eMail){
+	public static boolean IsAlwaysRegistrated(String eMail){
 		String membersEMail = DBCommands.SelectMemberByEMail(eMail);
 		if(membersEMail!="null" || membersEMail!="" || membersEMail==eMail){
 			return true;
@@ -88,7 +97,7 @@ public class MemberRegistration {
 	 * @return true --> if the eMail address has the correct format, false --> if the eMail address do not have the correct format
 	 */
 	public static boolean ValidateMemberEMail(String memberEMail){
-		String validationSchema = "(^([a-zA-Z0-9])+([\\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\\.[a-zA-Z0-9_-]+)+";
+		String validationSchema = "^([a-zA-Z0-9\\-\\.\\_]+)(\\@)([a-zA-Z0-9\\-\\.]+)(\\.)([a-zA-Z]{2,4})$";
 		Pattern pattern = Pattern.compile(validationSchema);
 		Matcher matcher = pattern.matcher(memberEMail);
 		boolean matchFound = matcher.matches();
@@ -123,6 +132,22 @@ public class MemberRegistration {
 			}
 		}
 		return false; 			  		
-	}		
+	}
+	/**
+	 * @author Grunewald, Stephanie
+	 * @version 1.0
+	 * @param w_password - the repeated password
+	 * @param password - the origin passwort
+	 * @return true - if the both passwords are equal, false - if they are not eqaul
+	 */
+	public static boolean CheckPasswordsEquity(String w_password, String password){
+		if(w_password.equals(password)){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	}
 }
 
