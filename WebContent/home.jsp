@@ -10,6 +10,7 @@
 	<link href="css/dockNavigation.css" rel="stylesheet" type="text/css" />
 	<link href="css/content.css" rel="stylesheet" type="text/css" />
 	<link href="css/warenkorb.css" rel="stylesheet" type="text/css" />
+	<link href="css/userView.css" rel="stylesheet" type="text/css" />
 	<style type="text/css" media="screen, projection">
 		@import url(css/jq_fade.css);
 	</style>	

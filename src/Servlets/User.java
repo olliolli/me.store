@@ -50,11 +50,11 @@ public class User extends HttpServlet {
 		}
 		
 		if (request.getParameter("toModus")== null || request.getParameter("toModus").equalsIgnoreCase("view")){
-			requestDestination = "/userDataView.jsp";
+			request.setAttribute("toModus", "userView");
 			System.out.println(1);
 		} else if (request.getParameter("toModus").equalsIgnoreCase("edit")){
 			System.out.println(2);
-			requestDestination = "/userDataEdit.jsp";
+			request.setAttribute("toModus", "userEdit");
 		} else if (request.getParameter("toModus").equalsIgnoreCase("commit")){
 			member.SetMemberID(Integer.parseInt(request.getParameter("memberID")));
 			member.SetCity(request.getParameter("place"));
@@ -83,10 +83,10 @@ public class User extends HttpServlet {
 				request.setAttribute("place", m.GetCity());
 			}
 //			System.out.println(member.GetMemberID());
-			requestDestination = "/userDataView.jsp";
+			request.setAttribute("toModus", "userView");
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(requestDestination);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
 		dispatcher.forward(request, response);
 	}
 
