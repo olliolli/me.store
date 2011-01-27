@@ -125,9 +125,10 @@ be the result of two possible scenarios:</p>
 						</tr>
 					</table>
 						<div class="register-buttons">
-							<input class="button" type="submit" value="" >
+						<input class="resume-Button" type="submit" value=""> 
 							<a class="button" href="User?toModus=view">
-							<img src="images/main/cancel.png" width="103" height="42" /></a>
+							<img src="images/main/cancel.png" width="103" height="42" />
+						</a>
 						</div>
 					<p><a href="#2" class="cross-link" title="Adresse">&#171;Vorherige</a></p>
 				</form>
