@@ -70,16 +70,8 @@ be the result of two possible scenarios:</p>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 								<td><input class="textfield" name="firstname" type="text"
 									maxlength="30" value=<%=sFirstname%> readonly></td>
-							</tr><!--
-							<tr>
-								<td><input class="textfield" name="memberID" type="hidden"
-									maxlength="30" value=<%=sMemberID%> ></td>
 							</tr>
 							<tr>
-								<td><input class="textfield" name="firstname" type="hidden"
-									maxlength="30" value=<%=sFirstname%> ></td>
-							</tr>
-							--><tr>
 								<td>Nachname</td>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 								<td><input class="textfield" name="lastname" type="text"
@@ -131,7 +123,7 @@ be the result of two possible scenarios:</p>
 						</a>
 						</div>
 					<p><a href="#2" class="cross-link" title="Adresse">&#171;Vorherige</a></p>
-				</form>
+					</form>
 				</div>
 			</div>
 		</div>

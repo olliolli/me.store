@@ -30,11 +30,12 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession(false);
-//		int rsUserid = (Integer) session.getAttribute("memberID");
+		HttpSession session = request.getSession(false);
+		Member member = (Member) session.getAttribute("member");
+		int rsUserid = member.GetMemberID();
 		
 		String requestDestination ="";
-		int rsUserid = 1;
+//		int rsUserid = 1;
 		
 		if (rsUserid >= 1){	
 			Member m = DBCommands.SelectMemberByID(rsUserid);
@@ -55,7 +56,6 @@ public class User extends HttpServlet {
 			System.out.println(2);
 			requestDestination = "/userDataEdit.jsp";
 		} else if (request.getParameter("toModus").equalsIgnoreCase("commit")){
-			Member member = new Member();
 			member.SetMemberID(Integer.parseInt(request.getParameter("memberID")));
 			member.SetCity(request.getParameter("place"));
 			member.SetEMail(request.getParameter("email"));
