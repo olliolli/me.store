@@ -146,26 +146,26 @@ public static void UpdateMember(Member member) {
 		String SqlStatement = "UPDATE member " + "SET "
 				+ "`firstname`= '"
 				+ member.GetFirstName()
-				+ "'"
+				+ "', "
 				+ "`lastname`= '"
 				+ member.GetLastName()
-				+ "'"
+				+ "', "
 				+ "`street`= '"
 				+ member.GetStreet()
-				+ "'"
+				+ "', "
 				+ "`nr`= '"
 				+ member.GetStreetNumber()
-				+ "'"
+				+ "', "
 				+ "`postcode`= '"
 				+ member.GetPostCode()
-				+ "'"
+				+ "', "
 				+ "`city`= '"
 				+ member.GetCity()
-				+ "'"
+				+ "', "
 				+ "`email`= '"
 				+ member.GetEMail()
-				+ "'"
-				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
+				+ "' "
+				+ "WHERE memberid = '" + member.GetMemberID() + "';";
 		try{
 			Ctrl.ExecuteQuery(SqlStatement);
 		}
