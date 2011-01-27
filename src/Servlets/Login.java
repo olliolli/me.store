@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DBConnection.DBCommands;
 import MemberManagement.Member;
 import MemberManagement.MemberRegistration;
 import MemberManagement.PasswordService;
@@ -56,12 +57,14 @@ public class Login extends HttpServlet {
 		if(member.GetMemberID() >= 1){
 			HttpSession session = request.getSession(true);
 			session.setAttribute("member", member);
+			session.setAttribute("cart", DBCommands.SelectOpenOrderByMemberID(member.GetMemberID()));
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
 			dispatcher.forward(request, response);
 		}
 		else{
 			HttpSession session = request.getSession(true);
 			session.setAttribute("member", member);
+			session.setAttribute("cart", null);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		}

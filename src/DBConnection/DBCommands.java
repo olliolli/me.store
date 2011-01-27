@@ -25,23 +25,43 @@ public class DBCommands {
 import MemberManagement.*;
 import javax.management.relation.Role;
 
-/**
->>>>>>> 7f3fce6c37a9a467500d46a27cff5666073131f9
+	/**
 	 * @author Falzer, Marcel
-	 * @version 1.2
+	 * @version 1.3
 	 * @param eMail-adress of the user:string, hashvalue of password of user:string
-	 * @return memerId of user or -1 when user not registrated: int
+	 * @return member object or null when user registrated: member
 	 */
 	public static Member SelectMemberByEMailAndPwdHash(String eMail, String pwdHash){
 		Member member = new Member();
-	    String sql = "Select MemberID from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
+	    String SqlStatement = "Select * from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
 		try{
-		int memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
-		member = DBCommands.SelectMemberByID(memberID);
-		
+			member = DBCommands.FillMember(DBControl.ExecuteQuery(SqlStatement));
 		}
 		catch(Exception e){
 		}
+		return member;
+	}
+	/**
+	* @author Falzer, Marcel
+	 * @version 1.0
+	 * @param list of results of a sqlstatement: ArrayList<String[]>
+	 * @return member object or null when user is not registrated: member
+	 */
+	public static Member FillMember(ArrayList<String[]> results){
+		Member member = new Member();
+		member.SetMemberID(Integer.parseInt(results.get(0)[0]));
+		member.SetFirstName(results.get(0)[1]);
+		member.SetLastName(results.get(0)[2]);
+		member.SetStreet(results.get(0)[3]);
+		member.SetStreetNumber(results.get(0)[4]);
+		member.SetPostCode(results.get(0)[5]);
+		member.SetCity(results.get(0)[6]);
+		member.SetEMail(results.get(0)[7]);
+		member.SetPasswordHash(results.get(0)[8]);		
+		if(Integer.parseInt(results.get(0)[9])==1)
+			member.SetMemberRole(Role.Admin);
+		else
+			member.SetMemberRole(Role.Member);
 		return member;
 	}
 
@@ -71,20 +91,9 @@ import javax.management.relation.Role;
 			"From member " +
 			"Where memberid = " + memberID + ";";
 		try{
-			ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
-			member.SetMemberID(Integer.parseInt(results.get(0)[0]));
-			member.SetFirstName(results.get(0)[1]);
-			member.SetLastName(results.get(0)[2]);
-			member.SetStreet(results.get(0)[3]);
-			member.SetStreetNumber(results.get(0)[4]);
-			member.SetPostCode(results.get(0)[5]);
-			member.SetCity(results.get(0)[6]);
-			member.SetEMail(results.get(0)[7]);
-			member.SetPasswordHash(results.get(0)[8]);		
-			if(Integer.parseInt(results.get(0)[9])==1)
-				member.SetMemberRole(Role.Admin);
-			else
-				member.SetMemberRole(Role.Member);
+			
+			member = DBCommands.FillMember(DBControl.ExecuteQuery(SqlStatement));
+			
 		}
 		catch(Exception e){
 		}
