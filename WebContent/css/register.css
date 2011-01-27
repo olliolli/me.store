@@ -142,10 +142,25 @@
 			height:42;
 			background: url("../images/Register/registrieren.png") no-repeat center;
 			cursor: pointer;
+			float: left;
+		}
+		
+		.resume-Button{
+			margin-top: 10px;
+			margin-left: 25px;
+			font-family:Verdana,Arial,sans-serif;
+			font-size:11px;
+			border: none;
+			width:120; 
+			height:42;
+			background: url("../images/main/resume.png") no-repeat center;
+			cursor: pointer;
+			float:right;
 		}
 		
 		.register-buttons {
 			display: block;	
+			height: 52px;
 		}
 		
 		.register-buttons .button {
