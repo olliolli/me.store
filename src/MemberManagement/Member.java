@@ -25,6 +25,22 @@ public class Member {
 	private String passwordHash;
 	
 	/**
+	 * @return no return because it is the standard construktor
+	 */
+	public Member() {
+		this.city="";
+		this.eMail="";
+		this.firstName="";
+		this.lastName="";
+		this.memberRole=Role.Member;
+		this.passwordHash="";
+		this.postCode="";
+		this.memberID=0;
+		this.streetNumber="";
+		this.street="";		
+	}
+	
+	/**
 	 * @author Falzer, Marcel
 	 * @version 1.0
 	 * @param memberID :int = the identificationnumber of the member which it has been created by the database
@@ -42,16 +58,16 @@ public class Member {
 	public Member(int memberID,Role memberRole, String firstName, String lastName,
 			String eMail, String street, String streetNumber, String postCode,
 			String city,String password) {
-		this.SetMemberRole(memberRole);
-		this.SetFirstName(firstName);
-		this.SetLastName(lastName);
-		this.SetEMail(eMail);
-		this.SetStreet(street);
-		this.SetStreetNumber(streetNumber);
-		this.SetPostCode(postCode);
-		this.SetCity(city);
-		this.memberID = memberID;
-		this.SetPasswordHash(password);
+		this.memberRole = memberRole;
+		this.firstName = firstName;
+		this.lastName=lastName;
+		this.city = city;
+		this.eMail=eMail;
+		this.passwordHash=password;
+		this.postCode=postCode;
+		this.streetNumber=streetNumber;
+		this.street=street;
+		this.memberID=memberID;		
 	}
 	/** 
 	/**
@@ -80,12 +96,7 @@ public class Member {
 		this.SetCity(city);		
 		this.SetPasswordHash(password);
 	}
-	/**
-	 * @return no return because it is the standard construktor
-	 */
-	public Member() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.1

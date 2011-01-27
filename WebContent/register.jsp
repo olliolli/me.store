@@ -39,8 +39,8 @@
 		<div class="panelContainer">
 			<div class="panel" title="Benutzer">
 				<div class="wrapper">
-					<h3>Benutzer</h3>					
-					<form>
+					<h3>Benutzer</h3>
+					<form action="Register" method="post">										
 						<table border="0">
 							<tr>
 								<td>Vorname</td>
@@ -56,30 +56,55 @@
 							</tr>
 							<tr>
 								<td>Passwort</td>
-								<td><input class="textfield" name="password" type="text" maxlength="30"></td>
+								<td><input class="textfield" name="password" type="password" maxlength="30"></td>
 							</tr>
 							<tr>
 								<td>Passwort Wiederholung</td>
-								<td><input class="textfield" name="w_password" type="text" maxlength="30"></td>
+								<td><input class="textfield" name="w_password" type="password" maxlength="30"></td>
 							</tr>
-						</table>
-					</form>
+						</table>					
 					<p> <a href="#2" class="cross-link" title="Lieferadresse">Nächste &#187;</a></p>
+				
 				</div>
-			</div>
-			<div class="panel" title="Adresse">
+			</div><!--
+			<div class="panel" title="Lieferadresse">
 				<div class="wrapper">
-					<h3>Adresse</h3>
-					<form action="Login">
+					<h3>Lieferadresse</h3>
+					<form>
 						<table border="0">
 							<tr>
 								<td>Vorname</td>
-								<td><input class="textfield" name="r_first_name" type="text" maxlength="30"></td>
+								<td><input class="textfield" name="l_first_name" type="text" maxlength="30"></td>
 							</tr>
 							<tr>
 								<td>Nachname</td>
-								<td><input class="textfield" name="r_last_name" type="text" maxlength="30"></td>
+								<td><input class="textfield" name="l_last_name" type="text" maxlength="30"></td>
 							</tr>
+							<tr>
+								<td>Straße</td>
+								<td><input class="textfield" name="l_street" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>Hausnummer</td>
+								<td><input class="textfield" name="l_hnr" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>PLZ</td>
+								<td><input class="textfield" name="l_zip" type="text" maxlength="30"></td>
+							</tr>
+							<tr>
+								<td>Ort</td>
+								<td><input class="textfield" name="l_place" type="text" maxlength="30"></td>
+							</tr>
+						</table>
+					</form>
+					<p><a href="#1" class="cross-link" title="Benutzer">&#171; Vorherige</a> | <a href="#3" class="cross-link" title="Rechnungsadresse">Nächste &#187;</a></p>
+				</div>
+			</div>		
+	--><div class="panel" title="Adresse">
+				<div class="wrapper">
+					<h3>Adresse</h3>													
+						<table border="0">
 							<tr>
 								<td>Straße</td>
 								<td><input class="textfield" name="r_street" type="text" maxlength="30"></td>
@@ -101,17 +126,13 @@
 							<input class="button" type="submit" value="">	
 							<a class="button" href="Login"><img src="images/main/cancel.png" width="103" height="42" /></a>
 						</div>	
-					</form>
-					<p><a href="#1" class="cross-link" title="Adresse">&#171; Vorherige</a> </p>
+					<p><a href="Login" class="cross-link" title="Adresse">&#171; Vorherige</a> </p>
+				</form>
+				</div>	
 				</div>
-			</div>
-			
+			</div>			
 		</div>
-	</div>	
-</div>
-
-				
-				
+	</div>				
 </body>
 
 </html>
