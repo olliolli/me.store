@@ -56,7 +56,6 @@ import javax.management.relation.Role;
 		String sql = "Select EMail from Member where EMail like '"+eMail+"';";
 		try{
 			membersMail = DBControl.ExecuteQuery(sql).get(0)[0].toString();	
-
 		}
 		catch(Exception e){
 			System.out.println(e);
