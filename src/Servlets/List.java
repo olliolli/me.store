@@ -43,26 +43,42 @@ public class List extends HttpServlet {
 		ArrayList<String> params = new ArrayList<String>();
 
 		String selectStatement = "select " +
-				"ArticleID" +
+				"art.ArticleID" +
 				",mediumtype.Description" +
 				",genre.GenreName" +
-				",Title" +
+				",art.Title" +
 				",art.Description" +
-				",Price" +
-				",Discount" +
-				",Picture" +
+				",art.Price" +
+				",art.Discount" +
+				",art.Picture" +
 				" from article art,mediumtype,genre";
 		
-		selectStatement += 
+		if (rsOption != null && rsOption.equals("Neu")){
+			selectStatement += 
 				" where art.MediumTypeID = mediumtype.MediumTypeID" +
 				" and art.GenreID = genre.GenreID";
 		
-		if (rsOption != null && rsOption.equals("Neu")){
+			
 			selectStatement += " and exists ( select count(*) from" +
 			" article a where a.createdDate > art.createdDate" +
 			" having count(*) < 10 )";				
 		}
-		else
+		else if (rsOption != null && rsOption.equals("Bestseller")){
+			selectStatement += ",orderline";
+			
+			selectStatement += 
+				" where art.MediumTypeID = mediumtype.MediumTypeID" +
+				" and art.GenreID = genre.GenreID" +
+				" and art.ArticleID = orderline.ArticleID" +
+				" group by art.ArticleID" +
+				" order by SUM(orderline.Amount) desc LIMIT 5";			
+		}
+		else{
+			selectStatement += 
+				" where art.MediumTypeID = mediumtype.MediumTypeID" +
+				" and art.GenreID = genre.GenreID";
+		
+			
 			if (rsMedium != null || rsCategory != null || rsOption != null || rsSearchQuery != null)
 			{	
 				selectStatement += " and (";
@@ -110,6 +126,7 @@ public class List extends HttpServlet {
 				selectStatement = selectStatement.substring(0, selectStatement.length() - 4);
 				selectStatement += " )";
 			}
+		}
 		
 		
 		System.out.println(selectStatement);

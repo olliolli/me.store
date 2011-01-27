@@ -153,12 +153,25 @@
 	            		<jsp:include page="warenkorb.jsp" flush="true" />
 	            		
 	            	<%  }
-	            		if (toModus == "home") {%>
-	            		<jsp:include page="content.jsp" flush="true" />
+	            		if (toModus == "welcome") {%>
+	            		<jsp:include page="welcome.jsp" flush="true" />
 	            		
 	            	<%  }
 	            		if (toModus == "list") {%>
 	            		<jsp:include page="content.jsp" flush="true" />
+	            		
+	            	<%  }
+	            		if (toModus == "error") {%>
+	            		<jsp:include page="error.jsp" flush="true" />
+	            	<%  }
+	            		if (toModus == "noPermission") {%>
+	            		<jsp:include page="noPermission.jsp" flush="true" />
+	            	<%  }
+	            		if (toModus == "userView") {%>
+	            		<jsp:include page="userDataView.jsp" flush="true" />
+	            	<%  }
+	            		if (toModus == "userEdit") {%>
+	            		<jsp:include page="userDataEdit.jsp" flush="true" />
 	            		
 	            	<% }
 	            		if (toModus == "details") {%>

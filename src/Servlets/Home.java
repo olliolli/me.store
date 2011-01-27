@@ -62,7 +62,7 @@ public class Home extends HttpServlet {
 		
 		//request.setAttribute("books", collection);
 		
-		request.setAttribute("toModus", "home");
+		request.setAttribute("toModus", "welcome");
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
 		dispatcher.forward(request, response);
 	}
