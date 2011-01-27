@@ -54,7 +54,7 @@ public class MemberRegistration {
 			try{
 			        	Member member = new Member();
 			        	member.SetCity(city);
-						member.SetEMail(eMail);
+						member.SetEMail(eMail.toUpperCase());
 						member.SetFirstName(firstName);
 						member.SetLastName(lastName);
 						member.SetMemberRole(memberRole);
@@ -80,9 +80,12 @@ public class MemberRegistration {
 	 * @param eMail :String = the eMail address of the member
 	 * @return true --> if the member is already registrated, false --> if the member is even not registrated 
 	 */
-	public static boolean IsAlwaysRegistrated(String eMail){
-		String membersEMail = DBCommands.SelectMemberByEMail(eMail);
-		if(membersEMail!="null" || membersEMail!="" || membersEMail==eMail){
+	public static boolean IsAlreadyRegistrated(String eMail){
+		String membersEMail = DBCommands.SelectMemberByEMail(eMail.toUpperCase());
+        if(membersEMail.equals("")) {
+        		return false;
+    	}
+        else if(membersEMail.toUpperCase().equals(eMail.toUpperCase())){
 			return true;
 		}
 		else{

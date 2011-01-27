@@ -56,7 +56,6 @@ import javax.management.relation.Role;
 		String sql = "Select EMail from Member where EMail like '"+eMail+"';";
 		try{
 			membersMail = DBControl.ExecuteQuery(sql).get(0)[0].toString();	
-
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -135,28 +134,29 @@ import javax.management.relation.Role;
 		String SqlStatement = "UPDATE member " + "SET "
 				+ "`firstname`= '"
 				+ member.GetFirstName()
-				+ "'"
+				+ "', "
 				+ "`lastname`= '"
 				+ member.GetLastName()
-				+ "'"
+				+ "', "
 				+ "`street`= '"
 				+ member.GetStreet()
-				+ "'"
+				+ "', "
 				+ "`nr`= '"
 				+ member.GetStreetNumber()
-				+ "'"
+				+ "', "
 				+ "`postcode`= '"
 				+ member.GetPostCode()
-				+ "'"
+				+ "', "
 				+ "`city`= '"
 				+ member.GetCity()
-				+ "'"
+				+ "', "
 				+ "`email`= '"
 				+ member.GetEMail()
-				+ "'"
-				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
+				+ "' "
+				+ "WHERE memberid = '" + member.GetMemberID() + "';";
 		Ctrl.ExecuteQuery(SqlStatement);
 	}
+	
 	public static void NewOrder(Order order){
 		String SqlStatement = "Insert into order(memberid) values ('" + order.getMember().GetMemberID() + "');";
 		DBControl.ExecuteQuery(SqlStatement);	
