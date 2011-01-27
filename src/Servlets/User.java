@@ -34,10 +34,9 @@ public class User extends HttpServlet {
 //		int rsUserid = (Integer) session.getAttribute("memberID");
 		
 		String requestDestination ="";
-		int rsUserid = 4;
+		int rsUserid = 1;
 		
-		if (rsUserid >= 1){
-			
+		if (rsUserid >= 1){	
 			Member m = DBCommands.SelectMemberByID(rsUserid);
 			request.setAttribute("memberID", m.GetMemberID());
 			request.setAttribute("fname", m.GetFirstName());
@@ -47,22 +46,43 @@ public class User extends HttpServlet {
 			request.setAttribute("street", m.GetStreet());
 			request.setAttribute("hnr", m.GetStreetNumber());
 			request.setAttribute("place", m.GetCity());
-//			System.out.println(m.GetFirstName());
 		}
 		
-//(String)request.getParameter("toModus") == null ||
-		if (request.getParameter("toModus") == null || request.getParameter("toModus").equalsIgnoreCase("view")){
+		if (request.getParameter("toModus")== null || request.getParameter("toModus").equalsIgnoreCase("view")){
 			requestDestination = "/userDataView.jsp";
 			System.out.println(1);
 		} else if (request.getParameter("toModus").equalsIgnoreCase("edit")){
 			System.out.println(2);
 			requestDestination = "/userDataEdit.jsp";
 		} else if (request.getParameter("toModus").equalsIgnoreCase("commit")){
-//			Member member = new Member();
-//			member.SetMemberID();
-//			member.SetEMail();
-//			DBCommands.UpdateMember(member);
-			System.out.println(2);
+			Member member = new Member();
+			member.SetMemberID(Integer.parseInt(request.getParameter("memberID")));
+			member.SetCity(request.getParameter("place"));
+			member.SetEMail(request.getParameter("email"));
+			member.SetFirstName(request.getParameter("firstname"));
+			member.SetLastName(request.getParameter("lastname"));
+			member.SetPostCode(request.getParameter("zip"));
+			member.SetStreet(request.getParameter("street"));
+			member.SetStreetNumber(request.getParameter("hnr"));
+			try{
+				DBCommands.UpdateMember(member);
+			}
+			catch (Exception e){
+			}
+			
+			System.out.println(3);
+			if (rsUserid >= 1){	
+				Member m = DBCommands.SelectMemberByID(rsUserid);
+				request.setAttribute("memberID", m.GetMemberID());
+				request.setAttribute("fname", m.GetFirstName());
+				request.setAttribute("lname", m.GetLastName());
+				request.setAttribute("email", m.GetEMail());
+				request.setAttribute("zip", m.GetPostCode());
+				request.setAttribute("street", m.GetStreet());
+				request.setAttribute("hnr", m.GetStreetNumber());
+				request.setAttribute("place", m.GetCity());
+			}
+//			System.out.println(member.GetMemberID());
 			requestDestination = "/userDataView.jsp";
 		}
 		
@@ -77,5 +97,6 @@ public class User extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }

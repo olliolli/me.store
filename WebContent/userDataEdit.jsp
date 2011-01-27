@@ -25,14 +25,14 @@
 
 <body>
 <%
-	String sMemberID = request.getAttribute("memberID").toString();
-	String sFirstname = request.getAttribute("fname").toString();
-	String sLastname = request.getAttribute("lname").toString();
-	String sStreet = request.getAttribute("street").toString();
-	String sZip = request.getAttribute("zip").toString();
-	String sPlace = request.getAttribute("place").toString();
-	String sEmail = request.getAttribute("email").toString();
-	String sHnr = request.getAttribute("hnr").toString();
+	String sMemberID = "'"+request.getAttribute("memberID").toString()+"'";
+	String sFirstname = "'"+request.getAttribute("fname").toString()+"'";
+	String sLastname = "'"+request.getAttribute("lname").toString()+"'";
+	String sStreet = "'"+request.getAttribute("street").toString()+"'";
+	String sZip = "'"+request.getAttribute("zip").toString()+"'";
+	String sPlace = "'"+request.getAttribute("place").toString()+"'";
+	String sEmail = "'"+request.getAttribute("email").toString()+"'";
+	String sHnr = "'"+request.getAttribute("hnr").toString()+"'";
 %>
 
 
@@ -57,66 +57,80 @@ be the result of two possible scenarios:</p>
 			<div class="panel" title="Benutzer">
 				<div class="wrapper">
 					<h3>Benutzer</h3>
-					<form>
+					<form action="User?toModus=commit" method="post">
+						<table border="0">
+							<tr>
+								<td>Kundennummer</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td><input class="textfield" name="memberID" type="text"
+									maxlength="30" value=<%=sMemberID%> readonly></td>
+							</tr>
+							<tr>
+								<td>Vorname</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td><input class="textfield" name="firstname" type="text"
+									maxlength="30" value=<%=sFirstname%> readonly></td>
+							</tr><!--
+							<tr>
+								<td><input class="textfield" name="memberID" type="hidden"
+									maxlength="30" value=<%=sMemberID%> ></td>
+							</tr>
+							<tr>
+								<td><input class="textfield" name="firstname" type="hidden"
+									maxlength="30" value=<%=sFirstname%> ></td>
+							</tr>
+							--><tr>
+								<td>Nachname</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td><input class="textfield" name="lastname" type="text"
+									maxlength="30" value=<%=sLastname%>></td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td><input class="textfield" name="email" type="text"
+									maxlength="30" value=<%=sEmail%>></td>
+							</tr>
+						</table>	
+					<p><a href="#2" class="cross-link" title="Adresse">Nächste&#187;</a></p>
+				</div>
+			</div>
+		<div class="panel" title="Adresse">
+			<div class="wrapper">
+				<h3>Adresse</h3>
 					<table border="0">
 						<tr>
-							<td>Kundennummer</td>
-							<td><%= sMemberID %>
-							</td>
+							<td>Straße</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td><input class="textfield" name="street" type="text"
+								maxlength="30" value=<%=sStreet%>></td>
 						</tr>
 						<tr>
-							<td>Vorname</td>
-							<td><input class="textfield" name="firstname" type="text"
-								maxlength="30" value=<%=sFirstname%>></td>
+							<td>Hausnummer</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td><input class="textfield" name="hnr" type="text"
+								maxlength="30" value=<%=sHnr%>></td>
 						</tr>
 						<tr>
-							<td>Nachname</td>
-							<td><input class="textfield" name="lastname" type="text"
-								maxlength="30" value=<%=sLastname%>></td>
+							<td>PLZ</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td><input class="textfield" name="zip" type="text"
+								maxlength="30" value=<%=sZip%>></td>
 						</tr>
 						<tr>
-							<td>Email</td>
-							<td><input class="textfield" name="email" type="text"
-								maxlength="30" value=<%=sEmail%>></td>
+							<td>Ort</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td><input class="textfield" name="place" type="text"
+								maxlength="30" value=<%=sPlace%>></td>
 						</tr>
 					</table>
-					</form>
-				<p><a href="#2" class="cross-link" title="Adresse">Nächste&#187;</a></p>
-			</div>
-		</div>
-	<div class="panel" title="Adresse">
-		<div class="wrapper">
-			<h3>Adresse</h3>
-				<form action="/User?toModus=commit">
-				<table border="0">
-					<tr>
-						<td>Straße</td>
-						<td><input class="textfield" name="street" type="text"
-							maxlength="30" value=<%=sStreet%>></td>
-					</tr>
-					<tr>
-						<td>Hausnummer</td>
-						<td><input class="textfield" name="hnr" type="text"
-							maxlength="30" value=<%=sHnr%>></td>
-					</tr>
-					<tr>
-						<td>PLZ</td>
-						<td><input class="textfield" name="zip" type="text"
-							maxlength="30" value=<%=sZip%>></td>
-					</tr>
-					<tr>
-						<td>Ort</td>
-						<td><input class="textfield" name="place" type="text"
-							maxlength="30" value=<%=sPlace%>></td>
-					</tr>
-				</table>
-					<div class="register-buttons">
-						<input class="button" type="submit" value=""> 
-						<a class="button" href="User?toModus=view">
-						<img src="images/main/cancel.png" width="103" height="42" /></a>
-					</div>
-				</form>
+						<div class="register-buttons">
+							<input class="button" type="submit" value="" >
+							<a class="button" href="User?toModus=view">
+							<img src="images/main/cancel.png" width="103" height="42" /></a>
+						</div>
 					<p><a href="#2" class="cross-link" title="Adresse">&#171;Vorherige</a></p>
+				</form>
 				</div>
 			</div>
 		</div>
