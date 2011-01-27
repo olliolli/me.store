@@ -1,19 +1,21 @@
 package ArticleManagement;
 /*
-Anlagedatum: 10.01.2011
-Angelegt von: Grunewald, Stephanie
+creation date: 10.01.2011
+created by: Grunewald, Stephanie
 
-ÄNDERUNGSHISTORIE
-Änderungsdatum | Geändert von | Änderungsbeschreibung        | Versionsnummer
+HISTORY OF MODIFICATION
+=============================================================================
+modification date | modified from | description | version number
 -----------------------------------------------------------------------------
-10.01.2011      SG              new Genre:                        1.1
-                                Melodram, Erotik, Liebesfilm
-                                Action, Western, Biografie
 
-Funktionsbeschreibung: Grenzt die Genres(Kategorien) ein 
-um Fehleingaben zu verhindern.
+decription of the main function:  description of the enum "Genre".
 
 * */
+
+/**
+ * @author Grunewald, Stephanie
+ * @version 1.0
+ */
 public enum Genre {
 	Horror,
 	Fantasy,

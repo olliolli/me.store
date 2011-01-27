@@ -1,13 +1,13 @@
 /*
-Anlagedatum: 13.01.2011
-Angelegt von: Falzer, Marcel
+creation date: 14.01.2011
+created by: Falzer, Marcel
 
-ÄNDERUNGSHISTORIE
-Änderungsdatum | Geändert von | Änderungsbeschreibung | Versionsnummer
-----------------------------------------------------------------------
-
-Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "DBControl"
-                                  DBControl dient dem Zugriff auf die Datenbank
+HISTORY OF MODIFICATION
+=============================================================================
+modification date | modified from | description | version number
+-----------------------------------------------------------------------------
+ 
+decription of the main function:  methods to exectute each sql statement.
 
 * */ 
 package DBConnection;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DBControl {
+	
 	private static Connection conn = null;
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static String path = "jdbc:mysql://localhost/buchclub";
@@ -31,17 +32,19 @@ public class DBControl {
 	/**
 	 * @author Falzer, Marcel
 	 * @version 1.0
-	 * @param SqlStatement:String, wird hier ausgeführt
-	 * @return results:ArrayList<String>, liefert die Werte zurück,
-	 * 										die das SqlStatement zurückgibt
+	 * @since 13.01.2011
+	 * @exception ClassNotFoundException
+	 * @exception SQLException
+	 * @param sqlStatement - (STRING) the sql statement to execute
+	 * @return result - (ArrayList<STRING>) the result list of the sql statement execution
 	 */
-	public static ArrayList<String[]> ExecuteQuery(String SqlStatement){
+	public static ArrayList<String[]> ExecuteQuery(String sqlStatement){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		try{
 			Class.forName(driver);		
 			conn = DriverManager.getConnection(path, user, pwd);
 			Statement stmt = conn.createStatement();
-			stmt.execute(SqlStatement);
+			stmt.execute(sqlStatement);
 			ResultSet r = stmt.getResultSet();
 			ResultSetMetaData rmd = r.getMetaData();
 			while (r.next()){
@@ -64,26 +67,32 @@ public class DBControl {
 		}
 		return result;
 	}
-	
-	public static ArrayList<String[]> ExecuteQuery(String SqlStatement,ArrayList<String> params){
+/**
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @since 20.01.2011
+ * @exception ClassNotFoundException
+ * @exception SQLException
+ * @param sqlStatement - (STRING) the sql statement to execute
+ * @param params - (ArrayList<STRING>) the parameter list
+ * @return result - (ArrayList<STRING>) the result list of the sql statement execution
+ */
+	public static ArrayList<String[]> ExecuteQuery(String sqlStatement,ArrayList<String> params){
 		if (params.isEmpty()){
-			return ExecuteQuery(SqlStatement);			
+			return ExecuteQuery(sqlStatement);			
 		}
 		else
-		{
-			
+		{			
 			ArrayList<String[]> result = new ArrayList<String[]>();
-				
 			try{
 				Class.forName(driver);		
 				conn = DriverManager.getConnection(path, user, pwd);
-				PreparedStatement stmt = conn.prepareStatement(SqlStatement);
+				PreparedStatement stmt = conn.prepareStatement(sqlStatement);
 				int _paramCount= 1;
 				for (Iterator iter = params.iterator(); iter.hasNext();) {
 			  		stmt.setString(_paramCount, (String) iter.next());
 			  		_paramCount++;
-				}
-				
+				}				
 				stmt.execute();
 				ResultSet r = stmt.getResultSet();
 				ResultSetMetaData rmd = r.getMetaData();
