@@ -35,7 +35,13 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String articleID = request.getParameter("articleID");
+		
+		System.out.println(articleID.toString());
+		
+		request.setAttribute("toModus", "cart");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

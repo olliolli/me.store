@@ -34,7 +34,7 @@
 					<br />
 					<div class="login-box-buttons">
 						<a href="javascript: document.frmLogin.submit();"><img src="images/login/login-btn_lightblue.png" width="103" height="42"/></a>
-						<a href="Home"><img src="images/main/cancel.png" width="103" height="42" /></a>
+						<a href="javascript: history.back();"><img src="images/main/cancel.png" width="103" height="42" /></a>
 					</div>
 				</div>
 			</form>

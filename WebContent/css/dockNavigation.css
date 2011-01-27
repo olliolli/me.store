@@ -35,6 +35,7 @@ a.dock-item {
 .dock-item span {
 	display: none; 
 	padding-left: 20px;
+	color: #000000;
 }
 
 /* dock2 - bottom */

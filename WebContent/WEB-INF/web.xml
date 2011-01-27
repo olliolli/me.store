@@ -89,4 +89,14 @@
     <servlet-name>User</servlet-name>
     <url-pattern>/User</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Details</display-name>
+    <servlet-name>Details</servlet-name>
+    <servlet-class>Servlets.Details</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Details</servlet-name>
+    <url-pattern>/Details</url-pattern>
+  </servlet-mapping>
 </web-app>

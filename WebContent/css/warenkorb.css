@@ -40,7 +40,7 @@
 	float:left;
 	padding: 15px 0 0 0;
 	text-align:center;
-	width:110px;
+	width:80px;
 	height: 46px;
 	border-right: 1px solid #ced9ec;
 	color:#1f3d71;
@@ -64,9 +64,9 @@
 .basket-left {
 	float:left;
 	margin:0;
-	padding: 10px 0 0 24px;
-	width: 194px;
-	text-align: left;
+	padding: 10px 0 0 0px;
+	width: 218px;
+	text-align: center;
 	height: 25px;
 	border-right: 1px solid #ced9ec;
 	border-bottom: 1px solid #b3c1db;
@@ -75,13 +75,15 @@
 	background: #e4ebf8 url(../images/basket/center-blue.png) repeat-y left top;
 }
 
-
+.mid_cell_height {
+	height: 30px;	
+}
 
 .basket-right {
 	float:left;
 	margin:0;
 	padding: 11px 0 0 0;
-	width: 110px;
+	width: 80px;
 	text-align:center;
 	height: 24px;
 	border-right: 1px solid #ced9ec;
@@ -102,7 +104,7 @@
 	float:left;
 	padding: 15px 0 0 0;
 	text-align:center;
-	width:110px;
+	width:80px;
 	height: 33px;
 	border-right: 1px solid #ced9ec;
 	color:#070707;

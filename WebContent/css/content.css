@@ -3,6 +3,12 @@
 	padding: 6px 15px 35px;
 }
 
+.articleContainer {
+	padding-bottom: 5px;
+	border-bottom: 1px solid #666666;	
+}
+
+
 .yellow {
 	color: #999966;
 	font-weight: bold;
@@ -43,7 +49,6 @@
 	margin-left: 3px;
 	float: left;
 	font-size: 15px;
-	color: #FF0A0E;
 }
 
 .itemDetails .discount span  {
@@ -60,6 +65,7 @@
 	margin-left: 20px;
 	width: 70px;
 	height: 24px;
+	position: relative;
 	
 }
 
@@ -72,4 +78,24 @@
 
 .buy a:hover {
 	background: url(../images/main/kaufen_hover.jpg) left bottom no-repeat;
+}
+
+.details
+{
+	float: right;
+	margin-left: 20px;
+	width: 70px;
+	height: 24px;
+	
+}
+
+.details a{
+	display: block;
+	width: 70px;
+	height: 24px;
+	background: url(../images/main/details.jpg) left bottom no-repeat;
+}
+
+.details a:hover {
+	background: url(../images/main/details_hover.jpg) left bottom no-repeat;
 }

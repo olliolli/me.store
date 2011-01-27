@@ -38,49 +38,82 @@ public class List extends HttpServlet {
 		String rsMedium = request.getParameter("med");
 		String rsCategory = request.getParameter("cat");
 		String rsOption = request.getParameter("opt");
+		String rsSearchQuery = request.getParameter("searchQuery");
 		
-		
+		ArrayList<String> params = new ArrayList<String>();
+
 		String selectStatement = "select " +
 				"ArticleID" +
 				",mediumtype.Description" +
 				",genre.GenreName" +
 				",Title" +
-				",article.Description" +
+				",art.Description" +
 				",Price" +
 				",Discount" +
 				",Picture" +
-				" from article,mediumtype,genre";
+				" from article art,mediumtype,genre";
 		
-		selectStatement += "" +
-				" where article.MediumTypeID = mediumtype.MediumTypeID" +
-				" and article.GenreID = genre.GenreID";
+		selectStatement += 
+				" where art.MediumTypeID = mediumtype.MediumTypeID" +
+				" and art.GenreID = genre.GenreID";
 		
-		
-		
-		if (rsMedium != null || rsCategory != null)
-		{
-			selectStatement += " and (";
-			if (rsMedium != null){
-				
-				selectStatement += " mediumtype.Description like '";
-				selectStatement += rsMedium;
-				selectStatement += "' and";
-			}
-			if (rsCategory != null){
-				selectStatement += " genre.GenreName like '";
-				selectStatement += rsCategory;
-				selectStatement += "' and";
-			}
-			
-			selectStatement = selectStatement.substring(0, selectStatement.length() - 3);
-			selectStatement += " )";
+		if (rsOption != null && rsOption.equals("Neu")){
+			selectStatement += " and exists ( select count(*) from" +
+			" article a where a.createdDate > art.createdDate" +
+			" having count(*) < 10 )";				
 		}
+		else
+			if (rsMedium != null || rsCategory != null || rsOption != null || rsSearchQuery != null)
+			{	
+				selectStatement += " and (";
+				if (rsMedium != null && !rsMedium.equals("")){
+					
+					selectStatement += " mediumtype.Description like '";
+					//params.add(rsMedium);
+					selectStatement += rsMedium;
+					selectStatement += "' and";
+				}
+				if (rsCategory != null && !rsCategory.equals("")){
+					selectStatement += " genre.GenreName like '";
+					//params.add(rsCategory);
+					selectStatement += rsCategory;
+					selectStatement += "' and";
+				}
+				if (rsOption != null && !rsOption.equals("")){
+					
+						if(rsOption.equals("Reduziert")){
+						selectStatement += " Discount != 0.00";
+						selectStatement += " and";
+					}
+				}
+				if (rsSearchQuery != null && !rsSearchQuery.equals("")){	
+					Integer intSearchQuery = -1;
+					try{
+						intSearchQuery = Integer.parseInt(rsSearchQuery);
+						selectStatement += " art.ArticleID = ";
+						selectStatement += rsSearchQuery;
+						selectStatement += " and";
+					}
+					catch(NumberFormatException e){
+						rsSearchQuery.toUpperCase();
+						selectStatement += " UPPER(art.Title) like '%";
+						selectStatement += rsSearchQuery;
+						selectStatement += "%' and";
+					}					
+				}			
+				
+				selectStatement = selectStatement.substring(0, selectStatement.length() - 4);
+				selectStatement += " )";
+			}
 		
 		
 		System.out.println(selectStatement);
 		
+		
 		Collection<Article> collection =  new ArrayList<Article>();
-		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement);
+		
+		
+		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement,params);
 		
 		if (rs != null) {
 		  	for (Iterator<String[]> iter = rs.iterator(); iter.hasNext();) {
@@ -118,6 +151,7 @@ public class List extends HttpServlet {
 		//Set search Parameter to show it in the header line of the search result
 		request.setAttribute("med", rsMedium);
 		request.setAttribute("cat", rsCategory);
+		request.setAttribute("opt", rsOption);
 		
 		//Set page Parameter. 
 		request.setAttribute("toModus", "list");
