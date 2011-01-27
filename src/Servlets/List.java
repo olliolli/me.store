@@ -67,11 +67,16 @@ public class List extends HttpServlet {
 			{	
 				selectStatement += " and (";
 				if (rsMedium != null && !rsMedium.equals("")){
-					
-					selectStatement += " mediumtype.Description like '";
-					//params.add(rsMedium);
-					selectStatement += rsMedium;
-					selectStatement += "' and";
+					if (rsMedium.equals("Film")){
+						selectStatement += " (mediumtype.Description like 'DVD' or mediumtype.Description like 'BluRay')";
+						selectStatement += " and";
+					}
+					else {
+						selectStatement += " mediumtype.Description like '";
+						//params.add(rsMedium);
+						selectStatement += rsMedium;
+						selectStatement += "' and";
+					}
 				}
 				if (rsCategory != null && !rsCategory.equals("")){
 					selectStatement += " genre.GenreName like '";

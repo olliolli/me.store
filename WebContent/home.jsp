@@ -94,9 +94,9 @@
 						<option value="DVD">DVD</option>
 						<option value="BluRay">BluRay</option>
 						<option value="Musik">Musik</option>
-						<option value="eBook">GamePlayStation1</option>
-						<option value="DVD">GamePlayStation2</option>
-						<option value="BluRay">Film</option>
+						<option value="GamePlayStation1">GamePlayStation1</option>
+						<option value="GamePlayStation2">GamePlayStation2</option>
+						<option value="Film">Film</option>
 					</select>
 				
 					<span>Kategorie</span>
