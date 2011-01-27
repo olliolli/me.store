@@ -1,44 +1,41 @@
 /*
-Anlagedatum: 13.01.2011
-Angelegt von: Falzer, Marcel
+creation date: 14.01.2011
+created by: Falzer, Marcel
 
-ÄNDERUNGSHISTORIE
-Änderungsdatum | Geändert von | Änderungsbeschreibung | Versionsnummer
-----------------------------------------------------------------------
+HISTORY OF MODIFICATION
+=============================================================================
+modification date | modified from | description | version number
+-----------------------------------------------------------------------------
+ 20.01.2011         Henning, Roy    updateUserPassword       1.1
 
-Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "DBCommands"
-                                  DBCommands beinhaltet die SQL-Anweisungen 
-                                  für einen Datenbankzugriff
+decription of the main function:  methods which include different sql statements to manipulate or select data.
 
- * */
+* */
+
 package DBConnection;
 import java.util.ArrayList;
-
-import MemberManagement.Member;
-import MemberManagement.Role;
-import OrderManagement.Order;
-import OrderManagement.OrderLine;
+import MemberManagement.*;
+import OrderManagement.*;
 
 public class DBCommands {
-	/**
-=======
-import MemberManagement.*;
-import javax.management.relation.Role;
 
-/**
->>>>>>> 7f3fce6c37a9a467500d46a27cff5666073131f9
-	 * @author Falzer, Marcel
-	 * @version 1.2
-	 * @param eMail-adress of the user:string, hashvalue of password of user:string
-	 * @return memerId of user or -1 when user not registrated: int
+/**    
+ 	 * @author Falzer, Marcel
+	 * @version 1.0
+	 * @see Member
+	 * @see DBControl
+	 * @since 14.01.2011
+	 * @exception Exception 
+	 * @param eMail - (STRING) the eMail address of the member
+	 * @param pwdHash - (STRING) the hash value of password of the member
+	 * @return member - (object MEMBER) the member as the result of the search
 	 */
 	public static Member SelectMemberByEMailAndPwdHash(String eMail, String pwdHash){
 		Member member = new Member();
 	    String sql = "Select MemberID from member where EMail like '"+eMail+"' and PasswordHash like '"+pwdHash+"';"; 
 		try{
-		int memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
-		member = DBCommands.SelectMemberByID(memberID);
-		
+			int memberID = Integer.parseInt(DBControl.ExecuteQuery(sql).get(0)[0]);
+			member = DBCommands.SelectMemberByID(memberID);		
 		}
 		catch(Exception e){
 		}
@@ -48,8 +45,10 @@ import javax.management.relation.Role;
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param eMail
-	 * @return returns the eMail address of the member. If the member has no email address the method returns an empty String.
+	 * @since 15.01.2011
+	 * @exception Exception
+	 * @param eMail - (STRING) the eMail address of the user who wants to registrate to me.store 
+	 * @return membersMail - (STRING) the eMail which was found in the mySQL database.
 	 */
 	public static String SelectMemberByEMail(String eMail) {
 		String membersMail="";
@@ -63,6 +62,14 @@ import javax.management.relation.Role;
 		return membersMail;				
 	}
 
+/** 
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @since 14.01.2011
+ * @exception Exception
+ * @param memberID - (STRING) the identification number of the member
+ * @return member - (object MEMBER) the member as the result of the search
+ */
 	public static Member SelectMemberByID(int memberID){
 		Member member = new Member();
 		String SqlStatement = 
@@ -90,20 +97,21 @@ import javax.management.relation.Role;
 		return member;
 	}
 	
-		/**
+/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param member
-	 * @return returns no value because the method inserts a new registrated Member.
+	 * @since 15.01.2011
+	 * @exception Exception
+	 * @param member - (object MEMBER) the user who wants to get registrated
 	 */
 	public static void InsertMember(Member member) {
-		int MemberID=1;
-	    
+		//set the roleID
+		int MemberID=1;	    
 		if(member.GetMemberRole().toString()=="admin"){
 	    	MemberID=2;
 	    }
-		
-		String SqlStatement = "Insert into member "+
+		 // the insert statement
+		String sqlStatement = "Insert into member "+
 				              "(firstName,lastName, street, nr, postcode, city, email, passwordhash, roleid) values " 
 			                  +"('"+member.GetFirstName()+"','"
 				              +member.GetLastName()+"','"
@@ -115,22 +123,26 @@ import javax.management.relation.Role;
 				              +member.GetPasswordHash()+"',"
 				              +MemberID+")";
 		try{
+			// execute the sqlStatement and set a checkValue
 			ArrayList<String[]> checkValue = new ArrayList<String[]>();
-			checkValue = DBControl.ExecuteQuery(SqlStatement);	
+			checkValue = DBControl.ExecuteQuery(sqlStatement);	
 		}
 		catch(Exception e){
 			System.out.println(e);
 		}				
 	}
 
-	/**
+/**
 	 * @author Henning, Roy
-	 * @version 0.1
-	 * @param Member Object
-	 * no return value
-	 */
-	public static void UpdateMember(Member member) {
+	 * @version 1.0
+	 * @see DBControl
+	 * @exception Exception
+	 * @since 14.01.2011
+	 * @param member - (object MEMBER) the member object of the member who wants to edit his/her personal data of the me.store
+*/
+public static void UpdateMember(Member member) {
 		DBControl Ctrl = new DBControl();
+		// the update statement
 		String SqlStatement = "UPDATE member " + "SET "
 				+ "`firstname`= '"
 				+ member.GetFirstName()
@@ -154,13 +166,39 @@ import javax.management.relation.Role;
 				+ member.GetEMail()
 				+ "' "
 				+ "WHERE memberid = '" + member.GetMemberID() + "';";
-		Ctrl.ExecuteQuery(SqlStatement);
+		try{
+			Ctrl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		
 	}
-	
+/**
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @see DBControl
+ * @since 16.01.2011
+ * @param order - (object ORDER) the order object which should get inserted into the database
+ */
 	public static void NewOrder(Order order){
 		String SqlStatement = "Insert into order(memberid) values ('" + order.getMember().GetMemberID() + "');";
-		DBControl.ExecuteQuery(SqlStatement);	
+		try{
+			DBControl.ExecuteQuery(SqlStatement);	
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}		
 	}
+
+	/**
+	 * @author Falzer, Marcel
+	 * @version 1.0
+	 * @since 16.01.2011
+	 * @exception Exception
+	 * @see DBControl
+	 * @param orderLine - (object ORDERLINE) the orderline object which should get inserted into the database
+	 */
 	public static void NewOrderLine(OrderLine orderLine){
 		String SqlStatement = 
 			"Insert into orderline(orderid,articleid,amount,price) " +
@@ -168,8 +206,21 @@ import javax.management.relation.Role;
 					"'" + orderLine.getArticleID() + "'," +
 					"'" + orderLine.getAmount() + "'," +
 					"'" + orderLine.getPrice() + "');";
-		DBControl.ExecuteQuery(SqlStatement);
+		try{
+			DBControl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}	
 	}
+/**
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @since 16.01.2011
+ * @exception Exception
+ * @param orderID - (INTEGER) the identification number of the order
+ * @return orderLines - (ArrayList<ORDERLINE>) a list of all orderLines of the selected order
+ */
 	public static ArrayList<OrderLine> SelectOrderLines(int orderID){
 		ArrayList<OrderLine> orderLines = new ArrayList<OrderLine>();
 		String SqlStatement = 
@@ -188,9 +239,19 @@ import javax.management.relation.Role;
 			}
 		}
 		catch (Exception e){
+			System.out.println(e);
 		}
 		return orderLines;
 	}
+/**
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @since 16.01.2011
+ * @see DBControl
+ * @exception Exception
+ * @param memberID
+ * @return
+ */
 	public static Order SelectOpenOrderByMemberID(int memberID){
 		Order order = new Order();
 		String SqlStatement = 
@@ -210,30 +271,48 @@ import javax.management.relation.Role;
 				order.setAlreadyOrdered(false);			
 		}
 		catch (Exception e){
+			System.out.println(e);
 		}
 		return order;
 	}
+/**
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @exception Exception
+ * @since 16.01.2011	
+ * @param order - (object ORDER) the order object which should get accepted
+ */
 	public static void AcceptOrder(Order order){
 		String SqlStatement = 
 			"Update order(isalreadyordered = 1," +
 			"orderdate = today " +
 			"Where orderid = " + order.getOrderID();
-		DBControl.ExecuteQuery(SqlStatement);
-			
+		try{
+			DBControl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}			
 	}
 	
-
 	/**
-	 * @author Grunewald,Stephanie
+	 * @author Henning, Roy
 	 * @version 1.1 
-	 * @param Member Object
+	 * @since 20.01.2011
+	 * @see DBControl
+	 * @exception Exception
+	 * @param member - (object MEMBER) the member object of the member who wants to edit his/her login password of the me.store 
 	 */
 	public static void UpdateUserPassword(Member member) {
 		DBControl Ctrl = new DBControl();
 		String SqlStatement = "UPDATE `buchclub`.`member` " + "SET "
 				+ "`psswordhash`= '" + member.GetPasswordHash() + "'"
 				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
-		Ctrl.ExecuteQuery(SqlStatement);
+		try{
+			Ctrl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}		
 	}
-
 }
