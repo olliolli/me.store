@@ -1,4 +1,4 @@
-
+<%@ page language="java" import="MemberManagement.Member" %> 
 <html>
 <head>
 	<title>home</title>
@@ -53,12 +53,17 @@
 			</div>
 	        <div id="topnav">			
 				<div id="usersection">
-					<%
-						if (session.getAttribute("memberID") != null && (Integer)session.getAttribute("memberID") != -1) {
-							
-							out.println("<a href=\"Login?modus=logout\"><span>Logout</span></a>");
-							out.println("<a href=\"User\"><span>mein Konto</span></a>");	
-						}
+					<%						
+						if (session.getAttribute("member") != null) {
+							Member member = (Member)session.getAttribute("member");
+							if (member.GetMemberID() != 0){
+								out.println("<a href=\"Login?modus=logout\"><span>Logout</span></a>");
+								out.println("<a href=\"User\"><span>mein Konto</span></a>");	
+							}
+							else {
+								out.println("<a href=\"Login\"><span>Login</span></a>");						
+							}
+						}	
 						else {
 							out.println("<a href=\"Login\"><span>Login</span></a>");						
 						}
@@ -124,12 +129,17 @@
 	        	<div id="banner" class="clearfix">
 	            	<div id="banner-content">
 	            		<%
-							if (session.getAttribute("memberID") != null && (Integer)session.getAttribute("memberID") != -1) {
-								out.println("<p class=\"f14\">");
-									out.println("Willkommen ");
-									out.println(session.getAttribute("memberID"));
-								out.println("</p>");
-							}							
+	            		
+							if (session.getAttribute("member") != null) {
+								Member member = (Member)session.getAttribute("member");
+								if (member.GetMemberID() != 0){
+									out.println("<p class=\"f14\">");
+										out.println("Willkommen ");
+										out.println(member.GetLastName() + ", " + member.GetFirstName());
+									out.println("</p>");
+								}
+							}	
+	            		
 						%>	                    
 	                </div>
 	            </div>

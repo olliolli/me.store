@@ -66,42 +66,8 @@
 					</form>
 					<p> <a href="#2" class="cross-link" title="Lieferadresse">Nächste &#187;</a></p>
 				</div>
-			</div><!--
-			<div class="panel" title="Lieferadresse">
-				<div class="wrapper">
-					<h3>Lieferadresse</h3>
-					<form>
-						<table border="0">
-							<tr>
-								<td>Vorname</td>
-								<td><input class="textfield" name="l_first_name" type="text" maxlength="30"></td>
-							</tr>
-							<tr>
-								<td>Nachname</td>
-								<td><input class="textfield" name="l_last_name" type="text" maxlength="30"></td>
-							</tr>
-							<tr>
-								<td>Straße</td>
-								<td><input class="textfield" name="l_street" type="text" maxlength="30"></td>
-							</tr>
-							<tr>
-								<td>Hausnummer</td>
-								<td><input class="textfield" name="l_hnr" type="text" maxlength="30"></td>
-							</tr>
-							<tr>
-								<td>PLZ</td>
-								<td><input class="textfield" name="l_zip" type="text" maxlength="30"></td>
-							</tr>
-							<tr>
-								<td>Ort</td>
-								<td><input class="textfield" name="l_place" type="text" maxlength="30"></td>
-							</tr>
-						</table>
-					</form>
-					<p><a href="#1" class="cross-link" title="Benutzer">&#171; Vorherige</a> | <a href="#3" class="cross-link" title="Rechnungsadresse">Nächste &#187;</a></p>
-				</div>
-			</div>		
-			--><div class="panel" title="Adresse">
+			</div>
+			<div class="panel" title="Adresse">
 				<div class="wrapper">
 					<h3>Adresse</h3>
 					<form action="Login">
