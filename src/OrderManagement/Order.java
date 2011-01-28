@@ -59,7 +59,7 @@ public class Order {
 	 * @version 1.0
 	 * @return the value if the order has been transacted:boolean
 	 */
-	public boolean isAlreadyOrdered() {
+	public boolean getIsAlreadyOrdered() {
 		return isAlreadyOrdered;
 	}
 	/**

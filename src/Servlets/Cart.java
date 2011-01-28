@@ -1,12 +1,17 @@
 package Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import OrderManagement.Order;
+import OrderManagement.OrderLine;
 
 /**
  * Servlet implementation class Cart
@@ -35,9 +40,26 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String articleID = request.getParameter("articleID");
+		int articleID = Integer.parseInt(request.getParameter("articleID"));
 		
-		System.out.println(articleID.toString());
+		System.out.println(articleID);
+		HttpSession session = request.getSession(false);
+		if(session.getAttribute("cart")== null)
+		{
+			Order cart = new Order();
+			session.setAttribute("cart",cart);
+		}
+		else {
+			Order cart = (Order) session.getAttribute("cart");
+			ArrayList<OrderLine> cartPlaces = cart.getOrderLines();
+			OrderLine orderLine = new OrderLine();
+			orderLine.setArticleID(articleID);
+			orderLine.setOrderID(cart.getOrderID());
+			orderLine.setAmount(1);
+			cartPlaces.add(orderLine);
+			cart.setOrderLines(cartPlaces);
+			session.setAttribute("cart", cart);
+		}
 		
 		request.setAttribute("toModus", "cart");
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");

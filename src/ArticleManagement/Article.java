@@ -22,6 +22,9 @@ private double price;
 private int discount;
 private String picturePath;
 
+public Article(){
+	
+}
 /**
  * @author Strotmeier, Oliver
  * @version 1.0
@@ -46,6 +49,14 @@ public Article(int articleID, MediumType mediumType, Genre genre, String title,
  */
 public int GetArticleID() {
 	return articleID;
+}
+/**
+ * @author Falzer, Marcel
+ * @version 1.0
+ * @param articleID:Integer, set the articleID of the article 
+ */
+public void SetArticleID(int articleID){
+	this.articleID = articleID;
 }
 
 /**

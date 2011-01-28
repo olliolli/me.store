@@ -14,6 +14,9 @@ Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "DBCommands"
 package DBConnection;
 import java.util.ArrayList;
 
+import ArticleManagement.Article;
+import ArticleManagement.Genre;
+import ArticleManagement.MediumType;
 import MemberManagement.Member;
 import MemberManagement.Role;
 import OrderManagement.Order;
@@ -49,6 +52,7 @@ import javax.management.relation.Role;
 	 */
 	public static Member FillMember(ArrayList<String[]> results){
 		Member member = new Member();
+		
 		member.SetMemberID(Integer.parseInt(results.get(0)[0]));
 		member.SetFirstName(results.get(0)[1]);
 		member.SetLastName(results.get(0)[2]);
@@ -62,7 +66,28 @@ import javax.management.relation.Role;
 			member.SetMemberRole(Role.Admin);
 		else
 			member.SetMemberRole(Role.Member);
+		
 		return member;
+	}
+	/**
+	* @author Falzer, Marcel
+	 * @version 1.0
+	 * @param list of results of a sqlstatement: ArrayList<String[]>
+	 * @return article object or null when article is not found: article
+	 */
+	public static Article FillArticle(ArrayList<String[]> results){
+		Article article = new Article();
+		
+		article.SetArticleID(Integer.parseInt(results.get(0)[0]));
+		article.SetMediumType(MediumType.valueOf(results.get(0)[1]));
+		article.SetGenre(Genre.valueOf(results.get(0)[2]));
+		article.SetTitle(results.get(0)[3]);
+		article.SetDescription(results.get(0)[4]);
+		article.SetPrice(Double.parseDouble(results.get(0)[5]));
+		article.SetDiscount(Integer.parseInt(results.get(0)[6]));
+		article.SetPicturePath(results.get(0)[7]);
+		
+		return article;
 	}
 
 	/**
@@ -243,6 +268,27 @@ import javax.management.relation.Role;
 				+ "`psswordhash`= '" + member.GetPasswordHash() + "'"
 				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
 		Ctrl.ExecuteQuery(SqlStatement);
+	}
+	/**
+	* @author Falzer, Marcel
+	 * @version 1.0
+	 * @param articleID: Integer
+	 * @return article object or null when article is not found: article
+	 */
+	public static Article SelectArticleByID(int articleID){
+		Article article = new Article();
+		String SqlStatement =
+			"Select * " +
+			"From article " +
+			"Where articleid = '"+articleID+"';";
+		try{
+			article = DBCommands.FillArticle(DBControl.ExecuteQuery(SqlStatement));
+		}
+		catch(Exception e){
+			
+		}
+		
+		return article;
 	}
 
 }
