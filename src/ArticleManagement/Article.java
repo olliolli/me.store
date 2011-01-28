@@ -21,7 +21,7 @@ public class Article {
 	private String title;
 	private String description;
 	private double price;
-	private int discount;
+	private double discount;
 	private String picturePath;
 
 public Article(){
@@ -43,7 +43,7 @@ public Article(){
  * @param picturePath - (STRING) the path of the location where the original picture of the article is located
  */
 public Article(int articleID, MediumType mediumType, Genre genre, String title,
-		String description, double price, int discount, String picturePath) {
+		String description, double price, double discount, String picturePath) {
 		super();
 		this.articleID = articleID;
 		this.mediumType = mediumType;
@@ -170,20 +170,20 @@ public void SetPrice(double price) {
 }
 /**
  * @author Grunewald,Stephanie
- * @version 1.0
+ * @version 1.1
  * @since 10.01.2011
- * @return discount - (INT) the discount of the article
+ * @return discount - (DOUBLE) the discount of the article
  */
-public int GetDiscount() {
+public double GetDiscount() {
 	return discount;
 }
 /**
  * @author Grunewald, Stephanie
- * @version 1.0
+ * @version 1.1
  * @since 10.01.2011
- * @param discount - (INT) the discount of the article 
+ * @param discount - (DOUBLE) the discount of the article 
  */
-public void SetDiscount(int discount) {
+public void SetDiscount(double discount) {
 	this.discount = discount;
 }
 /**

@@ -1,4 +1,6 @@
 <%@ page language="java" import="MemberManagement.Member" %> 
+<%@ page language="java" import="OrderManagement.Order" %>
+<%@ page language="java" import="OrderManagement.OrderLine" %>
 <html>
 <head>
 	<title>home</title>
@@ -70,12 +72,19 @@
 					out.println("<a href=\"Login\"><span>Login</span></a>");						
 				}
 			out.println("</div>");
+			
 			out.println("<div id=\"basket_outer\">");
 				out.println("<div id=\"basket_inner\">");
 					out.println("<a href=\"Cart\">");
 						out.println("<span>Warenkorb</span>");
 						out.println("<span> | </span>");
-						out.println("<span>0 Artikel</span>");
+						if(session.getAttribute("cart") != null){
+							Order cart = (Order)session.getAttribute("cart");
+							out.println("<span>" + cart.getOrderLines().size() +" Artikel</span>");
+						}
+						else{
+							out.println("<span>0 Artikel</span>");
+						}
 					out.println("</a>");
 				out.println("</div>");
 			out.println("</div>");					

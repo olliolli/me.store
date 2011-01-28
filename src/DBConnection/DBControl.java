@@ -64,6 +64,7 @@ public class DBControl {
 		catch (SQLException err){
 			System.out.println("Connect nicht möglich!");
 			System.out.println(err);
+			System.out.println(sqlStatement);
 		}
 		return result;
 	}

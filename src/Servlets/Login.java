@@ -87,7 +87,17 @@ public class Login extends HttpServlet {
 			if(member.GetMemberID() >= 1){
 				HttpSession session = request.getSession(true);
 				session.setAttribute("member", member);
-				session.setAttribute("cart", DBCommands.SelectOpenOrderByMemberID(member.GetMemberID()));
+				System.out.println(member.GetMemberID());
+				Order order = DBCommands.SelectOpenOrderByMemberID(member.GetMemberID());
+				session.setAttribute("cart", order );
+				order = (Order) session.getAttribute("cart");
+				System.out.println(order.getOrderID());
+				System.out.println(order.getOrderLines().size());
+				for (int i = 0; i < order.getOrderLines().size();i++)
+				{
+					System.out.println(order.getOrderLines().get(0).getArticleID());
+				}
+				
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
 				dispatcher.forward(request, response);
 			}

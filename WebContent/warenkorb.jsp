@@ -33,7 +33,7 @@
 					Order cart = (Order) session.getAttribute("cart");
 					for (int i = 0; i < cart.getOrderLines().size();i++)
 					{
-						Article article = DBCommands.SelectArticleByID(cart.getOrderLines().get(0).getArticleID());
+						Article article = DBCommands.SelectArticleByID(cart.getOrderLines().get(i).getArticleID());
 						out.println("<div class=\"mid_cell\">");
 							out.println("<div class=\"basket-left\"><div class=\"mid_cell_height\">" + article.GetTitle() + "</div></div>");
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + article.GetArticleID() + "</div></div>");
@@ -45,7 +45,7 @@
 							out.println("</div>");
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\"><a href=\"#\">entfernen</a></div></div>");
 						out.println("</div>");
-						sum = sum + article.GetPrice();
+						sum = sum + (article.GetPrice()*cart.getOrderLines().get(i).getAmount());
 					}
 					out.println("<div id=\"basket-bottom\">");
 						out.println("<div class=\"basket-bottom-cell\" style=\"width:218px; padding-left: 0px;\">Summe:</div>");

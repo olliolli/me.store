@@ -82,12 +82,12 @@ public class DBCommands {
 		Article article = new Article();
 		
 		article.SetArticleID(Integer.parseInt(results.get(0)[0]));
-		article.SetMediumType(MediumType.valueOf(results.get(0)[1]));
-		article.SetGenre(Genre.valueOf(results.get(0)[2]));
+		article.SetMediumType(DBCommands.SelectMediumTypeByID(Integer.parseInt(results.get(0)[1])));
+		article.SetGenre(DBCommands.SelectGenreByID(Integer.parseInt(results.get(0)[2])));
 		article.SetTitle(results.get(0)[3]);
 		article.SetDescription(results.get(0)[4]);
 		article.SetPrice(Double.parseDouble(results.get(0)[5]));
-		article.SetDiscount(Integer.parseInt(results.get(0)[6]));
+		article.SetDiscount(Double.parseDouble(results.get(0)[6]));
 		article.SetPicturePath(results.get(0)[7]);
 		
 		return article;
@@ -133,6 +133,7 @@ public class DBCommands {
 			
 		}
 		catch(Exception e){
+			System.out.println(SqlStatement);
 		}
 		return member;
 	}
@@ -279,6 +280,7 @@ public static void UpdateMember(Member member) {
 			}
 		}
 		catch (Exception e){
+			System.out.println(SqlStatement);
 			System.out.println(e);
 		}
 		return orderLines;
@@ -296,9 +298,9 @@ public static void UpdateMember(Member member) {
 		Order order = new Order();
 		String SqlStatement = 
 			"Select * " +
-			"From order " +
-			"Where isalreadyordered = 0 " +
-			"And memberid = '" + memberID + "';";
+			"From buchclub.order " +
+			"Where `isalreadyordered` = 0 " +
+			"And `memberid` = " + memberID + ";";
 		try{
 			ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
 			order.setOrderID(Integer.parseInt(results.get(0)[0]));
@@ -311,6 +313,7 @@ public static void UpdateMember(Member member) {
 				order.setAlreadyOrdered(false);			
 		}
 		catch (Exception e){
+			System.out.println(SqlStatement);
 			System.out.println(e);
 		}
 		return order;
@@ -350,6 +353,10 @@ public static void UpdateMember(Member member) {
 				+ "WHERE `MemberID`='" + member.GetMemberID() + "';";
 		try{
 			Ctrl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e)
+		{
+		}
 	}
 	/**
 	* @author Falzer, Marcel
@@ -367,13 +374,49 @@ public static void UpdateMember(Member member) {
 			article = DBCommands.FillArticle(DBControl.ExecuteQuery(SqlStatement));
 		}
 		catch(Exception e){
-			
+			System.out.println(e);
+			System.out.println(SqlStatement);
 		}
 		
 		return article;
+	}
+	/**
+	* @author Falzer, Marcel
+	 * @version 1.0
+	 * @param mediumTypeID: Integer
+	 * @return mediumType object or null when mediumType is not found: mediumType
+	 */
+	public static MediumType SelectMediumTypeByID(int mediumTypeID){
+		MediumType mt = null;
+		String SqlStatement = 
+			"Select * " + 
+			"From buchclub.mediumtype " + 
+			"Where `mediumtypeid` = " + mediumTypeID + ";";
+		try{
+			ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
+			mt = MediumType.valueOf(results.get(0)[1]);
+			return mt;
 		}
 		catch(Exception e){
 			System.out.println(e);
-		}		
+		}
+		return mt;
+	}
+	public static Genre SelectGenreByID(int genreID){
+		Genre genre = null;
+		String SqlStatement = 
+			"Select * " + 
+			"From buchclub.genre " + 
+			"Where `genreid` = " + genreID + ";";
+		try{
+			ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
+			genre = Genre.valueOf(results.get(0)[1]);
+			return genre;
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return genre;
 	}
 }
+
