@@ -30,14 +30,14 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession(false);
-//		int rsUserid = (Integer) session.getAttribute("memberID");
+		HttpSession session = request.getSession(false);
+		Member member = (Member) session.getAttribute("member");
+		int rsUserid = member.GetMemberID();
 		
 		String requestDestination ="";
-		int rsUserid = 4;
+//		int rsUserid = 1;
 		
-		if (rsUserid >= 1){
-			
+		if (rsUserid >= 1){	
 			Member m = DBCommands.SelectMemberByID(rsUserid);
 			request.setAttribute("memberID", m.GetMemberID());
 			request.setAttribute("fname", m.GetFirstName());
@@ -47,26 +47,46 @@ public class User extends HttpServlet {
 			request.setAttribute("street", m.GetStreet());
 			request.setAttribute("hnr", m.GetStreetNumber());
 			request.setAttribute("place", m.GetCity());
-//			System.out.println(m.GetFirstName());
 		}
 		
-//(String)request.getParameter("toModus") == null ||
-		if (request.getParameter("toModus") == null || request.getParameter("toModus").equalsIgnoreCase("view")){
-			requestDestination = "/userDataView.jsp";
+		if (request.getParameter("toModus")== null || request.getParameter("toModus").equalsIgnoreCase("view")){
+			request.setAttribute("toModus", "userView");
 			System.out.println(1);
 		} else if (request.getParameter("toModus").equalsIgnoreCase("edit")){
 			System.out.println(2);
-			requestDestination = "/userDataEdit.jsp";
+			request.setAttribute("toModus", "userEdit");
 		} else if (request.getParameter("toModus").equalsIgnoreCase("commit")){
-//			Member member = new Member();
-//			member.SetMemberID();
-//			member.SetEMail();
-//			DBCommands.UpdateMember(member);
-			System.out.println(2);
-			requestDestination = "/userDataView.jsp";
+			member.SetMemberID(Integer.parseInt(request.getParameter("memberID")));
+			member.SetCity(request.getParameter("place"));
+			member.SetEMail(request.getParameter("email"));
+			member.SetFirstName(request.getParameter("firstname"));
+			member.SetLastName(request.getParameter("lastname"));
+			member.SetPostCode(request.getParameter("zip"));
+			member.SetStreet(request.getParameter("street"));
+			member.SetStreetNumber(request.getParameter("hnr"));
+			try{
+				DBCommands.UpdateMember(member);
+			}
+			catch (Exception e){
+			}
+			
+			System.out.println(3);
+			if (rsUserid >= 1){	
+				Member m = DBCommands.SelectMemberByID(rsUserid);
+				request.setAttribute("memberID", m.GetMemberID());
+				request.setAttribute("fname", m.GetFirstName());
+				request.setAttribute("lname", m.GetLastName());
+				request.setAttribute("email", m.GetEMail());
+				request.setAttribute("zip", m.GetPostCode());
+				request.setAttribute("street", m.GetStreet());
+				request.setAttribute("hnr", m.GetStreetNumber());
+				request.setAttribute("place", m.GetCity());
+			}
+//			System.out.println(member.GetMemberID());
+			request.setAttribute("toModus", "userView");
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(requestDestination);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -77,5 +97,6 @@ public class User extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }

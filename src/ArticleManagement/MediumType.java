@@ -1,16 +1,22 @@
 package ArticleManagement;
 /*
-Anlagedatum: 10.01.2011
-Angelegt von: Grunewald, Stephanie
+creation date: 10.01.2011
+created by: Grunewald, Stephanie
 
-ÄNDERUNGSHISTORIE
-Änderungsdatum | Geändert von | Änderungsbeschreibung | Versionsnummer
-----------------------------------------------------------------------
+HISTORY OF MODIFICATION
+=============================================================================
+modification date | modified from | description | version number
+-----------------------------------------------------------------------------
 
-Funktionsbeschreibung: Grenzt die MemberTypes ein 
-um Fehleingaben zu verhindern.
+decription of the main function:  description of the enum "MediumType".
 
 * */
+
+/**
+ * @author Grunewald, Stephanie
+ * @version 1.0
+ * @since 10.01.2011
+ */
 public enum MediumType {
 	Buch,
 	eBook, 

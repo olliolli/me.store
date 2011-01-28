@@ -1,0 +1,41 @@
+.userTable {
+	margin-left: 20px;	
+}
+
+.userRow {
+	height: 22px;	
+}
+
+.textfield {		
+	width: 205px;
+	background-color: #CBCDDE;
+    border: 1px solid #989AAB;
+    color: #0F0F0F;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    padding-left: 2px;
+    height: 20px;
+}
+
+.leftColumn {
+	width: 160px;
+	}
+	
+.rightColumn {
+	width: 300px;
+}
+
+.resume-Button{
+	margin-left: 25px;
+	margin-right: 10px;
+	font-family:Verdana,Arial,sans-serif;
+	font-size:11px;
+	border: none;
+	width:120; 
+	height:42;
+	background: url("../images/main/resume.png") no-repeat center;
+	cursor: pointer;
+	float:left;
+}

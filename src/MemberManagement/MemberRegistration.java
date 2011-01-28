@@ -1,13 +1,7 @@
 package MemberManagement;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpSession;
-
 import DBConnection.DBCommands;
 
 /*
@@ -35,26 +29,28 @@ und greift anschließend auf die Methode zum Speichern des neuen Benutzers zu.
 public class MemberRegistration {
 	
 	/**
-	 * @version 1.1
-	 * @author Grunewald,Stephanie
-	 * @param firstName :String = firstName of the member
-	 * @param lastName :String = lastName of the member
-	 * @param eMail :String = eMail address of the member
-	 * @param city :String = city the member lives
-	 * @param street :String = street of the member
-	 * @param streetNumber :String = streetnumber of the member
-	 * @param postCode :String = postcode of the city of the member
-	 * @param passwordHash :String = login password of the member as Hash Value
-	 * @param memberRole :enum = the role of the member (member or admin)
-	 * @return 0 --> RegistrateMember was susccessfull; 1--> DB Connect doesn't work, 2 --> userdata are incomplete
-	 *
+	 * @author Grunewald, Stephanie
+	 * @version 1.4
+	 * @since 13.01.2011
+	 * @param firstName - (STRING) the firstname of the member
+	 * @param lastName - (STRING) the lastname of the member
+	 * @param eMail - (STRING) the email address of the member
+	 * @param street - (STRING) the street as a part of the members address
+	 * @param streetNumber - (STRING) the streetnumber as a part of the members address
+	 * @param postCode - (STRING) the postcode as a part of the members address
+	 * @param city - (STRING) the city as a part of the members address
+	 * @param passwordHash - (STRING) the password hash value of the member
+	 * @param memberRole - (Enum ROLE) the role of the member
+	 * @return result - (INTEGER) a check value which identifies if the registration process was successful (value=0) or if it was not (value=1)
+	 
 	 */
 	public static int RegistrateUser(String firstName,String lastName, String eMail, String street, String streetNumber, String postCode, String city, String passwordHash, Role memberRole){
 		//if(firstName.length()<2 || lastName.length()<2 || street.length()<3 || streetNumber.length()==0) {      
-			try{
+		int result = 0;
+		try{
 			        	Member member = new Member();
 			        	member.SetCity(city);
-						member.SetEMail(eMail);
+						member.SetEMail(eMail.toUpperCase());
 						member.SetFirstName(firstName);
 						member.SetLastName(lastName);
 						member.SetMemberRole(memberRole);
@@ -63,15 +59,11 @@ public class MemberRegistration {
 						member.SetStreet(street);
 						member.SetStreetNumber(streetNumber);				
 						DBCommands.InsertMember(member);	
-						return 0;
+						return result;
 			        }
 			        catch(Exception e){
-			        	return 1;
+			        	return result+1;
 			        }
-//		}
-//		else{
-//			return 2;
-//		}
 	}
 	
 	/**
@@ -80,9 +72,12 @@ public class MemberRegistration {
 	 * @param eMail :String = the eMail address of the member
 	 * @return true --> if the member is already registrated, false --> if the member is even not registrated 
 	 */
-	public static boolean IsAlwaysRegistrated(String eMail){
-		String membersEMail = DBCommands.SelectMemberByEMail(eMail);
-		if(membersEMail!="null" || membersEMail!="" || membersEMail==eMail){
+	public static boolean IsAlreadyRegistrated(String eMail){
+		String membersEMail = DBCommands.SelectMemberByEMail(eMail.toUpperCase());
+        if(membersEMail.equals("")) {
+        		return false;
+    	}
+        else if(membersEMail.toUpperCase().equals(eMail.toUpperCase())){
 			return true;
 		}
 		else{

@@ -46,11 +46,10 @@ public class Register extends HttpServlet {
 		String street = request.getParameter("r_street");
 		String hnr = request.getParameter("r_hnr");
 		String password = request.getParameter("password");
-		if(MemberRegistration.ValidatePassword(password)==true)
-		{
+		if(MemberRegistration.ValidatePassword(password)==true){
 			if(MemberRegistration.CheckPasswordsEquity(request.getParameter("w_password"),password)==true){
 				if(MemberRegistration.ValidateMemberEMail(eMail)==true){
-					//if(MemberRegistration.IsAlwaysRegistrated(eMail)==false){
+					if(MemberRegistration.IsAlreadyRegistrated(eMail)==false){
 						try {
 							String passwordHash = PasswordService.getInstance().Encrypt(password);
 							int result = MemberRegistration.RegistrateUser(firstName, lastName, eMail, street, hnr, postCode, city, passwordHash, Role.Member);						
@@ -71,12 +70,12 @@ public class Register extends HttpServlet {
 							e1.getMessage();
 							e1.getLocalizedMessage();
 						}
-//					}
-//					else{
-//						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
-//						dispatcher.forward(request, response);
-//						JOptionPane.showMessageDialog(null, "Sie sind bereits mit der eingegebenen EMail bei uns registriert.\n Wenn Sie ihr Passwort vergessen haben können Sie dieses über den Loginbereich anfordern.", "Systemmeldung", JOptionPane.OK_CANCEL_OPTION);
-//					}
+					}
+					else{
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+						dispatcher.forward(request, response);
+						JOptionPane.showMessageDialog(null, "Sie sind bereits mit der eingegebenen EMail bei uns registriert.\n Wenn Sie ihr Passwort vergessen haben können Sie dieses über den Loginbereich anfordern.", "Systemmeldung", JOptionPane.OK_CANCEL_OPTION);
+					}
 				}
 				else{
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");

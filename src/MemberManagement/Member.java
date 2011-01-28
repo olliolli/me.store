@@ -1,18 +1,19 @@
 package MemberManagement;
+
 /*
-Anlagedatum: 10.01.2011
-Angelegt von: Grunewald, Stephanie
+creation date: 10.01.2011
+created by: Grunewald, Stephanie
 
-ÄNDERUNGSHISTORIE
-Änderungsdatum | Geändert von | Änderungsbeschreibung                | Versionsnummer
---------------------------------------------------------------------------------------
-10.01.2011      SG              substitute address with                1.1
-                                street, streetNumber, postCode, cuty
+HISTORY OF MODIFICATION
+=============================================================================
+modification date  | modified from          | description            | version number
+-----------------------------------------------------------------------------
 
-Allgemeine Funktionsbeschreibung:Beschreibung des Objektes "Member"
+decription of the main function:  description of the objects of "Member".
 
 * */ 
 public class Member {
+	
 	private Role memberRole;
 	private String firstName;
 	private String lastName;
@@ -25,90 +26,94 @@ public class Member {
 	private String passwordHash;
 	
 	/**
-	 * @return no return because it is the standard construktor
+	 * @auhtor Grunewald, Stephanie
+	 * @version 1.0
+	 * @since 10.01.2011
 	 */
 	public Member() {
-		this.city="";
-		this.eMail="";
-		this.firstName="";
-		this.lastName="";
-		this.memberRole=Role.Member;
-		this.passwordHash="";
-		this.postCode="";
-		this.memberID=0;
-		this.streetNumber="";
-		this.street="";		
+				
 	}
 	
 	/**
 	 * @author Falzer, Marcel
 	 * @version 1.0
-	 * @param memberID :int = the identificationnumber of the member which it has been created by the database
-	 * @param memberRole :enum = role of the member (member or admin)
-	 * @param firstName :String = the firstName of the member
-	 * @param lastName :String = the lastname of the member
-	 * @param eMail :String = the eMail address of the member
-	 * @param street :String = the street of the member
-	 * @param streetNumber :String = the number of the street the member lives
-	 * @param postCode :String = the postcode of the city of the member
-	 * @param city :String = the city of the member
-	 * @param password :String = the login password of the member
-	 * @return no return because it is a construktor for instantiating a member object when the member already exists
+	 * @since 10.01.2011
+	 * @param memberID - (INTEGER) the identifikation number of the member
+	 * @param memberRole - (Enum ROLE) the role of the member
+	 * @param firstName - (STRING) the firstname of the member
+	 * @param lastName - (STRING) the lastname of the member
+	 * @param eMail - (STRING) the email address of the member
+	 * @param street - (STRING) the street as a part of the members address
+	 * @param streetNumber - (STRING) the streetnumber as a part of the members address
+	 * @param postCode - (STRING) the postcode as a part of the members address
+	 * @param city - (STRING) the city as a part of the members address
+	 * @param password - (STRING) the password of the member
 	 */
-	public Member(int memberID,Role memberRole, String firstName, String lastName,
-			String eMail, String street, String streetNumber, String postCode,
-			String city,String password) {
-		this.memberRole = memberRole;
-		this.firstName = firstName;
-		this.lastName=lastName;
-		this.city = city;
-		this.eMail=eMail;
-		this.passwordHash=password;
-		this.postCode=postCode;
-		this.streetNumber=streetNumber;
-		this.street=street;
-		this.memberID=memberID;		
-	}
-	/** 
+		public Member(int memberID,Role memberRole, String firstName, String lastName,
+				String eMail, String street, String streetNumber, String postCode,
+				String city,String password) {
+			
+			this.memberRole = memberRole;
+			this.firstName = firstName;
+			this.lastName=lastName;
+			this.city = city;
+			this.eMail=eMail;
+			this.passwordHash=password;
+			this.postCode=postCode;
+			this.streetNumber=streetNumber;
+			this.street=street;
+			this.memberID=memberID;		
+		}	
+		/**
+		 * @author Grunewald, Stephanie
+		 * @version 1.0
+		 * @since 10.01.2011	
+		 * @param memberRole - (Enum ROLE) the role of the member
+		 * @param firstName - (STRING) the firstname of the member
+		 * @param lastName - (STRING) the lastname of the member
+		 * @param eMail - (STRING) the email address of the member
+		 * @param street - (STRING) the street as a part of the members address
+		 * @param streetNumber - (STRING) the streetnumber as a part of the members address
+		 * @param postCode - (STRING) the postcode as a part of the members address
+		 * @param city - (STRING) the city as a part of the members address
+		 * @param password - (STRING) the password of the member
+		 */
+		public Member(Role memberRole, String firstName, String lastName,
+				String eMail, String street, String streetNumber, String postCode,
+				String city,String password) {
+				this.SetMemberRole(memberRole);
+				this.SetFirstName(firstName);
+				this.SetLastName(lastName);
+				this.SetEMail(eMail);
+				this.SetStreet(street);
+				this.SetStreetNumber(streetNumber);
+				this.SetPostCode(postCode);
+				this.SetCity(city);		
+				this.SetPasswordHash(password);
+		}
 	/**
-	 * @author Falzer, Marcel
+	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param memberID:Integer, set the memberID of the Member
+	 * @since 10.01.2011
+	 * @param memberID - (INTEGER) the identification number of the member
 	 */
 	public void SetMemberID(int memberID){
 		this.memberID = memberID;
 	}
-	/**
-	 * @param city :String = the city of the member
-	 * @param password :String = the login password of the member
-	 * @return no return because it is a construktor for instantiating a member object when the member even do not exists
-	 */
-	public Member(Role memberRole, String firstName, String lastName,
-			String eMail, String street, String streetNumber, String postCode,
-			String city,String password) {
-		this.SetMemberRole(memberRole);
-		this.SetFirstName(firstName);
-		this.SetLastName(lastName);
-		this.SetEMail(eMail);
-		this.SetStreet(street);
-		this.SetStreetNumber(streetNumber);
-		this.SetPostCode(postCode);
-		this.SetCity(city);		
-		this.SetPasswordHash(password);
-	}
 	
 	/**
-	 * @author Grunewald,Stephanie
-	 * @version 1.1
-	 * @return the streetNumber of the members address:String
+	 * @author Grunewald, Stephanie
+	 * @version 1.0
+	 * @since 10.01.2011
+     * @return streetNumber - (STRING) the streetnumber as a part of the members address 
 	 */
 	public String GetStreetNumber() {
 		return streetNumber;
 	}
 	/**
-	 * @author Grunewald,Stephanie
-	 * @version 1.1
-	 * @param the streetNumber:String of the members address:String
+	 * @author Grunewald, Stephanie
+	 * @version 1.0
+	 * @param streetNumber - (STRING) the streetnumber as a part of the members address 
 	 */
 	public void SetStreetNumber(String streetNumber) {
 		this.streetNumber = streetNumber;
@@ -116,31 +121,33 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.1
-	 * @return the postCode of the members address:String
+	 * @return postCode - (STRING) the postcode as a part of the members address
 	 */
 	public String GetPostCode() {
 		return postCode;
 	}
 	/**
 	 * @author Grunewald,Stephanie
-	 * @version 1.1
-	 * @param the postCode:String of the members address
+	 * @version 1.0
+	 * @since 10.01.2011
+	 * @param postCode - (STRING) the postcode as a part of the members address
 	 */
 	public void SetPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 	/**
-	 * @author Grunewald,Stephanie
-	 * @version 1.1
-	 * @return the city of the members address:String
+	 * @author Grunewald, Stephanie
+	 * @version 1.0
+	 * @since 10.01.2011
+	 * @return city - (STRING) the city as a part of the members address
 	 */
 	public String GetCity() {
 		return city;
 	}
 	/**
-	 * @author Grunewald,Stephanie
-	 * @version 1.1
-	 * @param the city:String of the members address
+	 * @author Grunewald, Stephanie
+	 * @version 1.0
+	 * @param city - (STRING) the city as a part of the members address
 	 */
 	public void SetCity(String city) {
 		this.city = city;
@@ -150,7 +157,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.0
-	 * @return the memberRole of the member:enum
+	 * @return memberRole - (Enum ROLE) the role of the member
 	 */
 	public Role GetMemberRole() {
 		return memberRole;
@@ -158,7 +165,7 @@ public class Member {
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param memberRole:enum, set the memberRole of the Member
+	 * @param memberRole - (Enum ROLE) the role of the member
 	 */
 	public void SetMemberRole(Role memberRole) {
 		this.memberRole = memberRole;
@@ -166,7 +173,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.1
-	 * @return the foreName of the member:String
+	 * @return firstName - (STRING) the firstname of the member
 	 */
 	public String GetFirstName() {
 		return firstName;
@@ -174,7 +181,7 @@ public class Member {
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.1
-	 * @param foreName:String, set the foreName of the Member
+	 * @param firstName - (STRING) the firstname of the member
 	 */
 	public void SetFirstName(String firstName) {
 		this.firstName = firstName;
@@ -182,7 +189,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.0
-	 * @return the lastName of the member:String
+	 * @return lastName - (STRING) the lastname of the member
 	 */
 	public String GetLastName() {
 		return lastName;
@@ -190,7 +197,7 @@ public class Member {
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param lastName:String, set the lastName of the Member
+	 * @param lastName - (STRING) the lastname of the member
 	 */
 	public void SetLastName(String lastName) {
 		this.lastName = lastName;
@@ -198,7 +205,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.0
-	 * @return the eMail of the member:String
+	 * @return eMail - (STRING) the email address of the member
 	 */
 	public String GetEMail() {
 		return eMail;
@@ -206,7 +213,7 @@ public class Member {
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param eMail:String, set the eMail of the Member
+	 * @param eMail - (STRING) the email address of the member
 	 */
 	public void SetEMail(String eMail) {
 		this.eMail = eMail;
@@ -214,7 +221,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.0
-	 * @return the address of the member:String
+	 * @return street - (STRING) the street as a part of the members address
 	 */
 	public String GetStreet() {
 		return street;
@@ -222,7 +229,7 @@ public class Member {
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.1
-	 * @param address:String, set the address of the Member
+	 * @param street - (STRING) the street as a part of the members address
 	 */
 	public void SetStreet(String street) {
 		this.street = street;
@@ -230,7 +237,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.0
-	 * @return the memberID of the member:integer
+	 * @return memberID - (INTEGER) the identifikation number of the member
 	 */
 	public int GetMemberID() {
 		return memberID;
@@ -239,7 +246,7 @@ public class Member {
 	/**
 	 * @author Grunewald,Stephanie
 	 * @version 1.0
-	 * @return the password of the member:String
+	 * @return passwordHash - (STRING) the password has value of the members password
 	 */
 	public String GetPasswordHash() {
 		return passwordHash;
@@ -247,10 +254,9 @@ public class Member {
 	/**
 	 * @author Grunewald, Stephanie
 	 * @version 1.0
-	 * @param password:String, set the foreName of the Member
+	 * @param passwordHash - (STRING) the password hash value of the members password
 	 */
 	public void SetPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}	
-
 }

@@ -1,14 +1,13 @@
 /*
-Anlagedatum: 13.01.2011
-Angelegt von: Falzer, Marcel
+creation date: 13.01.2011
+created by: Falzer, Marcel
 
-ÄNDERUNGSHISTORIE
-Änderungsdatum | Geändert von | Änderungsbeschreibung | Versionsnummer
-----------------------------------------------------------------------
+HISTORY OF MODIFICATION
+=============================================================================
+modification date  | modified from          | description            | version number
+-----------------------------------------------------------------------------
 
-Allgemeine Funktionsbeschreibung: Beschreibung des Objektes "CheckLogin"
-                                  CheckLogin überprüft, ob der Benutzer 
-                                  angelegt ist. 
+decription of the main function:  the methods realizing the login function
 
 * */ 
 package MemberManagement;
@@ -16,8 +15,9 @@ import DBConnection.DBCommands;
 public class MemberLogin {
 	/**
 	 * @author Falzer,Marcel
-	 * @version 1.1
-	 * @return value, if the Login is successful:boolean
+	 * @version 1.0
+	 * @since 13.01.2011
+	 * @return member - (object MEMBER) the member object which was found by the execution of the sql statement of dbcommands
 	 */
 	
 	public static Member returnMember(String eMail, String pwdHash){

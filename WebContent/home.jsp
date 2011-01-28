@@ -10,6 +10,7 @@
 	<link href="css/dockNavigation.css" rel="stylesheet" type="text/css" />
 	<link href="css/content.css" rel="stylesheet" type="text/css" />
 	<link href="css/warenkorb.css" rel="stylesheet" type="text/css" />
+	<link href="css/userView.css" rel="stylesheet" type="text/css" />
 	<style type="text/css" media="screen, projection">
 		@import url(css/jq_fade.css);
 	</style>	
@@ -95,9 +96,9 @@
 						<option value="DVD">DVD</option>
 						<option value="BluRay">BluRay</option>
 						<option value="Musik">Musik</option>
-						<option value="eBook">GamePlayStation1</option>
-						<option value="DVD">GamePlayStation2</option>
-						<option value="BluRay">Film</option>
+						<option value="GamePlayStation1">GamePlayStation1</option>
+						<option value="GamePlayStation2">GamePlayStation2</option>
+						<option value="Film">Film</option>
 					</select>
 				
 					<span>Kategorie</span>
@@ -154,12 +155,25 @@
 	            		<jsp:include page="warenkorb.jsp" flush="true" />
 	            		
 	            	<%  }
-	            		if (toModus == "home") {%>
-	            		<jsp:include page="content.jsp" flush="true" />
+	            		if (toModus == "welcome") {%>
+	            		<jsp:include page="welcome.jsp" flush="true" />
 	            		
 	            	<%  }
 	            		if (toModus == "list") {%>
 	            		<jsp:include page="content.jsp" flush="true" />
+	            		
+	            	<%  }
+	            		if (toModus == "error") {%>
+	            		<jsp:include page="error.jsp" flush="true" />
+	            	<%  }
+	            		if (toModus == "noPermission") {%>
+	            		<jsp:include page="noPermission.jsp" flush="true" />
+	            	<%  }
+	            		if (toModus == "userView") {%>
+	            		<jsp:include page="userDataView.jsp" flush="true" />
+	            	<%  }
+	            		if (toModus == "userEdit") {%>
+	            		<jsp:include page="userDataEdit.jsp" flush="true" />
 	            		
 	            	<% }
 	            		if (toModus == "details") {%>
