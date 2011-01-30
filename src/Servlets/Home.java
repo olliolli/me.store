@@ -39,7 +39,6 @@ public class Home extends HttpServlet {
 			if (session.getAttribute("member") != null) 
 			{
 				Member member = (Member) session.getAttribute("member");
-				System.out.println(member);
 				session.setMaxInactiveInterval(3600);
 				if(member.GetMemberID() >= 1){
 					System.out.println("Eingeloggt");

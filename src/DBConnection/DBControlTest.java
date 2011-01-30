@@ -38,6 +38,15 @@ public class DBControlTest {
 //		if(CheckLogin.returnValue("user1@mail.de", "24c9e15e52afc47c225b757e7bee1f9d"))
 //			System.out.println("Es funzt schon wieder");
 //		System.out.println(DBCommands.SelectOpenOrderByMemberID(2).getOrderID());
+//		int memberID = 2;
+//		String SqlStatement = 
+//			"Select * " +
+//			"From buchclub.order " +
+//			"Where `isalreadyordered` = 0 " +
+//			"And `memberid` = " + memberID + ";";
+//		ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
+//		System.out.println(results.get(0)[0]);
+		System.out.println(DBCommands.SelectArticleByID(10).GetArticleID());
 		//------------------------------Methodentest Steffi------------------------
 		// eingegebene Parameter in Registrierungsformular holen und Variablen belegen
 //		String firstName = "Steffi";

@@ -1,4 +1,6 @@
 <%@ page language="java" import="MemberManagement.Member" %> 
+<%@ page language="java" import="OrderManagement.Order" %>
+<%@ page language="java" import="OrderManagement.OrderLine" %>
 <html>
 <head>
 	<title>home</title>
@@ -53,32 +55,40 @@
 				</div>
 			</div>
 	        <div id="topnav">			
-				<div id="usersection">
-					<%						
-						if (session.getAttribute("member") != null) {
-							Member member = (Member)session.getAttribute("member");
-							if (member.GetMemberID() != 0){
-								out.println("<a href=\"Login?modus=logout\"><span>Logout</span></a>");
-								out.println("<a href=\"User\"><span>mein Konto</span></a>");	
-							}
-							else {
-								out.println("<a href=\"Login\"><span>Login</span></a>");						
-							}
-						}	
-						else {
-							out.println("<a href=\"Login\"><span>Login</span></a>");						
+				
+			<%
+			out.println("<div id=\"usersection\">");
+				if (session.getAttribute("member") != null) {
+					Member member = (Member)session.getAttribute("member");
+					if (member.GetMemberID() != 0){
+						out.println("<a href=\"Login?logedIn=true\"><span>Logout</span></a>");
+						out.println("<a href=\"User\"><span>mein Konto</span></a>");	
+					}
+					else {
+						out.println("<a href=\"Login\"><span>Login</span></a>");						
+					}
+				}	
+				else {
+					out.println("<a href=\"Login\"><span>Login</span></a>");						
+				}
+			out.println("</div>");
+			
+			out.println("<div id=\"basket_outer\">");
+				out.println("<div id=\"basket_inner\">");
+					out.println("<a href=\"Cart\">");
+						out.println("<span>Warenkorb</span>");
+						out.println("<span> | </span>");
+						if(session.getAttribute("cart") != null){
+							Order cart = (Order)session.getAttribute("cart");
+							out.println("<span>" + cart.getOrderLines().size() +" Artikel</span>");
 						}
-					%>
-				</div>
-				<div id="basket_outer">
-					<div id="basket_inner">
-						<a href="Cart" name="linkCart">
-							<span>Warenkorb</span>
-							<span> | </span>
-							<span>0 Artikel</span>
-						</a>
-					</div>
-				</div>	
+						else{
+							out.println("<span>0 Artikel</span>");
+						}
+					out.println("</a>");
+				out.println("</div>");
+			out.println("</div>");					
+			%>					
 	        </div>
 	    </div>
 	</div>
