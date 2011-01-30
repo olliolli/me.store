@@ -15,7 +15,7 @@
 	
 		out.println("<div class=\"clearfi	x\">");
 			out.println("<a href=\"Home\">");
-				out.println("zurück"); 
+				out.println("zurück zur Startseite"); 
 			out.println("</a>");	
 		out.println("</div>");
 	

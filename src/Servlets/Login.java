@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.naming.ServiceUnavailableException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,36 +35,90 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("error", "");
 		
-		if(request.getParameter("logedIn")!= null)
-		{
-			String logedIn = request.getParameter("logedIn");
-			boolean isLogedIn = Boolean.parseBoolean(logedIn);
-			if (isLogedIn)
+		
+		if(request.getParameter("toModus") != null && request.getParameter("toModus").equals("cancel")){
+
+			
+			String redirectURL = "/me.store";
+			
+			//Get last visited Page
+			Cookie[] cookies = request.getCookies();
+			
+			if (cookies != null){
+				for(int i=0; i < cookies.length; i++) {		
+					Cookie c = cookies[i];
+					if (c.getName().equals("lastPage")) {
+						String cookieValue =Details.decodeString(c.getValue());	
+						if (!cookieValue.equals("")){
+							redirectURL += cookieValue;
+						}
+						break;
+					}
+					
+				}
+			}			
+			
+			if (redirectURL.equals("/me.store"))
+				redirectURL += "/Home";
+			
+			response.sendRedirect(redirectURL);
+		}
+		else{		
+		
+			if(request.getParameter("logedIn")!= null)
 			{
-				HttpSession session = request.getSession(false);
-				if(session.getAttribute("cart") != null)
+				String logedIn = request.getParameter("logedIn");
+				boolean isLogedIn = Boolean.parseBoolean(logedIn);
+				if (isLogedIn)
 				{
-					Order cart = (Order) session.getAttribute("cart");
-					if(!cart.getIsAlreadyOrdered())
+					HttpSession session = request.getSession(false);
+					if(session.getAttribute("cart") != null)
 					{
-						//DBCommands.NewOrder(cart);
-						for (int i = 0; i < cart.getOrderLines().size();i++)
+						Order cart = (Order) session.getAttribute("cart");
+						if(!cart.getIsAlreadyOrdered())
 						{
-							//DBCommands.NewOrderLine(cart.getOrderLines().get(i));
-							System.out.println(cart.getOrderLines().get(i));
+							//DBCommands.NewOrder(cart);
+							for (int i = 0; i < cart.getOrderLines().size();i++)
+							{
+								//DBCommands.NewOrderLine(cart.getOrderLines().get(i));
+								System.out.println(cart.getOrderLines().get(i));
+							}
 						}
 					}
+					session.invalidate();
 				}
-				session.invalidate();
+				
+				String redirectURL = "/me.store";
+				
+				//Get last visited Page
+				Cookie[] cookies = request.getCookies();
+				
+				if (cookies != null){
+					for(int i=0; i < cookies.length; i++) {		
+						Cookie c = cookies[i];
+						if (c.getName().equals("lastPage")) {
+							String cookieValue =Details.decodeString(c.getValue());	
+							if (!cookieValue.equals("")){
+								redirectURL += cookieValue;
+							}
+							break;
+						}
+						
+					}
+				}			
+				
+				if (redirectURL.equals("/me.store"))
+					redirectURL += "/Home";
+				
+				response.sendRedirect(redirectURL);
 			}
-			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
-			dispatcher.forward(request, response);
-		}
-		else{
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
-			dispatcher.forward(request, response);
+			else{
+				
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 	}
 
@@ -99,13 +154,37 @@ public class Login extends HttpServlet {
 					System.out.println(order.getOrderLines().get(0).getArticleID());
 				}
 				
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
-				dispatcher.forward(request, response);
+
+				String redirectURL = "/me.store";
+				
+				//Get recently visited Articles
+				Cookie[] cookies = request.getCookies();
+				
+				if (cookies != null){
+					for(int i=0; i < cookies.length; i++) {		
+						Cookie c = cookies[i];
+						if (c.getName().equals("lastPage")) {
+							String cookieValue =Details.decodeString(c.getValue());	
+							if (!cookieValue.equals("")){
+								redirectURL += cookieValue;
+							}
+							break;
+						}
+						
+					}
+				}			
+				
+				if (redirectURL.equals("/me.store"))
+					redirectURL += "/Home";
+				
+				response.sendRedirect(redirectURL);
+				
 			}
 			else{
 				HttpSession session = request.getSession(true);
 				session.setAttribute("member", member);		
 				session.setAttribute("cart", null);
+				request.setAttribute("error", "Ihre Eingabe war leider nicht richtig");
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 				dispatcher.forward(request, response);
 			}

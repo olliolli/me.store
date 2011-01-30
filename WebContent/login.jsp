@@ -34,8 +34,13 @@
 					<br />
 					<div class="login-box-buttons">
 						<a href="javascript: document.frmLogin.submit();"><img src="images/login/login-btn_lightblue.png" width="103" height="42"/></a>
-						<a href="javascript: history.back();"><img src="images/main/cancel.png" width="103" height="42" /></a>
+						<a href="Login?toModus=cancel"><img src="images/main/cancel.png" width="103" height="42" /></a>
 					</div>
+					<%
+						if (request.getAttribute("error") != null && !request.getAttribute("error").equals("")){
+							out.println("<span>" + request.getAttribute("error") +"</span>");							
+						}
+					%>
 				</div>
 			</form>
 		</div>

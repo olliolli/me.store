@@ -89,6 +89,8 @@ public class Home extends HttpServlet {
 			}
 		}
 		
+		Cookie lastPage = new Cookie("lastPage", "/Home");
+		response.addCookie(lastPage);
 		
 		request.setAttribute("toModus", "welcome");
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");

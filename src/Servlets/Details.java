@@ -114,7 +114,7 @@ public class Details extends HttpServlet {
 						}
 						if (!articleAlreadyInCookie)
 						{
-							// save only the 5 recently visited articles. 
+							// save only the 8 recently visited articles. 
 							// The oldest is at the very beginning so 
 							// we have to cut the String 
 							
@@ -138,6 +138,12 @@ public class Details extends HttpServlet {
 				watchedArticleCookie = new Cookie("watchedArticles",Details.encodeString(articleID.toString()));	
 			watchedArticleCookie.setMaxAge(30*24*60*60);
 			response.addCookie(watchedArticleCookie);
+			
+			
+			//Set cookie to save display status
+			//Needed to get redirected from login page to this view directly.
+			Cookie lastPage = new Cookie("lastPage", "/Details?id=" + articleID);
+			response.addCookie(lastPage);
 			
 			
 			//Get Article Information

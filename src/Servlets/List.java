@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,6 +52,25 @@ public class List extends HttpServlet {
 		request.setAttribute("med", rsMedium);
 		request.setAttribute("cat", rsCategory);
 		request.setAttribute("opt", rsOption);
+		
+		//Set cookie to save display status
+		//Needed to get redirected from login page to this view directly.
+		String pageString = "/List?";
+		if (rsMedium != null)
+			pageString += "med=" + rsMedium +"&";
+		if (rsCategory != null)
+			pageString += "cat=" + rsCategory +"&";
+		if (rsOption != null)
+			pageString += "opt=" + rsOption +"&";
+		if (rsSearchQuery != null)
+			pageString += "searchQuery=" + rsSearchQuery;
+		
+		pageString = pageString.substring(0,pageString.length()-1);
+		
+		
+		Cookie lastPage = new Cookie("lastPage", pageString);
+		response.addCookie(lastPage);
+		
 		
 		//Set page Parameter. 
 		request.setAttribute("toModus", "list");
