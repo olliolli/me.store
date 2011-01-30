@@ -529,7 +529,7 @@ public static void UpdateMember(Member member) {
 		  				element[3],
 		  				element[4], 
 				        Double.parseDouble(element[5]),				        
-				        (int)Double.parseDouble(element[6]), 
+				        Double.parseDouble(element[6]), 
 				        element[7]
 		  		));
 		  		

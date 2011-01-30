@@ -98,7 +98,7 @@
 							out.println("</td>");
 							out.println("<td class=\"detailsTableRight\">");
 	
-								if (element.GetDiscount() != 0){
+								if (element.GetDiscount() != 0.0){
 									out.println("<div class=\"discount\">");
 										out.println("<span>reduziert von </span>");
 										out.println("<span>" + df.format(element.GetPrice()) + "</span>");

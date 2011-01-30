@@ -57,7 +57,8 @@ public class Login extends HttpServlet {
 				}
 				session.invalidate();
 			}
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
 			dispatcher.forward(request, response);
 		}
 		else{
