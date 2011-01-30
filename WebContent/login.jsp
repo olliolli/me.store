@@ -27,7 +27,7 @@
 					<br />
 					<span class="login-box-options">
 						<a href="Register">Neukunde?</a>
-						<a href="NewPassword">Passwort vergessen?</a>
+						<!-- <a href="NewPassword">Passwort vergessen?</a> -->
 					</span>
 					<br />
 					

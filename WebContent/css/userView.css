@@ -19,6 +19,19 @@
     height: 20px;
 }
 
+.textfieldReadOnly {
+	width: 205px;
+	background-color: #ffffff;
+    border: 0px solid #989AAB;
+    color: #000000;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    padding-left: 2px;
+    height: 20px;
+}
+
 .leftColumn {
 	width: 160px;
 	}

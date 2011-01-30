@@ -72,7 +72,7 @@ public class DBCommands {
 		member.SetCity(results.get(0)[6]);
 		member.SetEMail(results.get(0)[7]);
 		member.SetPasswordHash(results.get(0)[8]);		
-		if(Integer.parseInt(results.get(0)[9])==1)
+		if(Integer.parseInt(results.get(0)[9])==2)
 			member.SetMemberRole(Role.Admin);
 		else
 			member.SetMemberRole(Role.Member);
@@ -424,6 +424,41 @@ public static void UpdateMember(Member member) {
 			System.out.println(e);
 		}
 		return genre;
+	}
+	
+	public static Collection<String[]> GetOrderedArticle(){
+		String selectStatement = "select " +
+		"art.ArticleID" +
+		",art.Title" +
+		",sum(orderline.amount)" +
+		",sum(orderline.Price)" +
+		" from article art,orderline";
+		
+		selectStatement += 
+			" where art.ArticleID = orderline.ArticleID" +
+			" group by art.ArticleID" +
+			" order by SUM(orderline.Price) desc;";			
+		
+		System.out.println(selectStatement);
+		
+		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement);
+		
+		Collection<String[]> collection = new ArrayList<String[]>();
+		
+		if (rs != null) {
+		  	for (Iterator<String[]> iter = rs.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		collection.add(new String[]{
+		  				element[0],
+		  				element[1],
+		  				element[2],
+		  				element[3]
+		  		});
+		  		
+		  	}
+		}
+		
+		return collection;
 	}
 	
 	

@@ -39,7 +39,7 @@ public class Home extends HttpServlet {
 			if (session.getAttribute("member") != null) 
 			{
 				Member member = (Member) session.getAttribute("member");
-				session.setMaxInactiveInterval(3600);
+				session.setMaxInactiveInterval(2*60*60);//2hours
 				if(member.GetMemberID() >= 1){
 					System.out.println("Eingeloggt");
 				}
@@ -52,8 +52,8 @@ public class Home extends HttpServlet {
 			}
 		}	
 		else{
-			session.setMaxInactiveInterval(10);
-			System.out.println("Neu");
+			session.setMaxInactiveInterval(2*60*60); //2hours
+			System.out.println("Neue Session");
 		}
 		
 		
@@ -66,7 +66,6 @@ public class Home extends HttpServlet {
 				Cookie c = cookies[i];
 				if (c.getName().equals("watchedArticles")) {
 					String cookieValue =Details.decodeString(c.getValue());	
-					System.out.println(cookieValue);
 					if (!cookieValue.equals("")){
 						
 						String[] articleIDsString = cookieValue.split("\\,");
@@ -77,7 +76,6 @@ public class Home extends HttpServlet {
 							}
 							catch(NumberFormatException e){}
 							
-							System.out.println(articleIDsInt[y]);
 						}
 						
 						Collection<Article> articles =  DBCommands.GetArticlesByIDs(articleIDsInt);
