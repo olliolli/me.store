@@ -1,0 +1,29 @@
+body {
+			
+	background: #ebebeb url("../images/Register/body-bg.png") repeat-y center;
+	color:#777744;
+	font-family:Verdana,Arial,sans-serif;
+	font-size:13px;
+	width: 800px;
+	margin: auto;
+	text-align: center;
+	padding-bottom: 20px;
+	cursor: default;
+}
+
+.yellow {
+	color: #999966;
+	font-weight: bold;
+}
+
+.cleafix {
+}
+
+.tableRow {
+	border-top: 1px solid #999966;
+}
+
+.headerRow {
+	font-weight: bold;
+}
+	

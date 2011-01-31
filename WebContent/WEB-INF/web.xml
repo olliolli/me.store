@@ -18,17 +18,7 @@
   <servlet-mapping>
     <servlet-name>Cart</servlet-name>
     <url-pattern>/Cart</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Error</display-name>
-    <servlet-name>Error</servlet-name>
-    <servlet-class>Servlets.Error</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Error</servlet-name>
-    <url-pattern>/Error</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
   <servlet>
     <description></description>
     <display-name>Home</display-name>
@@ -98,5 +88,15 @@
   <servlet-mapping>
     <servlet-name>Details</servlet-name>
     <url-pattern>/Details</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Admin</display-name>
+    <servlet-name>Admin</servlet-name>
+    <servlet-class>Servlets.Admin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Admin</servlet-name>
+    <url-pattern>/Admin</url-pattern>
   </servlet-mapping>
 </web-app>
