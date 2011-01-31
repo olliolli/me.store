@@ -10,7 +10,7 @@
 				<div id="basket-header">
 					<div class="inner">
 						<span class="basket-bold">Warenkorb</span><br />
-						<a href="#" style="float: right; padding-right: 10px;"> 
+						<a href="Cart" style="float: right; padding-right: 10px;"> 
 							<img src="images/basket/refresh.png" alt="Aktualisieren" /> 
 						</a> 
 					</div>
@@ -37,7 +37,7 @@
 						out.println("<div class=\"mid_cell\">");
 							out.println("<div class=\"basket-left\"><div class=\"mid_cell_height\">" + article.GetTitle() + "</div></div>");
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + article.GetArticleID() + "</div></div>");
-							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + article.GetPrice() + "</div></div>");
+							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + cart.getOrderLines().get(i).getPrice() + "</div></div>");
 							out.println("<div class=\"basket-right\">");
 								out.println("<div class=\"mid_cell_height\">");
 									out.println("<input name=\"count\" class=\"\" title=\"\" value=\"" + cart.getOrderLines().get(0).getAmount() +"\" size=\"2\" maxlength=\"2\" />");
@@ -45,7 +45,7 @@
 							out.println("</div>");
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\"><a href=\"#\">entfernen</a></div></div>");
 						out.println("</div>");
-						sum = sum + (article.GetPrice()*cart.getOrderLines().get(i).getAmount());
+						sum = sum + (cart.getOrderLines().get(i).getPrice()*cart.getOrderLines().get(i).getAmount());
 					}
 					out.println("<div id=\"basket-bottom\">");
 						out.println("<div class=\"basket-bottom-cell\" style=\"width:218px; padding-left: 0px;\">Summe:</div>");

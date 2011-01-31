@@ -34,7 +34,7 @@
 				out.println("<div class=\"rightDetails\">");
 				
 					out.println("<table id=\"detailsTable\">");
-											
+					
 						out.println("<tr>");
 							out.println("<td class=\"detailsTableLeft\">");
 								out.println("<span>");

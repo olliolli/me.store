@@ -82,22 +82,12 @@ public class Login extends HttpServlet {
 			} catch (ServiceUnavailableException e) {
 				e.printStackTrace();
 			}
-			System.out.println(pwdHash);
 			Member member = MemberManagement.MemberLogin.returnMember(eMail, pwdHash);
 			if(member.GetMemberID() >= 1){
 				HttpSession session = request.getSession(true);
 				session.setAttribute("member", member);
-				System.out.println(member.GetMemberID());
 				Order order = DBCommands.SelectOpenOrderByMemberID(member.GetMemberID());
-				session.setAttribute("cart", order );
-				order = (Order) session.getAttribute("cart");
-				System.out.println(order.getOrderID());
-				System.out.println(order.getOrderLines().size());
-				for (int i = 0; i < order.getOrderLines().size();i++)
-				{
-					System.out.println(order.getOrderLines().get(0).getArticleID());
-				}
-				
+				session.setAttribute("cart", order );				
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
 				dispatcher.forward(request, response);
 			}
