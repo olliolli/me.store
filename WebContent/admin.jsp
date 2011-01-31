@@ -13,7 +13,7 @@
 <body>
 	<%
 	
-		out.println("<div class=\"clearfi	x\">");
+		out.println("<div class=\"clearfix\">");
 			out.println("<a href=\"Home\">");
 				out.println("zurück zur Startseite"); 
 			out.println("</a>");	
