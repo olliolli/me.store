@@ -62,7 +62,14 @@
 								<td>Passwort Wiederholung</td>
 								<td><input class="textfield" name="w_password" type="password" maxlength="30"></td>
 							</tr>
-						</table>					
+						</table>
+						<div>
+						<%
+				if (request.getAttribute("error") != null && !request.getAttribute("error").equals("")){
+				out.println("<span>" + request.getAttribute("error") +"</span>");							
+				}
+					%>
+						</div>					
 					<p> <a href="#2" class="cross-link" title="Lieferadresse">Nächste &#187;</a></p>
 				
 				</div>
@@ -126,9 +133,10 @@
 							<input class="button" type="submit" value="">	
 							<a class="button" href="Login"><img src="images/main/cancel.png" width="103" height="42" /></a>
 						</div>	
-					<p><a href="Login" class="cross-link" title="Adresse">&#171; Vorherige</a> </p>
+					<p><a href="#1" class="cross-link" title="Adresse">&#171; Vorherige</a> </p>
 				</form>
 				</div>	
+				
 				</div>
 			</div>			
 		</div>
