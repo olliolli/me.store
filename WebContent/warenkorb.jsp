@@ -1,16 +1,21 @@
 <%@ page language="java" import="OrderManagement.Order" %>
 <%@ page language="java" import="ArticleManagement.Article" %>
 <%@ page language="java" import="DBConnection.DBCommands" %>
-
+<script type="text/javascript">
+	function changeStatus(status) {
+		document.getElementById("givenStatus").value = status;
+		document.frmCart.submit();		
+	}
+</script>
 <div id="content">
 	<div class="clearfix">
-		<form>
+	<form name="frmCart" action="Cart" method="post">
+	<input type="hidden" name="givenStatus" id="givenStatus" value="refresh" />
 			<div id="basket-table">
-					
 				<div id="basket-header">
 					<div class="inner">
 						<span class="basket-bold">Warenkorb</span><br />
-						<a href="Cart" style="float: right; padding-right: 10px;"> 
+						<a href="javascript:document.frmCart.submit();" style="float: right; padding-right: 10px;"> 
 							<img src="images/basket/refresh.png" alt="Aktualisieren" /> 
 						</a> 
 					</div>
@@ -21,7 +26,7 @@
 				<div class="basket-top-cell">Product-Nr.</div>
 				<div class="basket-top-cell">Preis</div>
 				<div class="basket-top-cell">Menge</div>
-				<div class="basket-top-cell" style="border:none;">Aktion</div>
+				<div class="basket-top-cell" style="border:none;">Löschen</div>
 				</div>
 		
 		
@@ -34,17 +39,21 @@
 					for (int i = 0; i < cart.getOrderLines().size();i++)
 					{
 						Article article = DBCommands.SelectArticleByID(cart.getOrderLines().get(i).getArticleID());
+						
 						out.println("<div class=\"mid_cell\">");
 							out.println("<div class=\"basket-left\"><div class=\"mid_cell_height\">" + article.GetTitle() + "</div></div>");
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + article.GetArticleID() + "</div></div>");
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + cart.getOrderLines().get(i).getPrice() + "</div></div>");
 							out.println("<div class=\"basket-right\">");
 								out.println("<div class=\"mid_cell_height\">");
-									out.println("<input name=\"count\" class=\"\" title=\"\" value=\"" + cart.getOrderLines().get(0).getAmount() +"\" size=\"2\" maxlength=\"2\" />");
+									out.println("<input name=\"count"+article.GetArticleID()+"\" class=\"\" title=\"\" value=\"" + cart.getOrderLines().get(0).getAmount() +"\" size=\"2\" maxlength=\"2\" />");
 								out.println("</div>");
 							out.println("</div>");
-							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\"><a href=\"#\">entfernen</a></div></div>");
+//							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\"><a href=\"javascript:document.frmCart.submit();\">entfernen</a></div></div>");
+							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\"><input name=\"delete"+article.GetArticleID()+"\" id=\"delete"+article.GetArticleID()+"\" type=\"checkbox\" value=\"true\"></div></div>");
 						out.println("</div>");
+						
+						
 						sum = sum + (cart.getOrderLines().get(i).getPrice()*cart.getOrderLines().get(i).getAmount());
 					}
 					out.println("<div id=\"basket-bottom\">");
@@ -56,55 +65,7 @@
 					out.println("</div>");				
 				}				
 		%>
-				<!--
-				<div class="mid_cell">
-					<div class="basket-left"><div class="mid_cell_height">Harry Potter</div></div>
-					<div class="basket-right"><div class="mid_cell_height">10 0020</div></div>
-					<div class="basket-right"><div class="mid_cell_height">25.90</div></div>
-					<div class="basket-right" >
-						<div class="mid_cell_height">
-							<input name="count" class="" title="" value="2" size="2" maxlength="2" />
-						</div>
-					</div>
-					<div class="basket-right"><div class="mid_cell_height"><a href="#">entfernen</a></div></div>
-				</div>
-		
-				<div class="mid_cell">
-					<div class="basket-left"><div class="mid_cell_height">Harry Potter</div></div>
-					<div class="basket-right"><div class="mid_cell_height">10 0020</div></div>
-					<div class="basket-right"><div class="mid_cell_height">12.95</div></div>
-					<div class="basket-right">
-						<div class="mid_cell_height">
-							<input name="count" class="" title="" value="1" size="2" maxlength="2" />
-						</div>
-					</div>
-					<div class="basket-right"><div class="mid_cell_height"><a href="#">entfernen</a></div></div>
-				</div>
 				
-				<div class="mid_cell">
-					<div class="basket-left"><div class="mid_cell_height">Harry Potter</div></div>
-					<div class="basket-right"><div class="mid_cell_height">10 0020</div></div>
-					<div class="basket-right"><div class="mid_cell_height">12.95</div></div>
-					<div class="basket-right">
-						<div class="mid_cell_height">
-							<input name="count" class="" title="" value="1" size="2" maxlength="2" />
-						</div>
-					</div>
-					<div class="basket-right"><div class="mid_cell_height"><a href="#">entfernen</a></div></div>
-				</div>
-		
-				-->
-				<!--
-				<div id="basket-bottom">
-					<div class="basket-bottom-cell" style="width:218px; padding-left: 0px;">Summe:</div>
-					<div class="basket-bottom-cell"></div>
-					<div class="basket-bottom-cell"></div>
-					<div class="basket-bottom-cell"></div>
-					<div class="basket-bottom-cell" style="border:none;"></div>
-				</div>
-		
-		
-				-->
 				</div>
 		
 		

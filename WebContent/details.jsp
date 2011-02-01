@@ -29,6 +29,7 @@
 
 </head>
 <body>
+
 	
 <div id="contentDetails">
 	
@@ -45,6 +46,7 @@
 		DecimalFormat df = new DecimalFormat("0.00");
 	  
 		out.println("<form name=\"frmArticle" + element.GetArticleID() + "\" action=\"Cart\" method=\"post\" class=\"detailsContainer\">");
+		out.println("<input type=\"hidden\" name=\"givenStatus\" id=\"givenStatus\" value=\"order\" />");
 	  		out.println("<div class=\"clearfix\">");		  		
 		  		out.println("<div class=\"leftDetails\"><img src=" + element.GetPicturePath() + " alt=\"\" height=\"300\"  /></div>");
 				out.println("<div class=\"rightDetails\">");
@@ -107,6 +109,7 @@
 									out.println("</div>");								
 									out.println("<div class=\"price\" style=\"color: #FF0A0E;\">");
 										double newPrice = Math.rint( element.GetPrice() * (1-(element.GetDiscount() / 100.0)) * 100.) / 100.;
+										out.println("<input type=\"hidden\" name=\"newPrice\" id=\"newPrice\" value=\""+newPrice+"\" />");
 										out.println("<span>"+ df.format(newPrice) +"</span>");
 										out.println("<span>&euro;</span>");
 									out.println("</div>");

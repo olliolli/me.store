@@ -238,7 +238,6 @@ public static void UpdateMember(Member member) {
 			System.out.println(e);
 		}		
 	}
-
 	/**
 	 * @author Falzer, Marcel
 	 * @version 1.0
@@ -254,6 +253,32 @@ public static void UpdateMember(Member member) {
 					"'" + orderLine.getArticleID() + "'," +
 					"'" + orderLine.getAmount() + "'," +
 					"'" + orderLine.getPrice() + "');";
+		try{
+			DBControl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}	
+	}
+	public static void DeleteOrderLine(OrderLine orderline){
+		String SqlStatement = 
+			"Delete from orderline " + 
+			"Where orderid = " + orderline.getOrderID() + " " + 
+			"And articleid = " + orderline.getArticleID() + ";";
+		try{
+			DBControl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}	
+	}
+	public static void UpdateOrderLine(OrderLine orderLine){
+		String SqlStatement =
+			"Update buchclub.orderline " + 
+			"Set `amount` = '" + orderLine.getAmount() + "',"+
+			"`price` = '" + orderLine.getPrice() + "' " + 
+			"Where `orderid` = '" + orderLine.getOrderID() + "' " + 
+			"And `articleid` = '" + orderLine.getArticleID() + "';";
 		try{
 			DBControl.ExecuteQuery(SqlStatement);
 		}
@@ -291,6 +316,26 @@ public static void UpdateMember(Member member) {
 			System.out.println(e);
 		}
 		return orderLines;
+	}
+	public static OrderLine SelectOrderLineByOrderIDAndArticleID(int orderID,int articleID){
+		OrderLine orderLine = new OrderLine();
+		String SqlStatement = 
+			"Select * " + 
+			"From orderline " +
+			"Where orderid = '" + orderID + "' " + 
+			"And articleid = '" + articleID + "';";
+		try{
+			ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
+			orderLine.setOrderID(Integer.parseInt(results.get(0)[0]));
+			orderLine.setArticleID(Integer.parseInt(results.get(0)[1]));
+			orderLine.setAmount(Integer.parseInt(results.get(0)[2]));
+			orderLine.setPrice(Double.parseDouble(results.get(0)[3]));
+		}
+		catch (Exception e){
+			System.out.println(SqlStatement);
+			System.out.println(e);
+		}
+		return orderLine;
 	}
 /**
  * @author Falzer, Marcel
@@ -334,9 +379,8 @@ public static void UpdateMember(Member member) {
  */
 	public static void AcceptOrder(Order order){
 		String SqlStatement = 
-			"Update order(isalreadyordered = 1," +
-			"orderdate = today " +
-			"Where orderid = " + order.getOrderID();
+			"Update buchclub.order set `isalreadyordered` = '1' " +
+			"Where `orderid` = '" + order.getOrderID()+"';";
 		try{
 			DBControl.ExecuteQuery(SqlStatement);
 		}
