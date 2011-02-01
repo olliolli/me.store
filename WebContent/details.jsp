@@ -46,7 +46,8 @@
 		DecimalFormat df = new DecimalFormat("0.00");
 	  
 		out.println("<form name=\"frmArticle" + element.GetArticleID() + "\" action=\"Cart\" method=\"post\" class=\"detailsContainer\">");
-		out.println("<input type=\"hidden\" name=\"givenStatus\" id=\"givenStatus\" value=\"order\" />");
+		out.println("<input type=\"hidden\" name=\"givenStatus\" id=\"givenStatus\" value=\"3\" />");
+		out.println("<input type=\"hidden\" name=\"articleID\" id=\"articleID\" value=\""+element.GetArticleID()+"\" />");
 	  		out.println("<div class=\"clearfix\">");		  		
 		  		out.println("<div class=\"leftDetails\"><img src=" + element.GetPicturePath() + " alt=\"\" height=\"300\"  /></div>");
 				out.println("<div class=\"rightDetails\">");
