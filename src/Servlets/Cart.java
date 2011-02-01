@@ -47,7 +47,8 @@ public class Cart extends HttpServlet {
 			articleID = Integer.parseInt(request.getParameter("articleID"));
 		}
 		HttpSession session = request.getSession(false);
-		if(request.getParameter("givenStatus").equals("refresh")){
+		System.out.println(request.getParameter("givenStatus"));
+		if(Integer.parseInt(request.getParameter("givenStatus"))==1){
 			Order cart = (Order) session.getAttribute("cart");
 			ArrayList <OrderLine> newOrderLines = new ArrayList<OrderLine>();
 			
@@ -68,21 +69,12 @@ public class Cart extends HttpServlet {
 			cart.setOrderLines(newOrderLines);
 			session.setAttribute("cart", cart);
 		}
-		else if(request.getParameter("givenStatus").equals("buy")){
+		else if(Integer.parseInt(request.getParameter("givenStatus"))==2){
 			Order cart = (Order) session.getAttribute("cart");
 			DBCommands.AcceptOrder(cart);
 			session.setAttribute("cart", null);
 		}
-		else if(request.getParameter("givenStatus").equals("cancel"))
-		{
-			Order cart = (Order) session.getAttribute("cart");
-			for (int i = 0; i < cart.getOrderLines().size();i++){
-				System.out.println(Integer.parseInt(request.getParameter("delete"+cart.getOrderLines().get(i).getArticleID())));
-				
-			}
-			session.setAttribute("cart", cart);
-		}
-		else if(request.getParameter("givenStatus").equals("order")){
+		else if(Integer.parseInt(request.getParameter("givenStatus"))==3){
 			double price = 0.0;
 			if(request.getParameter("newPrice") != null)
 				price = Double.parseDouble(request.getParameter("newPrice"));
@@ -103,6 +95,7 @@ public class Cart extends HttpServlet {
 				orderLine.setAmount(1);
 				orderLine.setPrice(price);				
 				cartPlaces.add(orderLine);
+				DBCommands.NewOrderLine(orderLine);
 				cart.setOrderLines(cartPlaces);			
 				session.setAttribute("cart",cart);
 			}
@@ -115,6 +108,7 @@ public class Cart extends HttpServlet {
 				orderLine.setAmount(1);
 				orderLine.setPrice(price);
 				cartPlaces.add(orderLine);
+				DBCommands.NewOrderLine(orderLine);
 				cart.setOrderLines(cartPlaces);
 				session.setAttribute("cart", cart);
 			}

@@ -41,6 +41,8 @@
 		  	for (Iterator iter = arrayList.iterator(); iter.hasNext();) {
 		  		Article element = (Article) iter.next();
 				out.println("<form name=\"frmArticle" + element.GetArticleID() + "\" action=\"Cart\" method=\"post\" class=\"articleContainer\">");
+				out.println("<input type=\"hidden\" name=\"givenStatus\" id=\"givenStatus\" value=\"3\" />");
+				
 			  		out.println("<div class=\"clearfix\">");
 				  		out.println("<p class=\"yellow\"><strong>" + element.GetTitle() + "</strong></p>");
 				  		out.println("<div class=\"left\"><img src=" + element.GetPicturePath() + " alt=\"\" height=\"120\"  /></div>");

@@ -10,12 +10,12 @@
 <div id="content">
 	<div class="clearfix">
 	<form name="frmCart" action="Cart" method="post">
-	<input type="hidden" name="givenStatus" id="givenStatus" value="refresh" />
+	<input type="hidden" name="givenStatus" id="givenStatus" value="2" />
 			<div id="basket-table">
 				<div id="basket-header">
 					<div class="inner">
 						<span class="basket-bold">Warenkorb</span><br />
-						<a href="javascript:document.frmCart.submit();" style="float: right; padding-right: 10px;"> 
+						<a href="javascript:changeStatus(1);" style="float: right; padding-right: 10px;"> 
 							<img src="images/basket/refresh.png" alt="Aktualisieren" /> 
 						</a> 
 					</div>
@@ -46,7 +46,7 @@
 							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\">" + cart.getOrderLines().get(i).getPrice() + "</div></div>");
 							out.println("<div class=\"basket-right\">");
 								out.println("<div class=\"mid_cell_height\">");
-									out.println("<input name=\"count"+article.GetArticleID()+"\" class=\"\" title=\"\" value=\"" + cart.getOrderLines().get(0).getAmount() +"\" size=\"2\" maxlength=\"2\" />");
+									out.println("<input name=\"count"+article.GetArticleID()+"\" class=\"\" title=\"\" value=\"" + cart.getOrderLines().get(i).getAmount() +"\" size=\"2\" maxlength=\"2\" />");
 								out.println("</div>");
 							out.println("</div>");
 //							out.println("<div class=\"basket-right\"><div class=\"mid_cell_height\"><a href=\"javascript:document.frmCart.submit();\">entfernen</a></div></div>");
