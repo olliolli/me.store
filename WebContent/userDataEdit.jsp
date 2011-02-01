@@ -11,10 +11,16 @@
 
 
 <div id="content" style="padding-top: auto;">
+		<%
+				if (request.getAttribute("message") != null && !request.getAttribute("message").equals("")){
+					out.println("<span>" + request.getAttribute("message") +"</span>");							
+				}
+			%>
 	<form action="User?toModus=commit" method="post">	
 		<div class="clearfix">
 			<h3 class="yellow f14">Benutzer</h3>
 		</div>	
+
 		<div class="clearfix">
 			<table border="0" class="userTable">
 				<tr class="userRow">
@@ -70,10 +76,9 @@
 		<div class="clearfix" style="margin-top: 16px;">
 			<div class="register-buttons">
 			<input class="resume-Button" type="submit" value=""> 
-			<a href="User?toModus=view">
-				<img src="images/main/cancel.png" width="103" height="42" />
-			</a>
+			<a href="User?toModus=view"><img src="images/main/cancel.png" width="103" height="42" /></a>
 			</div>
+			
 		</div>
 	</form>				
 </div>
