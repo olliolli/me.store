@@ -1,6 +1,7 @@
 <%@ page language="java" import="MemberManagement.Member" %> 
 <%@ page language="java" import="OrderManagement.Order" %>
 <%@ page language="java" import="OrderManagement.OrderLine" %>
+<%@ page language="java" import="MemberManagement.Role" %>
 <html>
 <head>
 	<title>home</title>
@@ -63,6 +64,8 @@
 					if (member.GetMemberID() != 0){
 						out.println("<a href=\"Login?logedIn=true\"><span>Logout</span></a>");
 						out.println("<a href=\"User\"><span>mein Konto</span></a>");	
+						if (member.GetMemberRole() == Role.Admin)
+							out.println("<a href=\"Admin\"><span>Admin</span></a>");
 					}
 					else {
 						out.println("<a href=\"Login\"><span>Login</span></a>");						

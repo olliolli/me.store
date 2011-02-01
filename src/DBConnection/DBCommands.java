@@ -14,6 +14,13 @@ decription of the main function:  methods which include different sql statements
 
 package DBConnection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+import ArticleManagement.Article;
+import ArticleManagement.Genre;
+import ArticleManagement.MediumType;
+import ArticleManagement.Rating;
 import MemberManagement.*;
 import ArticleManagement.Article;
 import ArticleManagement.Genre;
@@ -65,7 +72,7 @@ public class DBCommands {
 		member.SetCity(results.get(0)[6]);
 		member.SetEMail(results.get(0)[7]);
 		member.SetPasswordHash(results.get(0)[8]);		
-		if(Integer.parseInt(results.get(0)[9])==1)
+		if(Integer.parseInt(results.get(0)[9])==2)
 			member.SetMemberRole(Role.Admin);
 		else
 			member.SetMemberRole(Role.Member);
@@ -208,7 +215,7 @@ public static void UpdateMember(Member member) {
 				+ "' "
 				+ "WHERE memberid = '" + member.GetMemberID() + "';";
 		try{
-			Ctrl.ExecuteQuery(SqlStatement);
+			Ctrl.ExecuteQuery(SqlStatement);			
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -231,7 +238,6 @@ public static void UpdateMember(Member member) {
 			System.out.println(e);
 		}		
 	}
-
 	/**
 	 * @author Falzer, Marcel
 	 * @version 1.0
@@ -247,6 +253,32 @@ public static void UpdateMember(Member member) {
 					"'" + orderLine.getArticleID() + "'," +
 					"'" + orderLine.getAmount() + "'," +
 					"'" + orderLine.getPrice() + "');";
+		try{
+			DBControl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}	
+	}
+	public static void DeleteOrderLine(OrderLine orderline){
+		String SqlStatement = 
+			"Delete from orderline " + 
+			"Where orderid = " + orderline.getOrderID() + " " + 
+			"And articleid = " + orderline.getArticleID() + ";";
+		try{
+			DBControl.ExecuteQuery(SqlStatement);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}	
+	}
+	public static void UpdateOrderLine(OrderLine orderLine){
+		String SqlStatement =
+			"Update buchclub.orderline " + 
+			"Set `amount` = '" + orderLine.getAmount() + "',"+
+			"`price` = '" + orderLine.getPrice() + "' " + 
+			"Where `orderid` = '" + orderLine.getOrderID() + "' " + 
+			"And `articleid` = '" + orderLine.getArticleID() + "';";
 		try{
 			DBControl.ExecuteQuery(SqlStatement);
 		}
@@ -284,6 +316,26 @@ public static void UpdateMember(Member member) {
 			System.out.println(e);
 		}
 		return orderLines;
+	}
+	public static OrderLine SelectOrderLineByOrderIDAndArticleID(int orderID,int articleID){
+		OrderLine orderLine = new OrderLine();
+		String SqlStatement = 
+			"Select * " + 
+			"From orderline " +
+			"Where orderid = '" + orderID + "' " + 
+			"And articleid = '" + articleID + "';";
+		try{
+			ArrayList<String[]> results = DBControl.ExecuteQuery(SqlStatement);
+			orderLine.setOrderID(Integer.parseInt(results.get(0)[0]));
+			orderLine.setArticleID(Integer.parseInt(results.get(0)[1]));
+			orderLine.setAmount(Integer.parseInt(results.get(0)[2]));
+			orderLine.setPrice(Double.parseDouble(results.get(0)[3]));
+		}
+		catch (Exception e){
+			System.out.println(SqlStatement);
+			System.out.println(e);
+		}
+		return orderLine;
 	}
 /**
  * @author Falzer, Marcel
@@ -327,9 +379,8 @@ public static void UpdateMember(Member member) {
  */
 	public static void AcceptOrder(Order order){
 		String SqlStatement = 
-			"Update order(isalreadyordered = 1," +
-			"orderdate = today " +
-			"Where orderid = " + order.getOrderID();
+			"Update buchclub.order set `isalreadyordered` = '1' " +
+			"Where `orderid` = '" + order.getOrderID()+"';";
 		try{
 			DBControl.ExecuteQuery(SqlStatement);
 		}
@@ -417,6 +468,403 @@ public static void UpdateMember(Member member) {
 			System.out.println(e);
 		}
 		return genre;
+	}
+	
+	public static Collection<String[]> GetOrderedArticle(){
+		String selectStatement = "select " +
+		"art.ArticleID" +
+		",art.Title" +
+		",sum(orderline.amount)" +
+		",sum(orderline.Price)" +
+		" from article art,orderline";
+		
+		selectStatement += 
+			" where art.ArticleID = orderline.ArticleID" +
+			" group by art.ArticleID" +
+			" order by SUM(orderline.Price) desc;";			
+		
+		System.out.println(selectStatement);
+		
+		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement);
+		
+		Collection<String[]> collection = new ArrayList<String[]>();
+		
+		if (rs != null) {
+		  	for (Iterator<String[]> iter = rs.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		collection.add(new String[]{
+		  				element[0],
+		  				element[1],
+		  				element[2],
+		  				element[3]
+		  		});
+		  		
+		  	}
+		}
+		
+		return collection;
+	}
+	
+	
+	public static Collection<Article> GetArticlesBySearchParameters(String rsMedium,String rsCategory, String rsOption, String rsSearchQuery){
+		String selectStatement = "select " +
+		"art.ArticleID" +
+		",mediumtype.Description" +
+		",genre.GenreName" +
+		",art.Title" +
+		",art.Description" +
+		",art.Price" +
+		",art.Discount" +
+		",art.Picture" +
+		" from article art,mediumtype,genre";
+
+		if (rsOption != null && rsOption.equals("Neu")){
+			selectStatement += 
+				" where art.MediumTypeID = mediumtype.MediumTypeID" +
+				" and art.GenreID = genre.GenreID";
+		
+			
+			selectStatement += " and exists ( select count(*) from" +
+			" article a where a.createdDate > art.createdDate" +
+			" having count(*) < 10 )";				
+		}
+		else if (rsOption != null && rsOption.equals("Bestseller")){
+			selectStatement += ",orderline";
+			
+			selectStatement += 
+				" where art.MediumTypeID = mediumtype.MediumTypeID" +
+				" and art.GenreID = genre.GenreID" +
+				" and art.ArticleID = orderline.ArticleID" +
+				" group by art.ArticleID" +
+				" order by SUM(orderline.Amount) desc LIMIT 5";			
+		}
+		else{
+			selectStatement += 
+				" where art.MediumTypeID = mediumtype.MediumTypeID" +
+				" and art.GenreID = genre.GenreID";
+		
+			
+			if (rsMedium != null || rsCategory != null || rsOption != null || rsSearchQuery != null)
+			{	
+				selectStatement += " and (";
+				if (rsMedium != null && !rsMedium.equals("")){
+					if (rsMedium.equals("Film")){
+						selectStatement += " (mediumtype.Description like 'DVD' or mediumtype.Description like 'BluRay')";
+						selectStatement += " and";
+					}
+					else {
+						selectStatement += " mediumtype.Description like '";
+						selectStatement += rsMedium;
+						selectStatement += "' and";
+					}
+				}
+				if (rsCategory != null && !rsCategory.equals("")){
+					selectStatement += " genre.GenreName like '";
+					selectStatement += rsCategory;
+					selectStatement += "' and";
+				}
+				if (rsOption != null && !rsOption.equals("")){
+					
+						if(rsOption.equals("Reduziert")){
+						selectStatement += " Discount != 0.00";
+						selectStatement += " and";
+					}
+				}
+				if (rsSearchQuery != null && !rsSearchQuery.equals("")){	
+					Integer intSearchQuery = -1;
+					try{
+						intSearchQuery = Integer.parseInt(rsSearchQuery);
+						selectStatement += " art.ArticleID = ";
+						selectStatement += rsSearchQuery;
+						selectStatement += " and";
+					}
+					catch(NumberFormatException e){
+						rsSearchQuery.toUpperCase();
+						selectStatement += " UPPER(art.Title) like '%";
+						selectStatement += rsSearchQuery;
+						selectStatement += "%' and";
+					}					
+				}			
+				
+				selectStatement = selectStatement.substring(0, selectStatement.length() - 4);
+				selectStatement += " )";
+			}
+		}
+		
+		
+		System.out.println(selectStatement);
+		
+		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement);
+		
+		Collection<Article> collection = new ArrayList<Article>();
+		
+		if (rs != null) {
+		  	for (Iterator<String[]> iter = rs.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		collection.add(new Article(
+		  				Integer.parseInt(element[0]), 
+		  				MediumType.valueOf(element[1]), 
+		  				Genre.valueOf(element[2]), 
+		  				element[3],
+		  				element[4], 
+				        Double.parseDouble(element[5]),				        
+				        Double.parseDouble(element[6]), 
+				        element[7]
+		  		));
+		  		
+		  	}
+		}
+		
+		return collection;
+		
+	}
+	
+	public static Article GetArticleByID(int articleID){
+		String selectStatement = "select " +
+		"ArticleID" +
+		",mediumtype.Description" +
+		",genre.GenreName" +
+		",Title" +
+		",art.Description" +
+		",Price" +
+		",Discount" +
+		",Picture" +
+		" from article art,mediumtype,genre";
+
+		selectStatement += "" +
+			" where art.MediumTypeID = mediumtype.MediumTypeID" +
+			" and art.GenreID = genre.GenreID";		
+		
+		selectStatement += 
+			" and art.ArticleID = " + articleID;
+		
+		System.out.println(selectStatement);
+		
+		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement);
+		Article article = null;
+		if (rs != null) {
+			String[] element =  rs.get(0);
+			article = new Article(
+		  				Integer.parseInt(element[0]), 
+		  				MediumType.valueOf(element[1]), 
+		  				Genre.valueOf(element[2]), 
+		  				element[3],
+		  				element[4], 
+				        Double.parseDouble(element[5]),				        
+				        (int)Double.parseDouble(element[6]), 
+				        element[7]
+		  		);
+		}
+		return article;
+	}
+	
+	public static Collection<Article> GetArticlesByIDs(int[] articleIDs){
+		String selectStatement = "select " +
+		"ArticleID" +
+		",mediumtype.Description" +
+		",genre.GenreName" +
+		",Title" +
+		",art.Description" +
+		",Price" +
+		",Discount" +
+		",Picture" +
+		" from article art,mediumtype,genre";
+
+		selectStatement += 
+			" where art.MediumTypeID = mediumtype.MediumTypeID" +
+			" and art.GenreID = genre.GenreID";		
+		
+		selectStatement += 	" and (";
+		
+		for(int y = 0; y < articleIDs.length ; y++){
+			selectStatement+= " art.ArticleID = " + articleIDs[y];
+			selectStatement+= " or ";
+		}
+		//delete last or
+		selectStatement = selectStatement.substring(0,selectStatement.length()-3);			
+		
+		selectStatement += ")";
+		
+		System.out.println(selectStatement);
+		
+		ArrayList<String[]> rs = DBControl.ExecuteQuery(selectStatement);
+		
+		Collection<Article> collection = new ArrayList<Article>();
+		
+		if (rs != null) {
+		  	for (Iterator<String[]> iter = rs.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		collection.add(new Article(
+		  				Integer.parseInt(element[0]), 
+		  				MediumType.valueOf(element[1]), 
+		  				Genre.valueOf(element[2]), 
+		  				element[3],
+		  				element[4], 
+				        Double.parseDouble(element[5]),				        
+				        (int)Double.parseDouble(element[6]), 
+				        element[7]
+		  		));
+		  		
+		  	}
+		}
+		
+		return collection;
+		
+		
+	}
+	
+	public static Collection<Rating> GetArticleRatingsFromOthersByArticleID(int articleID, int memberID){
+		String selectStatementRating = "select " +
+		"member.FirstName" +
+		", member.LastName" +
+		", Rating" +
+		", Comment" +
+		", Date" +
+		" from rating, member";
+
+		selectStatementRating += " where rating.MemberID = member.MemberID";		
+		selectStatementRating += 	" and rating.ArticleID = " + articleID;
+		if (memberID != 0 )
+			selectStatementRating += 	" and rating.MemberID != " + memberID;		
+		
+		System.out.println(selectStatementRating);
+		
+		Collection<Rating> ratings =  new ArrayList<Rating>();		
+		
+		ArrayList<String[]> rsRating = DBControl.ExecuteQuery(selectStatementRating);
+		
+		if (rsRating != null) {
+		  	for (Iterator<String[]> iter = rsRating.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		ratings.add(new Rating(
+		  				element[0], 
+		  				element[1], 
+		  				Integer.parseInt(element[2]),
+		  				element[3],
+		  				element[4]
+		  		));
+		  		
+		  	}
+		}
+		
+		return ratings;
+		
+	}
+	
+	public static Rating GetArticleRatingFromMemberByArticleID(int articleID, Member member){
+		String selectStatementOwn = "select " +
+		"rating, comment, date" +
+		" from rating" +
+		" where rating.ArticleID = " + articleID +
+		" and rating.MemberID = " + member.GetMemberID();
+			
+		System.out.println(selectStatementOwn);
+			
+		ArrayList<String[]> rsOwnRating = DBControl.ExecuteQuery(selectStatementOwn);
+		
+		Rating ownRating = null;
+		
+		if (rsOwnRating != null) {
+		  	for (Iterator<String[]> iter = rsOwnRating.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		 		ownRating = new Rating(
+		  		 				member.GetFirstName(), 
+				  				member.GetLastName(), 
+				  				Integer.parseInt(element[0]),
+				  				element[1],
+				  				element[2]
+		  		 		);		  		 		
+		  	}
+		}
+		
+		return ownRating;
+	}
+	
+	public static double GetArticlesAverageRatingByID(int articleID){
+		String selectStatementSummaryRating = "select " +
+		"Round(AVG(rating),1)" +
+		" from rating" +
+		" where rating.ArticleID = " + articleID;
+			
+		System.out.println(selectStatementSummaryRating);
+			
+		double avgRating = 0.0;
+		ArrayList<String[]> rsSummaryRating = DBControl.ExecuteQuery(selectStatementSummaryRating);
+		
+		if (rsSummaryRating != null) {
+		  	for (Iterator<String[]> iter = rsSummaryRating.iterator(); iter.hasNext();) {
+		  		String[] element = (String[]) iter.next();
+		  		if (element[0] != null)
+		  			avgRating = Double.parseDouble(element[0]);		  		
+		  	}
+		}
+		
+		return avgRating;
+	}
+	
+	public static boolean HasMemberAlreadyARateForThatArticle(int articleID, int memberID){
+		
+		String selectStatement = "select *" +
+		" from rating" +
+		" where rating.ArticleID = " + articleID +
+		" and rating.MemberID = " + memberID;
+			
+		System.out.println(selectStatement);
+			
+		double avgRating = 0.0;
+		ArrayList<String[]> rsSummaryRating = DBControl.ExecuteQuery(selectStatement);
+		
+		if (rsSummaryRating != null && !rsSummaryRating.isEmpty() && rsSummaryRating.size() != 0) 
+		  	return true;		
+		
+		return false;
+	}
+	
+	public static void InsertArticleRatingByID(int articleID, int memberID, String comment, int rate){
+		
+		 // the insert statement
+		String sqlStatement = "Insert into rating "+
+				              "(ArticleID,MemberID, Rating, Comment) values " 
+			                  +"("+ articleID +","
+			                  +memberID + ","
+			                  +rate + ","
+			                  +"'" + comment + "'"
+			                  +")";
+		
+		System.out.println(sqlStatement);
+		
+		try{
+			// execute the sqlStatement and set a checkValue
+			ArrayList<String[]> checkValue = new ArrayList<String[]>();
+			checkValue = DBControl.ExecuteQuery(sqlStatement);	
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}				
+	}
+	
+	public static void updateArticleRatingByID(int articleID, int memberID, String comment, int rate){
+
+		 // the update statement
+		String sqlStatement = "UPDATE rating " + "SET "
+		+ "Rating= " + rate
+		+ ", "
+		+ "comment= '" + comment
+		+ "' "		
+		+ "WHERE MemberID = " + memberID 
+		+ " AND ArticleID = " + articleID
+		+  ";";
+		
+		System.out.println(sqlStatement);
+		
+		try{
+			// execute the sqlStatement and set a checkValue
+			ArrayList<String[]> checkValue = new ArrayList<String[]>();
+			checkValue = DBControl.ExecuteQuery(sqlStatement);	
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}				
 	}
 }
 

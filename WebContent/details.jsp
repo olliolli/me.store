@@ -11,8 +11,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="css/details.css" rel="stylesheet" type="text/css" />
 <link href="css/rating.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript">
+	function saveRating(rate) {	
+		document.getElementById("givenRate").value = rate;		
+		//window.alert(document.getElementById("ratingComment").value);		
+		if(!document.getElementById("ratingComment").value ==""){
+			document.frmArticleRating.submit();
+		}
+		else{
+			window.alert("Bitte füge deiner Bewertung einen Kommentar hinzu");
+		}
+		
+		
+	}
+</script>
+
 </head>
 <body>
+
 	
 <div id="contentDetails">
 	
@@ -29,12 +46,13 @@
 		DecimalFormat df = new DecimalFormat("0.00");
 	  
 		out.println("<form name=\"frmArticle" + element.GetArticleID() + "\" action=\"Cart\" method=\"post\" class=\"detailsContainer\">");
+		out.println("<input type=\"hidden\" name=\"givenStatus\" id=\"givenStatus\" value=\"order\" />");
 	  		out.println("<div class=\"clearfix\">");		  		
 		  		out.println("<div class=\"leftDetails\"><img src=" + element.GetPicturePath() + " alt=\"\" height=\"300\"  /></div>");
 				out.println("<div class=\"rightDetails\">");
 				
 					out.println("<table id=\"detailsTable\">");
-											
+					
 						out.println("<tr>");
 							out.println("<td class=\"detailsTableLeft\">");
 								out.println("<span>");
@@ -82,7 +100,7 @@
 							out.println("</td>");
 							out.println("<td class=\"detailsTableRight\">");
 	
-								if (element.GetDiscount() != 0){
+								if (element.GetDiscount() != 0.0){
 									out.println("<div class=\"discount\">");
 										out.println("<span>reduziert von </span>");
 										out.println("<span>" + df.format(element.GetPrice()) + "</span>");
@@ -91,6 +109,7 @@
 									out.println("</div>");								
 									out.println("<div class=\"price\" style=\"color: #FF0A0E;\">");
 										double newPrice = Math.rint( element.GetPrice() * (1-(element.GetDiscount() / 100.0)) * 100.) / 100.;
+										out.println("<input type=\"hidden\" name=\"newPrice\" id=\"newPrice\" value=\""+newPrice+"\" />");
 										out.println("<span>"+ df.format(newPrice) +"</span>");
 										out.println("<span>&euro;</span>");
 									out.println("</div>");
@@ -117,7 +136,8 @@
 							out.println("</td>");
 							out.println("<td class=\"detailsTableRight\">");
 								out.println("<div style=\"display: block;\">");
-									if (ratings != null && ratings.size() != 0) {	
+									
+									if (sumRating != 0){
 										
 										if (sumRating >= 1 && sumRating < 1.5)
 											out.println("<ul class=\"rated onestar\" style=\"float: left;\">");
@@ -127,12 +147,24 @@
 											out.println("<ul class=\"rated threestar\" style=\"float: left;\">");
 										else if (sumRating >= 3.5 && sumRating < 4.5)
 											out.println("<ul class=\"rated fourstar\" style=\"float: left;\">");
-										else if (sumRating >= 4.5 && sumRating < 5)
+										else if (sumRating >= 4.5 && sumRating <= 5)
 											out.println("<ul class=\"rated fivestar\" style=\"float: left;\">");
 										
 										out.println("</ul>");
 										out.println("<span style=\"float: left; margin-left: 5px;\">"+ sumRating + "</span>");
-										out.println("<span style=\"float: left; margin-left: 5px;\"> ( " + ratings.size()  + " Bewertungen) </span>");
+										if (ratings != null && ratings.size() != 0) {										
+											if (ownRating != null)
+												out.println("<span style=\"float: left; margin-left: 5px;\"> ( " + (ratings.size()+ 1)  + " Bewertungen) </span>");
+											else
+												out.println("<span style=\"float: left; margin-left: 5px;\"> ( " + ratings.size()  + " Bewertungen) </span>");
+										}
+										else {
+											if (ownRating != null)
+												out.println("<span style=\"float: left; margin-left: 5px;\"> ( 1 Bewertung) </span>");
+											else
+												out.println("<span style=\"float: left; margin-left: 5px;\"> ( 0 Bewertungen) </span>");
+					
+										}
 									}
 									else {	
 										out.println("<ul class=\"rated nostar\" style=\"float: left;\">");
@@ -183,7 +215,7 @@
 				out.println("Deine Bewertung"); 
 			out.println("</h3>");	
 		out.println("</div>");
-		out.println("<form name=\"frmArticle" + element.GetArticleID() + "rating\" action=\"Details\" method=\"post\" class=\"detailsContainer\">");
+		out.println("<form name=\"frmArticleRating\" action=\"Details\" method=\"post\" class=\"detailsContainer\">");
 			
 			out.println("<div class=\"clearfix\">");
 				out.println("<p>Haben Sie schon Erfahrungen mit diesem Produkt gemacht?</p>");
@@ -194,9 +226,8 @@
 				Member member = (Member)session.getAttribute("member");
 				if (member.GetMemberID() != 0){		
 					//Member is logged in
-					
 					out.println("<div class=\"clearfix\">");	
-						out.println("<textarea class=\"ratingComment\" cols=\"55\" rows=\"5\" name=\"ratingComment\" > ");	
+						out.println("<textarea class=\"ratingComment\" cols=\"55\" rows=\"5\" id=\"ratingComment\" name=\"ratingComment\" maxlength=250 > ");	
 							if (ownRating != null)
 								out.println(ownRating.getComment());
 						out.println("</textarea>");
@@ -222,12 +253,16 @@
 							out.println("<ul class=\"rating nostar\">");
 						}	
 						
-							out.println("<li class=\"one\"><a href=\"#\" title=\"ungenügend\">1</a></li>");
-							out.println("<li class=\"two\"><a href=\"#\" title=\"ausreichend\">2</a></li>");
-							out.println("<li class=\"three\"><a href=\"#\" title=\"befridegend\">3</a></li>");
-							out.println("<li class=\"four\"><a href=\"#\" title=\"gut\">4</a></li>");
-							out.println("<li class=\"five\"><a href=\"#\" title=\"sehr gut\">5</a></li>");
+							out.println("<li class=\"one\"><a href=\"javascript:saveRating(1);\" title=\"ungenügend\">1</a></li>");
+							out.println("<li class=\"two\"><a href=\"javascript:saveRating(2);\" title=\"ausreichend\">2</a></li>");
+							out.println("<li class=\"three\"><a href=\"javascript:saveRating(3);\" title=\"befridegend\">3</a></li>");
+							out.println("<li class=\"four\"><a href=\"javascript:saveRating(4);\" title=\"gut\">4</a></li>");
+							out.println("<li class=\"five\"><a href=\"javascript:saveRating(5);\" title=\"sehr gut\">5</a></li>");
 						out.println("</ul>");
+						
+						out.println("<input type=\"hidden\" name=\"givenRate\" id=\"givenRate\" value=\"1\" />");
+						out.println("<input type=\"hidden\" name=\"articleID\" value=\"" + element.GetArticleID() + "\" />");
+					
 					out.println("</div>");
 				}
 				else {
@@ -310,7 +345,7 @@
 	  	else
 	  	{
 	  		out.println("<div class=\"clearfix\">");
-				out.println("<p>Es wurde leider noch keine Bewertungen für diesen Artikel abgegeben.</p>");
+				out.println("<p>Andere Mitglieder haben leider noch keinen Kommentar für diesen Artikel abgegeben.</p>");
 			out.println("</div>");
 	  	}  	
 	
@@ -320,5 +355,8 @@
 	  %>
 	
 </div>
+
+
+
 </body>
 </html>

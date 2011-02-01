@@ -143,7 +143,20 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("member", member);
 				Order order = DBCommands.SelectOpenOrderByMemberID(member.GetMemberID());
+<<<<<<< HEAD
 				session.setAttribute("cart", order );				
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home");
+				dispatcher.forward(request, response);
+=======
+				session.setAttribute("cart", order );
+				order = (Order) session.getAttribute("cart");
+				System.out.println(order.getOrderID());
+				System.out.println(order.getOrderLines().size());
+				for (int i = 0; i < order.getOrderLines().size();i++)
+				{
+					System.out.println(order.getOrderLines().get(0).getArticleID());
+				}
+				
 
 				String redirectURL = "/me.store";
 				
@@ -169,6 +182,7 @@ public class Login extends HttpServlet {
 				
 				response.sendRedirect(redirectURL);
 				
+>>>>>>> origin/master
 			}
 			else{
 				HttpSession session = request.getSession(true);

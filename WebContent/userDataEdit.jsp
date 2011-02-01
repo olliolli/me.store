@@ -19,13 +19,13 @@
 			<table border="0" class="userTable">
 				<tr class="userRow">
 					<td class="leftColumn">Kundennummer</td>
-					<td class="rightColumn"><input class="textfield" name="memberID" type="text"
+					<td class="rightColumn"><input class="textfieldReadOnly" name="memberID" type="text"
 						maxlength="30" value=<%=sMemberID%> readonly></td>
 				</tr>
 				<tr class="userRow">
 					<td class="leftColumn">Vorname</td>
 					<td class="rightColumn"><input class="textfield" name="firstname" type="text"
-						maxlength="30" value=<%=sFirstname%> readonly></td>
+						maxlength="30" value=<%=sFirstname%>></td>
 				</tr>
 				<tr class="userRow">
 					<td class="leftColumn">Nachname</td>

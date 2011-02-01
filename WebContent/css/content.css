@@ -99,3 +99,39 @@
 .details a:hover {
 	background: url(../images/main/details_hover.jpg) left bottom no-repeat;
 }
+
+
+.articleBoxWelcome{
+	float: left;	
+	width: 150px;
+	height: 190px;
+	
+	
+}
+
+.detailsWelcome
+{
+	margin-left: 20px;
+	width: 70px;
+	height: 24px;
+	vertical-align: baseline;
+	margin-bottom: 0px;
+	margin-top: 10px;
+	
+}
+
+.detailsWelcome a{
+	display: block;
+	width: 70px;
+	height: 24px;
+	background: url(../images/main/details.jpg) left bottom no-repeat;
+}
+
+.detailsWelcome a:hover {
+	background: url(../images/main/details_hover.jpg) left bottom no-repeat;
+}
+
+
+
+
+
