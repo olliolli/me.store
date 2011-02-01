@@ -12,6 +12,11 @@
 %>	
 
 <div id="content" style="padding-top: auto;">
+		<%
+				if (request.getAttribute("message") != null && !request.getAttribute("message").equals("")){
+					out.println("<span>" + request.getAttribute("message") +"</span>");							
+				}
+			%>
 	<form action="User?toModus=edit">	
 		<div class="clearfix">
 			<h3 class="yellow f14">Benutzer</h3>
