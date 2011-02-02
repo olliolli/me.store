@@ -33,17 +33,9 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getAttribute("member")== null){
-			request.setAttribute("toModus", "noPermission");
-			RequestDispatcher dispatcher = getServletContext()
-			.getRequestDispatcher("/home.jsp");
-			dispatcher.forward(request, response);
-		}
-		else{
 			request.setAttribute("toModus", "cart");
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
 			dispatcher.forward(request, response);
-		}
 	}
 
 	/**
