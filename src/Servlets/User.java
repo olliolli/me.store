@@ -91,7 +91,7 @@ public class User extends HttpServlet {
 					request.setAttribute("place", member.GetCity());
 					
 					request.setAttribute("message",
-							"Ihre Eingabe war leider nicht vollständig. Bitte überprüfen Sie auch ihre eMail auf '@' und '.'.");
+							"Es müssen alle Felder gefüllt sein. Bitte überprüfen Sie auch das Format Ihrer E-Mail Adresse ( @ und . müssen enthalten sein)");
 					request.setAttribute("toModus", "userEdit");
 					
 					

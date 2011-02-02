@@ -13,7 +13,7 @@
 <div id="content" style="padding-top: auto;">
 		<%
 				if (request.getAttribute("message") != null && !request.getAttribute("message").equals("")){
-					out.println("<span>" + request.getAttribute("message") +"</span>");							
+					out.println("<span style="+"color:black"+"><b>" + request.getAttribute("message") +"</b></span>");							
 				}
 			%>
 	<form action="User?toModus=commit" method="post">	
