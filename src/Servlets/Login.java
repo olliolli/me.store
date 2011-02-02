@@ -150,15 +150,12 @@ public class Login extends HttpServlet {
 				
 				if(session.getAttribute("cart")==null)
 				{
-					System.out.println("Kein Cart Object");
 					Order cart = new Order();
 					cart.setMember(member);
 					DBCommands.NewOrder(cart);
 					cart = DBCommands.SelectOpenOrderByMemberID(member.GetMemberID());
 					session.setAttribute("cart", cart);
 				}
-				else
-					System.out.println("CartObject vorhanden");
 
 				String redirectURL = "/me.store";
 				

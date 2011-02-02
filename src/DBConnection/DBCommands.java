@@ -230,7 +230,7 @@ public static void UpdateMember(Member member) {
  * @param order - (object ORDER) the order object which should get inserted into the database
  */
 	public static void NewOrder(Order order){
-		String SqlStatement = "Insert into order(memberid) values ('" + order.getMember().GetMemberID() + "');";
+		String SqlStatement = "Insert into buchclub.order(memberid) values ('" + order.getMember().GetMemberID() + "');";
 		try{
 			DBControl.ExecuteQuery(SqlStatement);	
 		}
