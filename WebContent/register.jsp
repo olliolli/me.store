@@ -66,7 +66,7 @@
 						<div>
 						<%
 				if (request.getAttribute("error") != null && !request.getAttribute("error").equals("")){
-				out.println("<span>" + request.getAttribute("error") +"</span>");							
+				out.println("<span><b><p align:"+"left"+">"+ request.getAttribute("error") +"</p></b></span>");							
 				}
 					%>
 						</div>					
