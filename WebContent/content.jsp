@@ -71,6 +71,7 @@
 									out.println("</div>");								
 									out.println("<div class=\"price\" style=\"color: #FF0A0E;\">");
 										double newPrice = Math.rint( element.GetPrice() * (1-(element.GetDiscount() / 100.0)) * 100.) / 100.;
+										out.println("<input type=\"hidden\" name=\"newPrice\" id=\"newPrice\" value=\""+newPrice+"\" />");
 										out.println("<b><span>"+ df.format(newPrice) +"</span></b>");
 										out.println("<span>&euro;</span>");
 									out.println("</div>");
